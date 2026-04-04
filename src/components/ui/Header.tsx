@@ -5,8 +5,10 @@ import Link from "next/link";
 
 const navLinks: { label: string; href: string }[] = [
   { label: "Check Property", href: "/check" },
+  { label: "Rent by City", href: "/rent" },
   { label: "Tools", href: "/#tools" },
   { label: "Rights", href: "/rights" },
+  { label: "Blog", href: "/blog" },
   { label: "For Councils", href: "/councils" },
 ];
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PostcodeSearch from "@/components/PostcodeSearch";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const tools = [
   {
@@ -59,6 +60,16 @@ const tools = [
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Commute Calculator",
+    href: "/commute",
+    desc: "Calculate commute time, cost, and carbon to your workplace.",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
       </svg>
     ),
   },
@@ -399,6 +410,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Newsletter Banner */}
+      <NewsletterSignup variant="banner" source="homepage" />
 
       {/* Bottom CTA */}
       <section className="py-20 sm:py-24 bg-gradient-to-br from-primary-800 to-primary-900 text-white">

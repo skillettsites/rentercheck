@@ -15,6 +15,7 @@ const footerSections = [
       { label: "Report an Issue", href: "/report-issue" },
       { label: "Cost Calculator", href: "/calculator" },
       { label: "Fair Rent Checker", href: "/fair-rent" },
+      { label: "Commute Calculator", href: "/commute" },
     ],
   },
   {
@@ -28,6 +29,7 @@ const footerSections = [
   {
     title: "Resources",
     links: [
+      { label: "Rent by City", href: "/rent" },
       { label: "Tenant Rights Guide", href: "/rights" },
       { label: "Deposit Protection", href: "/rights/deposit-protection" },
       { label: "Damp and Mould", href: "/rights/damp-and-mould" },

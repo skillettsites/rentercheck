@@ -408,6 +408,385 @@ function BroadbandCard({ data }: { data: PropertyData }) {
 }
 
 // ---------------------------------------------------------------------------
+// Council Tax Card
+// ---------------------------------------------------------------------------
+function CouncilTaxCard({ data }: { data: PropertyData }) {
+  const ct = data.councilTax;
+  if (!ct) {
+    return (
+      <CardShell title="Council Tax" icon="banknote">
+        <p className="text-slate-500">No council tax estimate available.</p>
+      </CardShell>
+    );
+  }
+
+  return (
+    <CardShell title="Council Tax" icon="banknote">
+      <div className="flex items-start gap-6 mb-4">
+        <div
+          className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet-700 text-3xl font-extrabold shadow-md"
+        >
+          {ct.estimatedBand}
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm text-slate-500">Estimated Band</p>
+          <p className="text-2xl font-bold text-slate-800">
+            &pound;{ct.annualAmount.toLocaleString()}
+            <span className="text-base font-normal text-slate-400">/year</span>
+          </p>
+          <p className="text-lg font-semibold text-slate-600">
+            &pound;{ct.monthlyAmount}
+            <span className="text-sm font-normal text-slate-400">/month</span>
+          </p>
+        </div>
+      </div>
+      <div className="rounded-lg bg-slate-50 p-3">
+        <p className="text-sm text-slate-600">
+          <span className="font-medium">Council:</span> {ct.councilName}
+        </p>
+      </div>
+      <p className="mt-3 text-xs text-slate-400">{ct.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Schools Card
+// ---------------------------------------------------------------------------
+function SchoolsCard({ data }: { data: PropertyData }) {
+  const schools = data.schools;
+  if (!schools || schools.totalWithin1km === 0) {
+    return (
+      <CardShell title="Schools Nearby" icon="school">
+        <p className="text-slate-500">No school data available for this area.</p>
+      </CardShell>
+    );
+  }
+
+  let densityColor: string;
+  let densityBg: string;
+  if (schools.density === 'High') {
+    densityColor = '#059669';
+    densityBg = '#d1fae5';
+  } else if (schools.density === 'Moderate') {
+    densityColor = '#d97706';
+    densityBg = '#fef3c7';
+  } else {
+    densityColor = '#6b7280';
+    densityBg = '#f1f5f9';
+  }
+
+  return (
+    <CardShell title="Schools Nearby" icon="school">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">{schools.totalWithin1km}</p>
+          <p className="text-sm text-slate-500">schools within 1km</p>
+        </div>
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: densityBg, color: densityColor }}
+        >
+          {schools.density} Density
+        </span>
+      </div>
+
+      {schools.familyFriendly && (
+        <div className="mb-4 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 font-medium">
+          Good for families
+        </div>
+      )}
+
+      {schools.schools.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            Nearest Schools
+          </p>
+          {schools.schools.slice(0, 5).map((school, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
+            >
+              <span className="text-slate-700 truncate max-w-[65%]">{school.name}</span>
+              <span className="text-slate-400 text-xs">{school.distance}m</span>
+            </div>
+          ))}
+          {schools.schools.length > 5 && (
+            <p className="text-xs text-slate-400 text-center">
+              +{schools.schools.length - 5} more
+            </p>
+          )}
+        </div>
+      )}
+
+      <p className="mt-3 text-xs text-slate-400">{schools.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Transport Card
+// ---------------------------------------------------------------------------
+function TransportCard({ data }: { data: PropertyData }) {
+  const transport = data.transport;
+  if (!transport) {
+    return (
+      <CardShell title="Transport Links" icon="train">
+        <p className="text-slate-500">No transport data available.</p>
+      </CardShell>
+    );
+  }
+
+  const ratingConfig: Record<string, { color: string; bg: string }> = {
+    Excellent: { color: '#059669', bg: '#d1fae5' },
+    Good: { color: '#10b981', bg: '#d1fae5' },
+    Moderate: { color: '#d97706', bg: '#fef3c7' },
+    Poor: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const config = ratingConfig[transport.rating] || ratingConfig.Moderate;
+
+  return (
+    <CardShell title="Transport Links" icon="train">
+      <div className="flex items-center justify-between mb-4">
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {transport.rating}
+        </span>
+      </div>
+
+      {transport.nearestStation && (
+        <div className="rounded-lg bg-slate-50 p-3 mb-3">
+          <p className="text-sm font-medium text-slate-700">
+            {transport.nearestStation.name}
+          </p>
+          <p className="text-xs text-slate-500">
+            Nearest station, {transport.nearestStation.distance}m away
+          </p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">
+            {transport.stationsWithin2km}
+          </p>
+          <p className="text-xs text-slate-500">Stations (2km)</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">
+            {transport.busStopsWithin500m}
+          </p>
+          <p className="text-xs text-slate-500">Bus stops (500m)</p>
+        </div>
+      </div>
+
+      <p className="mt-3 text-xs text-slate-400">{transport.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Noise Level Card
+// ---------------------------------------------------------------------------
+function NoiseCard({ data }: { data: PropertyData }) {
+  const noise = data.noise;
+  if (!noise) {
+    return (
+      <CardShell title="Noise Level" icon="volume">
+        <p className="text-slate-500">No noise data available.</p>
+      </CardShell>
+    );
+  }
+
+  const levelConfig = {
+    Low: { color: '#059669', bg: '#d1fae5' },
+    Moderate: { color: '#d97706', bg: '#fef3c7' },
+    High: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const config = levelConfig[noise.level];
+
+  return (
+    <CardShell title="Noise Level" icon="volume">
+      <div className="flex items-center justify-between mb-4">
+        <span
+          className="rounded-full px-4 py-1.5 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {noise.level}
+        </span>
+        <div className="text-right">
+          <p className="text-2xl font-bold text-slate-800">{noise.score}</p>
+          <p className="text-xs text-slate-500">noise score /100</p>
+        </div>
+      </div>
+
+      {noise.sources.length > 0 && (
+        <div className="space-y-2 mb-3">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            Noise Sources
+          </p>
+          {noise.sources.map((source, i) => (
+            <div key={i} className="flex items-center gap-2 text-sm">
+              <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: config.color }} />
+              <span className="text-slate-600">{source.detail}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {noise.mitigation.length > 0 && (
+        <div className="rounded-lg bg-slate-50 p-3">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">
+            Tips
+          </p>
+          {noise.mitigation.map((tip, i) => (
+            <p key={i} className="text-sm text-slate-600">{tip}</p>
+          ))}
+        </div>
+      )}
+
+      <p className="mt-3 text-xs text-slate-400">{noise.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Air Quality Card
+// ---------------------------------------------------------------------------
+function AirQualityCard({ data }: { data: PropertyData }) {
+  const aq = data.airQuality;
+  if (!aq || aq.aqi === 0) {
+    return (
+      <CardShell title="Air Quality" icon="wind">
+        <p className="text-slate-500">No air quality data available.</p>
+      </CardShell>
+    );
+  }
+
+  const ratingConfig = {
+    Good: { color: '#059669', bg: '#d1fae5' },
+    Moderate: { color: '#d97706', bg: '#fef3c7' },
+    Poor: { color: '#dc2626', bg: '#fee2e2' },
+    'Very Poor': { color: '#b91c1c', bg: '#fee2e2' },
+  };
+
+  const config = ratingConfig[aq.rating];
+
+  return (
+    <CardShell title="Air Quality" icon="wind">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">{aq.aqi}</p>
+          <p className="text-sm text-slate-500">European AQI</p>
+        </div>
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {aq.rating}
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-lg font-bold text-slate-800">{aq.pm25}</p>
+          <p className="text-xs text-slate-500">PM2.5 (&mu;g/m&sup3;)</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-lg font-bold text-slate-800">{aq.pm10}</p>
+          <p className="text-xs text-slate-500">PM10 (&mu;g/m&sup3;)</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-lg font-bold text-slate-800">{aq.no2}</p>
+          <p className="text-xs text-slate-500">NO&sub2; (&mu;g/m&sup3;)</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-lg font-bold text-slate-800">{aq.ozone}</p>
+          <p className="text-xs text-slate-500">Ozone (&mu;g/m&sup3;)</p>
+        </div>
+      </div>
+
+      <p className="mt-3 text-xs text-slate-400">{aq.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Planning Card
+// ---------------------------------------------------------------------------
+function PlanningCard({ data }: { data: PropertyData }) {
+  const planning = data.planning;
+  if (!planning || planning.totalRecent === 0) {
+    return (
+      <CardShell title="Planning Activity" icon="building">
+        <p className="text-slate-500">No recent planning applications found nearby.</p>
+      </CardShell>
+    );
+  }
+
+  return (
+    <CardShell title="Planning Activity" icon="building">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">{planning.totalRecent}</p>
+          <p className="text-sm text-slate-500">applications (last 3 months)</p>
+        </div>
+        {planning.hasMajorDevelopment && (
+          <span className="rounded-full bg-amber-50 px-3 py-1 text-sm font-semibold text-amber-700">
+            Major Development
+          </span>
+        )}
+      </div>
+
+      {planning.types.length > 0 && (
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
+            Application Types
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {planning.types.map((t) => (
+              <span
+                key={t.type}
+                className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+              >
+                {t.type} ({t.count})
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {planning.applications.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            Recent Applications
+          </p>
+          {planning.applications.slice(0, 3).map((app, i) => (
+            <div key={i} className="rounded-lg bg-slate-50 px-3 py-2 text-sm">
+              <p className="text-slate-700 line-clamp-2">{app.description}</p>
+              <p className="text-xs text-slate-400 mt-1">
+                {app.status} &middot; {app.dateReceived}
+              </p>
+            </div>
+          ))}
+          {planning.applications.length > 3 && (
+            <p className="text-xs text-slate-400 text-center">
+              +{planning.applications.length - 3} more applications
+            </p>
+          )}
+        </div>
+      )}
+
+      <p className="mt-3 text-xs text-slate-400">{planning.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Area Info Card
 // ---------------------------------------------------------------------------
 function AreaInfoCard({ data }: { data: PropertyData }) {
@@ -611,6 +990,96 @@ const CARD_ICONS: Record<string, React.ReactNode> = {
       />
     </svg>
   ),
+  banknote: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"
+      />
+    </svg>
+  ),
+  school: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+      />
+    </svg>
+  ),
+  train: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125v-3m0 0V6.375c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v8.25m19.5 0h-1.5m-16.5 0H2.25"
+      />
+    </svg>
+  ),
+  volume: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+      />
+    </svg>
+  ),
+  wind: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+      />
+    </svg>
+  ),
+  building: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
+      />
+    </svg>
+  ),
 };
 
 function CardShell({
@@ -685,6 +1154,12 @@ export default async function CheckPage({ params }: PageProps) {
           <CrimeCard data={data} />
           <FloodCard data={data} />
           <BroadbandCard data={data} />
+          <CouncilTaxCard data={data} />
+          <SchoolsCard data={data} />
+          <TransportCard data={data} />
+          <NoiseCard data={data} />
+          <AirQualityCard data={data} />
+          <PlanningCard data={data} />
           <div className="md:col-span-2">
             <AreaInfoCard data={data} />
           </div>

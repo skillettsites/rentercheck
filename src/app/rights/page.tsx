@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { rightsTopics } from "@/data/rights-topics";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "Know Your Rights as a UK Tenant | RenterCheck",
@@ -112,6 +113,13 @@ export default function RightsPage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="pb-8 sm:pb-10">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <NewsletterSignup variant="inline" source="rights" />
         </div>
       </section>
 
