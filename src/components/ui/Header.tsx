@@ -5,9 +5,9 @@ import Link from "next/link";
 
 const navLinks: { label: string; href: string }[] = [
   { label: "Check Property", href: "/check" },
-  { label: "Rights Guide", href: "/rights" },
-  { label: "Cost Calculator", href: "/calculator" },
-  { label: "Fair Rent", href: "/fair-rent" },
+  { label: "Tools", href: "/#tools" },
+  { label: "Rights", href: "/rights" },
+  { label: "For Councils", href: "/councils" },
 ];
 
 export default function Header() {

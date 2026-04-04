@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://rentercheck.vercel.app</loc><lastmod>2026-04-04T22:35:58.479Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/about</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/calculator</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/councils</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/councils/demo</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/damp-check</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/fair-rent</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/landlord-check</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/privacy</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/report-issue</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/damp-and-mould</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/deposit-protection</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/hmo-rules</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/quiet-enjoyment</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/rent-increases</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/repairs-and-maintenance</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/section-21-eviction</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/rights/tenant-fees</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rentercheck.vercel.app/terms</loc><lastmod>2026-04-04T22:35:58.480Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+</urlset>

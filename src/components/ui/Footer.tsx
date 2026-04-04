@@ -10,8 +10,19 @@ const footerSections = [
     title: "Tools",
     links: [
       { label: "Check a Property", href: "/check" },
+      { label: "Landlord Compliance", href: "/landlord-check" },
+      { label: "Damp & Mould Assessment", href: "/damp-check" },
+      { label: "Report an Issue", href: "/report-issue" },
       { label: "Cost Calculator", href: "/calculator" },
       { label: "Fair Rent Checker", href: "/fair-rent" },
+    ],
+  },
+  {
+    title: "For Councils",
+    links: [
+      { label: "Council Platform", href: "/councils" },
+      { label: "Dashboard Demo", href: "/councils/demo" },
+      { label: "API (Coming Soon)", href: "/councils" },
     ],
   },
   {
@@ -37,7 +48,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-300">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* About column */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">

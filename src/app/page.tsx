@@ -1,4 +1,68 @@
+import Link from "next/link";
 import PostcodeSearch from "@/components/PostcodeSearch";
+
+const tools = [
+  {
+    title: "Property Safety Check",
+    href: "/check",
+    desc: "Check any UK rental property against 20+ data sources.",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Landlord Compliance",
+    href: "/landlord-check",
+    desc: "Is your landlord meeting all legal requirements?",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Damp & Mould Assessment",
+    href: "/damp-check",
+    desc: "Assess your risk and know your Awaab's Law rights.",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Report an Issue",
+    href: "/report-issue",
+    desc: "Generate formal letters to your landlord or council.",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Cost Calculator",
+    href: "/calculator",
+    desc: "Calculate the true total cost of renting.",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008H15.75v-.008Zm0 2.25h.008v.008H15.75V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Fair Rent Check",
+    href: "/fair-rent",
+    desc: "Is your rent fair for the area?",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" />
+      </svg>
+    ),
+  },
+];
 
 const steps = [
   {
@@ -226,6 +290,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Free Tools */}
+      <section id="tools" className="py-20 sm:py-24 bg-white">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+              Free Tools for Renters
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              Everything you need to protect yourself before, during, and after signing a tenancy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tools.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group rounded-2xl border border-slate-100 bg-slate-50 p-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.03] hover:border-primary-200 hover:bg-white"
+              >
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-colors group-hover:bg-primary-100">
+                  {tool.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 group-hover:text-primary-700 transition-colors">
+                  {tool.title}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 leading-relaxed">{tool.desc}</p>
+                <span className="mt-4 inline-flex items-center text-sm font-medium text-primary-600 group-hover:text-primary-700 transition-colors">
+                  Try it free
+                  <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why Renters Need This */}
       <section className="py-20 sm:py-24 bg-white">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -248,6 +350,52 @@ export default function Home() {
                 <p className="mt-3 text-slate-600 text-lg">{stat.label}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* For Local Authorities */}
+      <section className="py-20 sm:py-24 bg-slate-900 text-white">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block rounded-full bg-primary-500/10 px-4 py-1.5 text-sm font-medium text-primary-400 mb-6">
+                For Local Authorities
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                Built for Council Enforcement Teams Too
+              </h2>
+              <p className="mt-6 text-lg text-slate-300 leading-relaxed">
+                RenterCheck provides a purpose-built PRS enforcement platform for local authorities. Automated compliance screening, HMO detection, and tenant complaint triage. Ready for the PRS Database.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  href="/councils"
+                  className="inline-flex items-center rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-500"
+                >
+                  Learn More
+                </Link>
+                <Link
+                  href="/councils/demo"
+                  className="inline-flex items-center rounded-lg border border-slate-600 bg-slate-800 px-6 py-3 text-sm font-semibold text-slate-200 transition-colors hover:bg-slate-700 hover:border-slate-500"
+                >
+                  View Dashboard Demo
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="grid grid-cols-3 gap-4 opacity-30">
+                {/* Partner logo placeholders */}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="flex h-16 w-24 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-xs text-slate-500"
+                  >
+                    Council {i + 1}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
