@@ -207,7 +207,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
+      <section className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary-600/30 blur-3xl" />
@@ -228,7 +228,7 @@ export default function Home() {
 
           {/* Trust badges */}
           <div
-            className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm sm:text-base text-primary-200"
+            className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm sm:text-base text-primary-200 relative z-0"
             style={{ animationDelay: "0.3s" }}
           >
             <span className="flex items-center gap-2">
