@@ -1854,6 +1854,946 @@ export const blogArticles: BlogArticle[] = [
       "how-to-report-landlord",
     ],
   },
+  {
+    slug: "renters-rights-act-2025-key-changes",
+    title: "Renters' Rights Act 2025: 10 Key Changes Every Tenant Must Know",
+    metaDescription:
+      "The Renters' Rights Act 2025 transforms renting in England from 1 May 2026. Section 21 abolished, pet rights, bidding ban, and 8 more changes explained.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 9,
+    category: "Rights",
+    sections: [
+      {
+        id: "overview",
+        heading: "The Biggest Shake-Up in 35 Years",
+        content:
+          "The **Renters' Rights Act 2025** received Royal Assent on **27 October 2025** and is the most significant reform to private renting in England since the Housing Act 1988. It replaces the scrapped Renters' Reform Bill and goes further, delivering protections the government called \"the biggest upgrade to renters' rights in a generation.\"\n\nThe Act is being rolled out in phases. Phase 1 took effect on **27 December 2025**, expanding rent repayment orders and granting councils new investigatory powers. Phase 2, the headline package, lands on **1 May 2026** and brings Section 21 abolition, reformed Section 8 grounds, the bidding ban, pet rights, discrimination protections, advance rent caps, and more.\n\nLater milestones include the **PRS Database** (regional rollout expected late 2026), the **PRS Ombudsman** (expected 2028), and the **Decent Homes Standard** extension to private rentals (full compliance by 2035).\n\nThis article covers the 10 key changes you need to understand. Use our [Renters' Rights Act hub](/renters-rights-act) for the full legal breakdown, or run a [property check](/check) to see how your current rental measures up.",
+      },
+      {
+        id: "section-21-abolished",
+        heading: "1. Section 21 No-Fault Evictions Abolished",
+        content:
+          "From **1 May 2026**, landlords in England can no longer serve Section 21 notices. The last date to serve a valid Section 21 notice is **28 April 2026**, and the absolute cutoff for filing a Section 21 court application is **31 July 2026**. After that, no court in England will accept a Section 21 claim.\n\nAll tenancies become periodic (rolling month to month) by default. Fixed-term tenancies are abolished for new agreements. Existing fixed terms already in place before 1 May 2026 will convert to periodic tenancies once they expire.\n\nLandlords who need to recover possession must use **Section 8**, which requires a specific legal ground. This means they must prove a genuine reason, whether that is rent arrears, the landlord wanting to sell, or moving back in. A new **12-month protected period** at the start of every tenancy prevents landlords from using the selling or moving-in grounds during the first year.",
+      },
+      {
+        id: "rent-increases",
+        heading: "2. Rent Increase Limits",
+        content:
+          "All rent increases must now follow the **Section 13 process**. Landlords must serve a formal Section 13 notice giving at least **two months' notice**, and increases are limited to **once per year**.\n\nRent review clauses in tenancy agreements that allow increases by a fixed percentage, formula, or at the landlord's discretion are **no longer valid**. Every increase must go through the statutory route.\n\nCritically, the Act changes how tribunals handle challenges. Previously, a tribunal could set the rent **higher** than the landlord proposed, which deterred tenants from appealing. Now the tribunal can only set the rent at or below the landlord's proposed amount, removing the risk entirely. If you think your rent increase is above market rate, use our [fair rent checker](/fair-rent) to compare local rents before deciding whether to challenge.",
+      },
+      {
+        id: "pet-rights",
+        heading: "3. The Right to Request Pets",
+        content:
+          "Tenants now have a statutory right to request permission to keep a pet. Landlords must respond within **28 days** and cannot unreasonably refuse. If they do not respond, consent is deemed to have been granted.\n\nThe government specifically **removed** the earlier proposal to require tenants to take out pet insurance. There is no insurance requirement in the final Act. Landlords can, however, require the tenant to pay for any damage caused by the pet, and this can be addressed through the deposit.\n\nReasonable grounds for refusal include properties where the lease (in a block of flats, for example) prohibits pets, or where the property is genuinely unsuitable, such as a tiny studio for a large dog. A blanket \"no pets\" policy applied to all properties is likely to be considered unreasonable.\n\nIf your landlord refuses and you believe the refusal is unreasonable, you can challenge it through the **PRS Ombudsman** once it is operational (expected 2028). In the meantime, the local council's enforcement team can investigate blanket bans.",
+      },
+      {
+        id: "bidding-ban",
+        heading: "4. Rental Bidding Wars Banned",
+        content:
+          "It is now illegal for landlords and letting agents to invite or accept offers above the advertised rent. This applies to both the advertising stage and the negotiation stage. If a property is listed at £1,200 per month, the landlord cannot accept £1,400 from a tenant who offers more.\n\nThe penalty for breaching the bidding ban is a **civil penalty of up to £7,000**. Repeated offences can attract higher penalties.\n\nThis does not prevent tenants from voluntarily offering more (though the landlord commits an offence by accepting it), and it does not apply to sitting tenants negotiating a rent change. The ban specifically targets the practice of \"best and final offers\" that has priced out many renters in competitive markets like London and Manchester.\n\nIf you witness or experience rental bidding, report it to your local council's private rented sector enforcement team. You can also use our [report issue tool](/report-issue) to generate a formal complaint letter.",
+      },
+      {
+        id: "discrimination-ban",
+        heading: "5. Discrimination Against Tenants Banned",
+        content:
+          "The Act makes it unlawful for landlords and agents to discriminate against prospective tenants who receive housing benefits or have children. \"No DSS\" and \"no children\" policies are now explicitly illegal, not just discouraged.\n\nLandlords who breach this face civil penalties enforced by local councils. The ban covers advertising, application screening, and tenancy terms. A landlord cannot reject an application solely because the tenant receives Universal Credit, Housing Benefit, or any other form of state support.\n\nThis builds on case law from 2020 (the Shelter and Equality and Human Rights Commission cases that found blanket bans discriminatory), but puts it on a firm statutory footing for the first time.",
+      },
+      {
+        id: "prs-database",
+        heading: "6. The PRS Database",
+        content:
+          "A new **Private Rented Sector Database** will require every landlord in England to register their properties and provide key information including EPC ratings, gas safety certificates, and compliance records. Tenants will be able to search the database to verify their landlord's registration status and compliance history.\n\nThe database is expected to begin **regional rollout in late 2026**, with national coverage following. Landlords who fail to register will face civil penalties and will not be able to use Section 8 to recover possession.\n\nThis is a game-changer for transparency. For the first time, tenants will have a single place to check whether their landlord is legitimate and compliant. Once live, you will be able to access it through our [PRS Database checker](/prs-database) and [landlord check tool](/landlord-check).",
+      },
+      {
+        id: "ombudsman",
+        heading: "7. Mandatory PRS Ombudsman",
+        content:
+          "All private landlords in England will be required to join a new **PRS Ombudsman** service. The ombudsman will handle tenant complaints, investigate disputes, and have the power to order landlords to apologise, carry out repairs, or pay compensation of up to £25,000.\n\nThe ombudsman is expected to be operational by **2028**. Until then, tenants can still use existing routes: local council enforcement, the First-tier Tribunal, and the courts. Once established, the ombudsman will provide a faster, free alternative to court proceedings for most disputes.\n\nLandlords who fail to join the ombudsman scheme will face civil penalties and will not be able to serve Section 8 notices.",
+      },
+      {
+        id: "decent-homes",
+        heading: "8. Decent Homes Standard Extended to Private Rentals",
+        content:
+          "For the first time, the **Decent Homes Standard** will apply to private rented homes, not just social housing. The standard requires properties to meet five criteria: free from serious hazards (Category 1 under the Housing Health and Safety Rating System), in a reasonable state of repair, with reasonably modern facilities, providing adequate thermal comfort, and meeting minimum energy efficiency standards.\n\nThe government estimates that over **20% of private rentals** currently fail this standard. Full compliance is expected by **2035**, giving landlords time to bring properties up to standard.\n\nThis will be enforced by local councils using their existing Housing Act 2004 powers, supplemented by new civil penalty powers under the Renters' Rights Act. Use our [property check](/check) and [damp check](/damp-check) tools to assess whether your rental is likely to meet the standard.",
+      },
+      {
+        id: "awaabs-law",
+        heading: "9. Awaab's Law Extended to Private Landlords",
+        content:
+          "**Awaab's Law**, named after two-year-old Awaab Ishak who died from exposure to mould in a social housing property in Rochdale, sets strict timescales for landlords to investigate and fix hazards like damp and mould. It came into force for social housing in **October 2025**.\n\nThe Renters' Rights Act extends Awaab's Law to **private landlords**. The specific timescales for the private sector are subject to a **separate consultation** that has not yet concluded. Once set, private landlords will face the same legally binding deadlines for responding to reports of damp, mould, and other serious hazards.\n\nIf you are dealing with damp or mould right now, use our [damp and mould checker](/damp-check) to assess the severity and generate an evidence report, then use [report issue](/report-issue) to create a formal letter to your landlord.",
+      },
+      {
+        id: "rent-repayment-orders",
+        heading: "10. Rent Repayment Orders Doubled to 24 Months",
+        content:
+          "Rent repayment orders (RROs) allow tenants to recover rent paid while their landlord was committing certain housing offences. From **27 December 2025** (Phase 1 of the Act), the maximum amount recoverable has been **doubled from 12 months to 24 months** of rent.\n\nNew offences have been added to the list that qualifies for RROs, including:\n\n- Failing to register on the PRS Database (once operational)\n- Failing to join the PRS Ombudsman (once operational)\n- Breaching a banning order\n- Failing to comply with improvement notices\n\nTo apply for an RRO, you submit a claim to the **First-tier Tribunal**. You do not need a solicitor. The tribunal decides the amount based on the severity of the offence, the landlord's conduct, and the tenant's circumstances. Check our [landlord check tool](/landlord-check) to see if your landlord has any known compliance issues that might support an RRO claim.",
+      },
+    ],
+    faqs: [
+      {
+        question: "When does the Renters' Rights Act 2025 come into force?",
+        answer:
+          "The Act received Royal Assent on 27 October 2025. Phase 1 (expanded rent repayment orders and council powers) took effect on 27 December 2025. Phase 2 (Section 21 abolition, pet rights, bidding ban, and most other provisions) takes effect on 1 May 2026. The PRS Database is expected in late 2026, and the PRS Ombudsman by 2028.",
+      },
+      {
+        question: "Does the Renters' Rights Act apply to Scotland and Wales?",
+        answer:
+          "No. The Act applies only to England. Scotland has its own tenancy reforms under the Private Housing (Tenancies) (Scotland) Act 2016, and Wales has the Renting Homes (Wales) Act 2016. Northern Ireland has separate legislation.",
+      },
+      {
+        question: "Can my landlord still evict me after Section 21 is abolished?",
+        answer:
+          "Yes, but only using Section 8, which requires a specific legal ground such as rent arrears, the landlord wanting to sell, or the landlord moving back in. There is a 12-month protected period at the start of each tenancy during which the selling and moving-in grounds cannot be used.",
+      },
+      {
+        question: "What should I do if my landlord is not complying with the new rules?",
+        answer:
+          "Report non-compliance to your local council's private rented sector enforcement team. You can also use RenterCheck's report issue tool to generate a formal complaint letter. Once operational, the PRS Ombudsman will be another route for resolving disputes.",
+      },
+      {
+        question: "Will rents go up because of the Renters' Rights Act?",
+        answer:
+          "The government's impact assessment acknowledged that some landlords may increase rents to offset compliance costs, but the bidding ban and tribunal protections should limit excessive increases. The Act also prevents retaliatory rent increases after tenants exercise their rights.",
+      },
+    ],
+    relatedSlugs: [
+      "section-21-abolished-what-next",
+      "new-pet-rules-renters-2026",
+      "rent-bidding-wars-banned",
+      "landlord-fines-2026",
+      "rent-repayment-orders-doubled",
+    ],
+  },
+  {
+    slug: "section-21-abolished-what-next",
+    title: "Section 21 Abolished: What This Means for Your Tenancy",
+    metaDescription:
+      "Section 21 no-fault evictions end on 1 May 2026. Learn about the new Section 8 grounds, 12-month protected period, and what happens to existing notices.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 8,
+    category: "Rights",
+    sections: [
+      {
+        id: "what-happened",
+        heading: "Section 21 Is Gone: The Key Dates",
+        content:
+          "After decades of campaigning, Section 21 of the Housing Act 1988, the \"no-fault eviction\" provision, has been abolished by the **Renters' Rights Act 2025**.\n\nHere are the critical dates:\n\n- **28 April 2026**: The last date a landlord can serve a valid Section 21 notice\n- **1 May 2026**: Section 21 is formally abolished. No new notices can be served from this date.\n- **31 July 2026**: The absolute cutoff for landlords to file a Section 21 possession claim in court. Any notice served before 29 April 2026 must have its court application filed by this date, or the notice expires permanently.\n\nIf you have already received a Section 21 notice, check the dates carefully. If your landlord has not filed a court application by 31 July 2026, the notice is dead and cannot be revived. You do not need to leave.\n\nThis change applies to **all private tenancies in England**, regardless of when they started. There is no exemption for existing tenancies.",
+      },
+      {
+        id: "new-section-8-grounds",
+        heading: "The Reformed Section 8 Grounds for Possession",
+        content:
+          "With Section 21 gone, landlords must use **Section 8** of the Housing Act 1988 to recover possession. The Renters' Rights Act reforms the available grounds:\n\n**Mandatory grounds** (court must grant possession if proved):\n\n| Ground | Reason | Notice period |\n|--------|--------|---------------|\n| Ground 1 | Landlord wants to move back in | 4 months |\n| Ground 1A | Landlord wants to sell | 4 months |\n| Ground 2 | Mortgage lender repossession | 2 months |\n| Ground 6 | Major redevelopment or demolition | 4 months |\n| Ground 7 | Death of tenant (periodic) | 2 months |\n| Ground 8 | Serious rent arrears (2+ months) | 2 weeks |\n| Ground 8A | Repeated rent arrears (3 times in 3 years) | 4 weeks |\n\n**Discretionary grounds** (court decides based on reasonableness):\n\n| Ground | Reason | Notice period |\n|--------|--------|---------------|\n| Ground 10 | Some rent arrears | 2 weeks |\n| Ground 11 | Persistent late payment | 2 weeks |\n| Ground 12 | Breach of tenancy terms | 2 weeks |\n| Ground 14 | Antisocial behaviour | Immediate |\n| Ground 14A | Domestic abuse by partner | 2 months |\n\nNew grounds have been added for properties subject to enforcement action or where a landlord has received a compliance notice they cannot fulfil while tenants remain in the property.",
+      },
+      {
+        id: "protected-period",
+        heading: "The 12-Month Protected Period",
+        content:
+          "A brand new protection under the Renters' Rights Act 2025 is the **12-month protected period**. For the first 12 months of any tenancy, the landlord **cannot use certain grounds** to evict you.\n\nThe grounds that are blocked during the protected period include:\n\n- **Ground 1** (landlord moving back in)\n- **Ground 1A** (landlord selling)\n- **Ground 6** (redevelopment)\n\nThis means a landlord cannot let a property, wait three months, and then claim they need to sell or move in. They must wait at least 12 months from the start of the tenancy before relying on these grounds.\n\nGrounds related to tenant behaviour (rent arrears, antisocial behaviour, breach of tenancy) are **not** restricted by the protected period. A landlord can still act on these at any time if warranted.\n\nThe protected period resets each time a new tenancy is granted. If you renew or move to a new property with the same landlord, a fresh 12-month protection begins.",
+      },
+      {
+        id: "what-tenants-should-do",
+        heading: "What Tenants Should Do Now",
+        content:
+          "If you are a current tenant in England, here is what these changes mean for you:\n\n- **If you have a Section 21 notice**: Check the dates. If your landlord has not applied to court yet, monitor the 31 July 2026 deadline. If they miss it, the notice is void.\n- **If you have a periodic tenancy**: Your tenancy continues as before. You now have stronger protections against eviction.\n- **If you have a fixed-term tenancy**: Once your fixed term expires (or from 1 May 2026 if it has already expired), your tenancy becomes periodic. You can give **2 months' notice** to leave at any time.\n- **If you want to leave**: Tenants can end a periodic tenancy by giving **2 months' notice**. There is no minimum stay period for tenants (the 12-month protected period only restricts landlords).\n\nRun a [property check](/check) to see your property's compliance status and safety score. If your landlord has outstanding issues, this could be useful evidence if they attempt a retaliatory eviction.",
+      },
+      {
+        id: "retaliatory-evictions",
+        heading: "Stronger Protection Against Retaliatory Evictions",
+        content:
+          "The Renters' Rights Act significantly strengthens protections against **retaliatory evictions**. Without Section 21, a landlord can no longer simply serve a no-fault notice after a tenant complains about repairs or exercises their legal rights.\n\nIf a landlord serves a Section 8 notice within 6 months of a tenant raising a legitimate complaint (about repairs, hazards, or other issues), the court can treat it as retaliatory and refuse to grant possession.\n\nLocal councils also have a duty to support tenants facing retaliatory action. If you believe your landlord is trying to evict you in retaliation for asserting your rights, contact your council's housing enforcement team and use our [report issue tool](/report-issue) to document the timeline.",
+      },
+      {
+        id: "student-tenancies",
+        heading: "What About Student Tenancies?",
+        content:
+          "Student tenancies in **purpose-built student accommodation (PBSA)** are treated differently. The Act includes provisions for a new ground for possession specific to student lets, allowing landlords of qualifying student accommodation to recover possession at the end of the academic year.\n\nFor students renting ordinary private properties (houses, flats), the same rules apply as for all other tenants: no Section 21, reformed Section 8 grounds, and the 12-month protected period.\n\nUniversities and accredited student accommodation providers will be able to use the student-specific ground, but only for properties registered as student accommodation. A landlord who happens to rent to students in a normal house cannot use this ground.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can my landlord still evict me after 1 May 2026?",
+        answer:
+          "Yes, but only using Section 8, which requires a specific legal ground. They must prove a genuine reason such as rent arrears, wanting to sell the property, or wanting to move back in. For the first 12 months of your tenancy, the selling and moving-in grounds cannot be used.",
+      },
+      {
+        question: "What happens to my existing Section 21 notice?",
+        answer:
+          "If a Section 21 notice was served before 29 April 2026, the landlord must file a court application by 31 July 2026 for it to remain valid. If they miss that deadline, the notice expires permanently and cannot be reissued because Section 21 no longer exists.",
+      },
+      {
+        question: "Can I end my tenancy whenever I want under the new rules?",
+        answer:
+          "Tenants can end a periodic tenancy by giving 2 months' notice at any time. There is no minimum stay period for tenants. If you are in a fixed-term tenancy that has not yet expired, you will need to wait until it converts to periodic or negotiate an early exit with your landlord.",
+      },
+      {
+        question: "Does the 12-month protected period apply to all eviction grounds?",
+        answer:
+          "No. The protected period blocks grounds related to selling, moving in, and redevelopment. Grounds related to tenant behaviour (rent arrears, antisocial behaviour, breach of tenancy terms) can be used at any time during the tenancy.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "can-landlord-evict-me-for-no-reason",
+      "landlord-fines-2026",
+      "council-enforcement-powers-2026",
+    ],
+  },
+  {
+    slug: "prs-database-tenants-guide",
+    title: "The PRS Database: How to Check Your Landlord (When It Launches)",
+    metaDescription:
+      "The PRS Database will let tenants check landlord registration and compliance. Learn what data it holds, when it launches, and penalties for unregistered landlords.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 7,
+    category: "Guides",
+    sections: [
+      {
+        id: "what-is-prs-database",
+        heading: "What Is the PRS Database?",
+        content:
+          "The **Private Rented Sector (PRS) Database** is a new national register of all private landlords and their rental properties in England. It was established by the **Renters' Rights Act 2025** and will be the first compulsory national landlord register in England.\n\nEvery private landlord will be required to register each of their rental properties on the database before letting them to tenants. The database will be operated by a government body and will create a single, searchable source of truth about who owns and manages rental properties.\n\nThis is fundamentally different from existing voluntary landlord registers or local council licensing schemes. The PRS Database is national, compulsory, and carries significant penalties for non-compliance. Think of it as the rental equivalent of the Land Registry, but focused on landlord compliance rather than property ownership.\n\nUntil the PRS Database launches, you can use our [landlord check tool](/landlord-check) to verify your landlord's compliance with existing requirements such as EPC certificates, gas safety, and deposit protection.",
+      },
+      {
+        id: "what-data-it-holds",
+        heading: "What Information Will the Database Hold?",
+        content:
+          "The PRS Database will hold detailed information about both the landlord and the property:\n\n**Landlord information:**\n- Full legal name and contact details\n- Unique landlord identifier\n- Whether they have passed a \"fit and proper person\" test\n- Membership status with the PRS Ombudsman\n- Any banning orders or civil penalties\n- Any rent repayment orders made against them\n\n**Property information:**\n- Full address of each rental property\n- Current EPC rating and certificate\n- Gas safety certificate status\n- Electrical installation condition report status\n- HMO licence status (where applicable)\n- Compliance with the Decent Homes Standard\n- Current tenancy type and rent level\n\nThe government has said tenants will be able to search the database by **property address** to check if a landlord is registered and compliant. This will help tenants make informed decisions before signing a tenancy agreement.",
+      },
+      {
+        id: "when-does-it-launch",
+        heading: "When Does the PRS Database Launch?",
+        content:
+          "The government has indicated a **regional rollout starting in late 2026**, with national coverage following in stages. An exact launch date has not been confirmed yet.\n\nThe rollout is expected to work like this:\n\n1. **Pilot phase** (late 2026): Selected regions will be the first to require landlord registration\n2. **Expansion phase** (2027): Additional regions added\n3. **National coverage**: All private landlords in England required to register\n\nLandlords will be given a notice period to register once their region goes live. The registration process will be online and is expected to cost a modest annual fee (the exact amount has not been confirmed, but the government has said it will be affordable).\n\nWe will update our [PRS Database page](/prs-database) as soon as the launch date is confirmed and the system is accessible. Sign up for our [newsletter](/newsletter) to be notified when it goes live.",
+      },
+      {
+        id: "penalties-for-non-registration",
+        heading: "Penalties for Unregistered Landlords",
+        content:
+          "Landlords who fail to register on the PRS Database face serious consequences:\n\n- **Civil penalties**: Local councils will be able to impose fines on unregistered landlords\n- **Cannot serve Section 8 notices**: An unregistered landlord will not be able to use Section 8 to recover possession of the property\n- **Rent repayment orders**: Tenants can apply for a rent repayment order of up to **24 months' rent** if their landlord has failed to register\n- **Cannot increase rent**: An unregistered landlord will not be able to serve a valid Section 13 rent increase notice\n\nThis creates a strong incentive for compliance. A landlord who does not register essentially loses all their enforcement tools while remaining liable to pay back up to two years of rent.\n\nIf you discover your landlord is not registered once the database is live, report it to your local council and consider applying for a rent repayment order. Our [landlord check tool](/landlord-check) will integrate with the PRS Database as soon as it is available.",
+      },
+      {
+        id: "what-tenants-can-access",
+        heading: "What Tenants Can See and Do",
+        content:
+          "The PRS Database is designed to empower tenants with information. You will be able to:\n\n- **Search by address**: Enter any rental property address to check if it is registered\n- **Verify landlord identity**: Confirm that the person claiming to be the landlord is actually registered as the landlord of that property\n- **Check compliance**: See whether the property has a valid EPC, gas safety certificate, and other required documentation\n- **View enforcement history**: Check if the landlord has any banning orders, civil penalties, or rent repayment orders against them\n\nThis will be particularly useful when choosing a new rental. Before signing a tenancy agreement, you can verify that the landlord is registered and compliant. It will also help identify **rental scams**, since a scammer will not be listed as the registered landlord of the property.\n\nCombine the PRS Database with our [property check](/check) to get a comprehensive picture of both the property and the landlord before committing to a tenancy.",
+      },
+      {
+        id: "how-it-helps-councils",
+        heading: "How the PRS Database Helps Enforcement",
+        content:
+          "For local councils, the PRS Database is a powerful enforcement tool:\n\n- **Identify non-compliant landlords** without relying on tenant complaints\n- **Proactive inspections** targeted at properties flagged as high-risk\n- **Cross-reference** with council tax, HMO licensing, and planning records to find unlicensed HMOs and unregistered landlords\n- **Track repeat offenders** nationally rather than just within a single local authority area\n\nThe government has committed **£18.2 million in enforcement funding** for 2025/26 to help councils prepare for the new regime. This includes hiring enforcement officers, upgrading IT systems, and building capacity for the PRS Database rollout.\n\nCouncils with existing selective licensing schemes will be able to integrate their data with the national database, reducing duplication for landlords who are already licensed locally.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is the PRS Database the same as a landlord licensing scheme?",
+        answer:
+          "No. The PRS Database is a national register that all private landlords must join. Selective and additional licensing schemes are run by individual councils and only cover specific areas. The PRS Database will operate alongside local licensing schemes, not replace them.",
+      },
+      {
+        question: "Will the PRS Database be free for tenants to search?",
+        answer:
+          "Yes. The government has confirmed that tenants will be able to search the database for free. Landlords will pay a registration fee, but tenant access will be at no cost.",
+      },
+      {
+        question: "What if my landlord refuses to register?",
+        answer:
+          "An unregistered landlord faces civil penalties, cannot serve Section 8 eviction notices, cannot increase rent using Section 13, and you can apply for a rent repayment order of up to 24 months' rent. Report unregistered landlords to your local council.",
+      },
+      {
+        question: "Can I check the PRS Database now?",
+        answer:
+          "The PRS Database has not launched yet. Regional rollout is expected in late 2026. In the meantime, use RenterCheck's landlord check tool at rentercheck.co.uk/landlord-check to verify your landlord's existing compliance requirements.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "landlord-fines-2026",
+      "council-enforcement-powers-2026",
+      "selective-licensing-guide-2026",
+    ],
+  },
+  {
+    slug: "new-pet-rules-renters-2026",
+    title: "New Pet Rules for Renters 2026: Your Right to Keep Pets",
+    metaDescription:
+      "Tenants now have a legal right to request pets. Landlords must respond within 28 days and cannot unreasonably refuse. No pet insurance required.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 6,
+    category: "Rights",
+    sections: [
+      {
+        id: "the-new-right",
+        heading: "Your Statutory Right to Request a Pet",
+        content:
+          "From **1 May 2026**, every tenant in England has a statutory right to request permission to keep a pet in their rented home. This is one of the most popular provisions of the **Renters' Rights Act 2025** and replaces the previous system where landlords could impose blanket \"no pets\" bans without justification.\n\nThe new rules work as follows:\n\n- You submit a **written request** to your landlord asking for permission to keep a specific pet\n- Your landlord has **28 days** to respond in writing\n- They must either grant consent or refuse with a **specific, reasonable reason**\n- If they do not respond within 28 days, **consent is deemed to have been granted**\n- If they refuse unreasonably, you can challenge the decision\n\nThis applies to all private tenancies in England, including existing tenancies. If you have been wanting to get a pet but your landlord has refused, you can submit a fresh request under the new rules from 1 May 2026.",
+      },
+      {
+        id: "what-counts-as-reasonable-refusal",
+        heading: "What Counts as a Reasonable Refusal?",
+        content:
+          "A landlord can refuse a pet request, but only for **specific, reasonable reasons**. The Act does not list every possible reason, but the government guidance indicates the following are likely to be considered reasonable:\n\n- The **superior lease** (e.g. a flat within a block) prohibits pets and the landlord cannot override this\n- The property is **genuinely unsuitable** for the specific animal (e.g. a large dog in a tiny studio with no outdoor space)\n- The tenant already has multiple pets and adding another would cause **overcrowding**\n- The specific animal poses a **health or safety risk** (e.g. a dangerous breed covered by the Dangerous Dogs Act)\n\nThe following are **not** considered reasonable grounds:\n\n- A general \"no pets\" policy applied to all properties\n- Concerns about damage without evidence (this is what the deposit is for)\n- Personal dislike of animals\n- Worry about noise (this is a tenancy management issue, not grounds for a blanket ban)\n- The property having carpets or new furnishings",
+      },
+      {
+        id: "no-pet-insurance-requirement",
+        heading: "No Pet Insurance Requirement",
+        content:
+          "An earlier draft of the legislation included a provision allowing landlords to require tenants to take out **pet damage insurance**. This was **specifically removed** from the final Act.\n\nThe government decided that requiring pet insurance would create a financial barrier that undermined the right to keep pets, particularly for tenants on lower incomes. Instead, the existing deposit framework is considered sufficient to cover any pet damage.\n\nYour landlord can:\n\n- Deduct from your deposit at the end of the tenancy for **actual damage** caused by your pet (beyond fair wear and tear)\n- Include a clause in the tenancy agreement making you responsible for repairing any pet damage\n\nYour landlord **cannot**:\n\n- Require you to take out pet insurance as a condition of consent\n- Charge an additional pet deposit or pet fee (this would breach the Tenant Fees Act 2019)\n- Increase your rent specifically because you have a pet",
+      },
+      {
+        id: "how-to-make-a-request",
+        heading: "How to Request Permission for a Pet",
+        content:
+          "Follow these steps to make a formal pet request:\n\n1. **Put it in writing**: Send an email or letter to your landlord. Keep a copy.\n2. **Be specific**: Name the type and breed of animal, and how many. \"I would like to keep one medium-sized dog, a Labrador Retriever\" is better than \"I want a pet.\"\n3. **Address concerns proactively**: Mention that you will be responsible for any damage, that the pet is house-trained (if applicable), and any steps you will take to minimise impact.\n4. **Reference the law**: State that you are making a request under the pet provisions of the Renters' Rights Act 2025 and that you expect a response within 28 days.\n5. **Keep records**: Save the sent email or get proof of posting for a letter.\n\nIf your landlord does not respond within 28 days, consent is automatically granted. If they refuse, they must provide specific reasons in writing. If you believe the refusal is unreasonable, you can escalate to the PRS Ombudsman (once operational) or to your local council's enforcement team.\n\nUse our [report issue tool](/report-issue) to generate a formal request letter if you need help drafting one.",
+      },
+      {
+        id: "existing-tenants",
+        heading: "What About Existing \"No Pets\" Clauses?",
+        content:
+          "If your tenancy agreement currently contains a \"no pets\" clause, the new rules **override** it from 1 May 2026. A contractual ban on pets cannot prevent you from exercising your statutory right to request a pet.\n\nHowever, the clause does not automatically become void. You still need to follow the request process described above. The difference is that your landlord can no longer simply point to the clause and refuse. They must engage with your request and provide specific, reasonable grounds if they want to say no.\n\nFor tenants who already have a pet in breach of a \"no pets\" clause, the sensible approach is to submit a formal request under the new rules from 1 May 2026. This regularises your position and protects you from any argument that you breached the tenancy terms.\n\nLandlords who try to evict tenants solely for having a pet after the new rules take effect will struggle to succeed. The courts will expect them to have followed the new consent process.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can my landlord still say no to pets?",
+        answer:
+          "Only for specific, reasonable reasons. Blanket \"no pets\" policies are no longer valid. Your landlord must respond to a pet request within 28 days with either consent or a specific, reasonable reason for refusal. If they do not respond, consent is deemed granted.",
+      },
+      {
+        question: "Do I need to get pet insurance for my rental?",
+        answer:
+          "No. The government specifically removed the pet insurance requirement from the final Act. Your landlord cannot require you to take out pet insurance as a condition of keeping a pet. They can, however, deduct from your deposit for actual pet damage at the end of the tenancy.",
+      },
+      {
+        question: "Can my landlord charge a pet deposit or pet fee?",
+        answer:
+          "No. The Tenant Fees Act 2019 prohibits additional charges beyond the permitted list (rent, deposit capped at 5 weeks, holding deposit capped at 1 week). A separate pet deposit, pet fee, or pet rent would breach this Act.",
+      },
+      {
+        question: "What pets are covered by the new rules?",
+        answer:
+          "The Act does not specify a list of permitted pets. Any animal can be the subject of a request. However, landlords may reasonably refuse exotic or dangerous animals, or animals unsuitable for the property type. Common household pets like dogs, cats, small caged animals, and fish are unlikely to be refused without strong justification.",
+      },
+      {
+        question: "When can I submit a pet request under the new rules?",
+        answer:
+          "The pet provisions take effect on 1 May 2026. You can submit a request from that date. If you submit before 1 May 2026, the 28-day clock does not apply and your landlord can refuse under existing rules.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "can-landlord-refuse-pets",
+      "renting-rights-without-contract",
+      "how-to-report-landlord",
+    ],
+  },
+  {
+    slug: "rent-bidding-wars-banned",
+    title: "Rental Bidding Wars Are Now Illegal: What You Need to Know",
+    metaDescription:
+      "Rental bidding is now illegal in England with fines up to £7,000. Learn what the ban covers, how to report violations, and your rights as a tenant.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 5,
+    category: "Rights",
+    sections: [
+      {
+        id: "what-is-the-bidding-ban",
+        heading: "What the Bidding Ban Means",
+        content:
+          "From **1 May 2026**, it is a criminal offence for landlords and letting agents in England to invite or accept rental bids above the advertised price. This was introduced by the **Renters' Rights Act 2025** to tackle the growing practice of \"best and final offers\" that had turned finding a rental into an auction.\n\nThe ban works simply: if a property is advertised at a certain rent, that is the maximum the landlord or agent can accept. They cannot:\n\n- Ask prospective tenants to \"make their best offer\"\n- Accept a higher offer from one applicant over another\n- Advertise at one price and then tell applicants the actual rent is higher\n- Use phrases like \"offers over\" or \"guide price\" for rental listings\n- Encourage tenants to compete on price during viewings\n\nThe only price the landlord can charge is the one stated in the advertisement. If no price is advertised, the landlord cannot accept rent above the first price quoted to a prospective tenant.",
+      },
+      {
+        id: "penalties",
+        heading: "Penalties for Breaking the Bidding Ban",
+        content:
+          "Landlords and letting agents who breach the bidding ban face **civil penalties of up to £7,000** for a first offence. The penalty is imposed by the local council and does not require a court conviction.\n\nFor **repeat offences**, the penalties escalate. A landlord or agent with a history of bidding ban breaches can face higher civil penalties and, in serious cases, a **banning order** that prevents them from letting properties or engaging in property management.\n\nLetting agents who systematically encourage bidding can also face action from their **redress scheme** (either The Property Ombudsman or the Property Redress Scheme), which could include expulsion from the scheme, effectively preventing them from operating as a letting agent.\n\nThe penalties apply to the person who **invites or accepts** the higher offer. If a letting agent encourages bidding on behalf of a landlord, both the agent and the landlord could face enforcement action.",
+      },
+      {
+        id: "what-is-still-allowed",
+        heading: "What Is Still Allowed",
+        content:
+          "The bidding ban does not prevent every form of rent negotiation. Here is what is still permitted:\n\n- **Tenants can offer less**: You can negotiate the rent downward. The ban only applies to rents above the advertised price.\n- **Existing tenants can negotiate**: If you are already renting and your landlord proposes a rent increase via Section 13, you can negotiate the amount. The bidding ban only applies to new lettings.\n- **Landlords can choose between applicants**: The ban is about price, not selection. A landlord can still choose the applicant they consider most suitable based on references, employment, and affordability checks.\n- **Different prices for different properties**: A landlord with multiple properties can set different rents for each one. The ban only prevents accepting more than the advertised price for a specific property.\n- **Adjusting the advertised price**: A landlord can re-advertise a property at a different price (higher or lower) before accepting a tenant. They just cannot accept an offer above whatever price is currently advertised.",
+      },
+      {
+        id: "how-to-report",
+        heading: "How to Report a Bidding Violation",
+        content:
+          "If you encounter a landlord or letting agent inviting or accepting bids above the advertised rent, here is how to report it:\n\n1. **Gather evidence**: Screenshot the listing showing the advertised price. Save any emails, texts, or messages where the landlord or agent invited higher offers or confirmed a higher rent was accepted.\n2. **Report to the local council**: Contact the environmental health or private rented sector enforcement team at the council where the property is located. Most councils have an online complaint form.\n3. **Report to the redress scheme**: If a letting agent is involved, report them to their redress scheme (The Property Ombudsman or Property Redress Scheme). All agents must belong to one.\n4. **Report to Trading Standards**: If the behaviour is systematic (the agent does it across multiple listings), report to Trading Standards for potential unfair trading practices.\n\nYou can use our [report issue tool](/report-issue) to generate a formal complaint letter documenting the bidding violation with evidence. Keep all original evidence, as the council may need it for enforcement proceedings.",
+      },
+      {
+        id: "impact-on-market",
+        heading: "How the Ban Affects the Rental Market",
+        content:
+          "Rental bidding had become endemic in high-demand areas. Research by Generation Rent found that **one in three renters** in London had experienced bidding wars, with successful applicants paying an average of **£2,400 per year more** than the advertised rent.\n\nThe ban is designed to restore transparency and fairness. Critics argue that it could lead to landlords simply advertising at higher starting prices, effectively baking the premium in. Supporters counter that transparent pricing is still better than opaque bidding, because tenants can see the actual cost upfront and make informed decisions.\n\nEarly signs since the ban was announced suggest some recalibration in the market. Letting agents are adjusting their practices, and tenants are more willing to report violations knowing that enforcement tools now exist.\n\nIf you are searching for a rental and see signs of bidding, do not participate. Document it and report it. The more reports councils receive, the stronger enforcement will become.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the fine for rental bidding?",
+        answer:
+          "Landlords and letting agents face civil penalties of up to £7,000 for a first offence. Repeat offences can attract higher penalties and potentially a banning order preventing them from letting properties.",
+      },
+      {
+        question: "Can I still negotiate rent downward?",
+        answer:
+          "Yes. The bidding ban only prevents rents above the advertised price. You are free to offer less than the advertised rent, and the landlord is free to accept or decline your lower offer.",
+      },
+      {
+        question: "What if a letting agent asks me to offer more than the listed rent?",
+        answer:
+          "This is a breach of the bidding ban. Do not offer more. Screenshot the request as evidence and report it to the local council where the property is located, and to the agent's redress scheme (The Property Ombudsman or Property Redress Scheme).",
+      },
+      {
+        question: "Does the bidding ban apply to existing tenancies?",
+        answer:
+          "No. The ban applies to new lettings and advertising. If you are an existing tenant, rent increases are handled through the Section 13 process, which has its own rules and protections.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "can-landlord-increase-rent",
+      "how-to-report-landlord",
+      "landlord-fines-2026",
+    ],
+  },
+  {
+    slug: "landlord-fines-2026",
+    title: "Landlord Fines 2026: Complete Guide to Civil Penalties",
+    metaDescription:
+      "Full table of landlord civil penalties under the Renters' Rights Act 2025. Starting amounts for every offence, how councils decide, and how to report.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 8,
+    category: "Rights",
+    sections: [
+      {
+        id: "civil-penalties-overview",
+        heading: "How Civil Penalties Work",
+        content:
+          "The **Renters' Rights Act 2025** significantly expands the civil penalty regime for landlord offences in England. Civil penalties are financial fines imposed by **local councils** without the need for a court prosecution. They were introduced by the Housing and Planning Act 2016 and have now been extended to cover a wide range of new offences.\n\nKey features of the civil penalty system:\n\n- Councils can impose penalties of up to **£7,000** for most offences and up to **£40,000** for more serious or repeat offences\n- Penalties are an alternative to prosecution (councils choose one or the other)\n- The landlord has 28 days to make representations before a penalty is finalised\n- The landlord can appeal to the First-tier Tribunal within 28 days of the final notice\n- **Councils keep 100% of the penalty revenue**, which funds further enforcement\n\nThe government has published guidance on **starting amounts** for each offence, but councils have discretion to adjust based on the specific circumstances of each case.",
+      },
+      {
+        id: "starting-amounts-table",
+        heading: "Civil Penalty Starting Amounts by Offence",
+        content:
+          "The following table shows the government's recommended starting amounts for civil penalties under the Renters' Rights Act 2025 and related housing legislation:\n\n**Renters' Rights Act 2025 offences:**\n\n| Offence | Starting amount |\n|---------|----------------|\n| Failing to register on the PRS Database | £5,000 |\n| Providing false information to the PRS Database | £7,000 |\n| Failing to join the PRS Ombudsman | £5,000 |\n| Rental bidding (inviting/accepting above advertised rent) | £7,000 |\n| Failing to respond to a pet request within 28 days | £3,000 |\n| Unreasonable refusal of a pet request | £5,000 |\n| Discrimination against tenants on benefits | £5,000 |\n| Discrimination against tenants with children | £5,000 |\n| Breaching advance rent cap (more than 1 month in advance) | £5,000 |\n| Failing to comply with Decent Homes Standard | £7,000 |\n\n**Existing Housing Act offences (updated starting amounts):**\n\n| Offence | Starting amount |\n|---------|----------------|\n| Failure to comply with improvement notice | £5,000 |\n| Operating an unlicensed HMO | £10,000 |\n| Breaching HMO licence conditions | £5,000 |\n| Failure to protect a deposit | Via courts |\n| Illegal eviction or harassment | Criminal prosecution |\n\nThese are starting points. Councils adjust upward for repeat offenders, deliberate breaches, or large portfolios, and downward for first offences, prompt compliance, or genuine mistakes.",
+      },
+      {
+        id: "how-councils-decide",
+        heading: "How Councils Decide the Penalty Amount",
+        content:
+          "When setting a civil penalty, councils follow a structured framework based on government guidance:\n\n**Step 1: Determine the starting amount** from the government's recommended table.\n\n**Step 2: Consider aggravating factors** (which increase the penalty):\n- History of non-compliance or previous penalties\n- Deliberate or reckless behaviour\n- Large property portfolio (suggesting a professional landlord who should know better)\n- Vulnerability of the affected tenants\n- Duration of the offence\n- Financial gain from the offence\n\n**Step 3: Consider mitigating factors** (which reduce the penalty):\n- First offence with no history of non-compliance\n- Early admission and prompt remedial action\n- Genuine ignorance (not a defence, but may reduce severity)\n- Limited financial gain\n- Evidence of good character and otherwise good landlord practice\n\n**Step 4: Ensure the penalty is proportionate** to the offence and the landlord's circumstances.\n\n**Step 5: Consider the landlord's ability to pay**. Councils can request financial information, but inability to pay does not automatically reduce the penalty if the offence is serious.\n\nThe final penalty can range from a few hundred pounds to the maximum of £7,000 (or £40,000 for the most serious offences). Councils must issue a written notice explaining how they arrived at the amount.",
+      },
+      {
+        id: "repeat-offenders",
+        heading: "Repeat Offenders and Banning Orders",
+        content:
+          "Landlords who accumulate civil penalties face escalating consequences:\n\n- **Higher penalties**: Each subsequent offence attracts a higher starting amount, with the maximum reaching **£40,000** for serious or repeat breaches\n- **Banning orders**: Local councils can apply to the First-tier Tribunal for a banning order against a landlord who has been convicted of a banning order offence or has received two or more civil penalties within 12 months\n- **Rogue landlord database**: Landlords subject to banning orders are listed on the national rogue landlord database, accessible to councils across England\n- **Rent repayment orders**: Tenants of repeat offenders can apply for rent repayment orders of up to 24 months' rent\n\nA **banning order** prevents a landlord from letting property, engaging in property management, or being involved in any letting agency work. Breach of a banning order is a criminal offence carrying an unlimited fine and/or imprisonment.\n\nThe PRS Database will make it much harder for banned landlords to re-enter the market under a different identity, since registration will require identity verification.",
+      },
+      {
+        id: "how-to-report",
+        heading: "How to Report a Non-Compliant Landlord",
+        content:
+          "If your landlord is breaking the rules, here is how to trigger enforcement:\n\n1. **Document the breach**: Gather evidence including photos, emails, screenshots of listings, copies of notices, and dates. The more evidence you have, the stronger the case.\n2. **Contact your local council**: Reach out to the **environmental health**, **private rented sector**, or **housing enforcement** team. Most councils have an online complaint form or a dedicated housing complaints email.\n3. **Be specific**: Tell the council exactly which offence you believe has been committed and provide the evidence. Reference the specific section of the Act if you can.\n4. **Follow up**: Ask for a reference number and follow up after 14 days if you have not heard back.\n\nCouncils are incentivised to act because they **keep 100% of civil penalty revenue**. With £18.2 million in new enforcement funding for 2025/26, many councils are expanding their teams and actively looking for breaches to pursue.\n\nUse our [report issue tool](/report-issue) to generate a formal complaint letter, or run a [landlord check](/landlord-check) to see if your landlord has existing compliance issues. You can also check our guide on [how to report your landlord](/blog/how-to-report-landlord) for a step-by-step walkthrough.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the maximum fine a landlord can receive?",
+        answer:
+          "Most offences carry a maximum civil penalty of £7,000 for a first offence. For serious or repeat offences, the maximum is £40,000. Criminal prosecution (for offences like illegal eviction) can result in unlimited fines.",
+      },
+      {
+        question: "Do councils actually enforce civil penalties?",
+        answer:
+          "Yes, and enforcement is increasing. Councils retain 100% of penalty revenue, creating a financial incentive. The government has provided £18.2 million in enforcement funding for 2025/26 specifically to expand council enforcement capacity.",
+      },
+      {
+        question: "Can I report my landlord anonymously?",
+        answer:
+          "Most councils accept anonymous reports, though providing your contact details helps them investigate more effectively. If you are worried about retaliation, remember that retaliatory eviction is illegal under the Renters' Rights Act 2025 and Section 21 no-fault evictions have been abolished.",
+      },
+      {
+        question: "How long does the enforcement process take?",
+        answer:
+          "From initial report to penalty, the process typically takes 2 to 6 months. The council must investigate, issue a notice of intent, allow 28 days for the landlord to respond, and then issue a final notice. The landlord then has 28 days to appeal to the tribunal.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "civil-penalties-landlords-complete-list",
+      "council-enforcement-powers-2026",
+      "how-to-report-landlord",
+    ],
+  },
+  {
+    slug: "rent-repayment-orders-doubled",
+    title: "Rent Repayment Orders Doubled to 24 Months: How to Claim",
+    metaDescription:
+      "Rent repayment orders now cover up to 24 months of rent. New offences added from 27 Dec 2025. Learn how to apply and what you can claim back.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 7,
+    category: "Money",
+    sections: [
+      {
+        id: "what-are-rros",
+        heading: "What Are Rent Repayment Orders?",
+        content:
+          "A **rent repayment order (RRO)** is a tribunal order requiring a landlord to repay rent to a tenant (or to the local council if the rent was paid by housing benefit). RROs were introduced by the Housing Act 2004 and have been significantly strengthened by the **Renters' Rights Act 2025**.\n\nThe key change, effective from **27 December 2025** (Phase 1), is that the maximum amount a tenant can claim has been **doubled from 12 months to 24 months** of rent. This means if your landlord has been committing a qualifying offence for two years, you could recover the entire two years of rent you paid during that period.\n\nRROs are a powerful tool because they do not require a criminal conviction. You apply directly to the **First-tier Tribunal (Property Chamber)**, and the burden of proof is the civil standard (balance of probabilities), which is easier to meet than the criminal standard.\n\nTo check if your landlord might be committing qualifying offences, use our [landlord check tool](/landlord-check) to verify EPC, gas safety, and licensing compliance.",
+      },
+      {
+        id: "qualifying-offences",
+        heading: "Which Offences Qualify for an RRO?",
+        content:
+          "You can apply for a rent repayment order if your landlord has committed any of the following offences:\n\n**Original offences (Housing Act 2004/2016):**\n- Operating an **unlicensed HMO** (or breach of HMO licence conditions)\n- Using violence to secure entry (Criminal Law Act 1977)\n- Illegal eviction or harassment (Protection from Eviction Act 1977)\n- Failure to comply with an **improvement notice** (Housing Act 2004)\n- Failure to comply with a **prohibition order** (Housing Act 2004)\n- Breach of a **banning order** (Housing and Planning Act 2016)\n\n**New offences added by the Renters' Rights Act 2025:**\n- Failing to register on the **PRS Database** (once operational)\n- Failing to join the **PRS Ombudsman** (once operational)\n- Breaching the **rental bidding ban**\n- Breaching the **advance rent cap** (charging more than 1 month in advance)\n- Discriminating against tenants on **benefits or with children**\n\nThe expansion of qualifying offences means many more tenants will have grounds for an RRO. Even offences that seem minor (like failing to register on the PRS Database) can now trigger a claim worth tens of thousands of pounds.",
+      },
+      {
+        id: "how-to-apply",
+        heading: "How to Apply for a Rent Repayment Order",
+        content:
+          "Here is the step-by-step process for claiming an RRO:\n\n**Step 1: Gather evidence**\nDocument the offence. For an unlicensed HMO, check with your council's licensing team. For illegal eviction, gather texts, emails, and witness statements. For missing certificates, check the EPC register and ask for copies of gas safety and electrical certificates. Use our [landlord check tool](/landlord-check) to run a quick compliance scan.\n\n**Step 2: Check with the council (optional but helpful)**\nYou can ask your local council to confirm whether an offence has been committed. Some councils will issue a statement confirming non-compliance, which strengthens your case. Some councils also pursue their own RRO applications for rent paid by housing benefit.\n\n**Step 3: Apply to the First-tier Tribunal**\nComplete form **RRO1** (available on the tribunal's website) and submit it along with your evidence. The application fee is currently around **£100 to £300** depending on the amount claimed.\n\n**Step 4: The hearing**\nThe tribunal will schedule a hearing (usually within 2 to 4 months). You can attend in person or online. You do not need a solicitor, but having one can help for complex cases.\n\n**Step 5: The decision**\nThe tribunal decides the amount based on the severity of the offence, the landlord's conduct, and any financial hardship the order might cause the landlord. The maximum is now **24 months' rent**.\n\nImportant: You must apply within **12 months** of the offence ending (or of becoming aware of it). Do not delay if you suspect your landlord is committing an offence.",
+      },
+      {
+        id: "how-much-can-you-claim",
+        heading: "How Much Can You Claim?",
+        content:
+          "The tribunal has discretion over the amount, up to a maximum of **24 months' rent** paid during the period the offence was being committed.\n\nFactors the tribunal considers include:\n\n- **Severity of the offence**: A deliberate unlicensed HMO will attract a higher award than a technical compliance lapse\n- **Duration**: The longer the offence continued, the higher the potential award\n- **Landlord's conduct**: Did they try to rectify the issue once made aware? Were they cooperative?\n- **Financial impact on the tenant**: If the offence caused the tenant additional costs (e.g. health issues from an unsafe property)\n- **Landlord's financial circumstances**: Not a bar to an order, but the tribunal can consider ability to pay\n\n**Practical examples:**\n\n- If your rent is £1,000/month and your landlord ran an unlicensed HMO for 2 years: maximum claim of **£24,000**\n- If your rent is £800/month and your landlord failed to register on the PRS Database for 6 months: maximum claim of **£4,800**\n- If your rent is £1,500/month and your landlord illegally evicted you after 18 months: maximum claim of **£36,000**\n\nIn practice, tribunals rarely award the full amount for first offences, but awards of 6 to 12 months' rent are common for proven offences.",
+      },
+      {
+        id: "can-council-tenants-claim",
+        heading: "Housing Benefit and Universal Credit Tenants",
+        content:
+          "If your rent is paid (wholly or partly) by **housing benefit** or the housing element of **Universal Credit**, you can still apply for an RRO. The tribunal will consider the total rent paid, regardless of the source.\n\nHowever, if the housing benefit was paid directly to the landlord by the council, the council itself can apply for an RRO to recover that money. In practice, many councils now actively pursue RROs to recover housing benefit overpayments from rogue landlords.\n\nIf the rent was partly paid by you and partly by housing benefit, you can claim for your portion and the council can claim for theirs, or you can coordinate.\n\nThis is particularly relevant because the Renters' Rights Act 2025 now explicitly bans discrimination against tenants on benefits. A landlord who refused to rent to you because you receive Universal Credit has committed an offence that qualifies for an RRO.",
+      },
+      {
+        id: "practical-tips",
+        heading: "Practical Tips for a Successful Claim",
+        content:
+          "Based on tribunal outcomes, here are tips to maximise your chances:\n\n- **Keep all rent receipts and bank statements**: You need to prove how much rent you paid and when\n- **Get council confirmation**: A letter from the council confirming the offence adds significant weight\n- **Apply promptly**: The 12-month deadline is strict. Do not wait.\n- **Be organised**: Present your evidence clearly and chronologically. Tribunals appreciate well-prepared cases.\n- **Consider legal help**: While not required, organisations like **Shelter**, **Citizens Advice**, and some **law centres** can help with RRO applications for free or at low cost\n- **Join forces**: If you live in an HMO, all tenants can apply for individual RROs against the same landlord. Coordinating strengthens each case.\n\nRent repayment orders are one of the most powerful tools tenants have. The doubling to 24 months makes them a genuine financial deterrent for rogue landlords. If you suspect your landlord is committing an offence, do not leave money on the table.",
+      },
+    ],
+    faqs: [
+      {
+        question: "When did rent repayment orders increase to 24 months?",
+        answer:
+          "The increase from 12 to 24 months took effect on 27 December 2025 as part of Phase 1 of the Renters' Rights Act 2025. It applies to offences committed on or after that date.",
+      },
+      {
+        question: "Do I need a solicitor to apply for a rent repayment order?",
+        answer:
+          "No. You can apply directly to the First-tier Tribunal yourself. The process is designed to be accessible without legal representation. However, free legal help is available from Shelter, Citizens Advice, and local law centres if you need support.",
+      },
+      {
+        question: "Can I claim a rent repayment order if I have already moved out?",
+        answer:
+          "Yes, as long as you apply within 12 months of the offence ending or within 12 months of becoming aware of it. You do not need to be a current tenant to make a claim.",
+      },
+      {
+        question: "What happens if my landlord cannot pay the rent repayment order?",
+        answer:
+          "A tribunal order is legally enforceable. If the landlord does not pay, you can enforce the order through the county court, which can use methods including attachment of earnings, charging orders on property, or bailiff action.",
+      },
+      {
+        question: "Can I get an RRO and a civil penalty at the same time?",
+        answer:
+          "Yes. The council can impose a civil penalty on the landlord while you separately apply for a rent repayment order. These are independent processes and one does not prevent the other.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "landlord-fines-2026",
+      "how-to-claim-compensation-from-landlord",
+      "how-to-report-landlord",
+    ],
+  },
+  {
+    slug: "council-enforcement-powers-2026",
+    title: "New Council Enforcement Powers Under the Renters' Rights Act",
+    metaDescription:
+      "Councils gain major new powers from Dec 2025: bank account access, civil penalties up to £40,000, and £18.2m funding. Guide for officers and tenants.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 8,
+    category: "Guides",
+    sections: [
+      {
+        id: "overview-of-new-powers",
+        heading: "A Step Change in Council Enforcement",
+        content:
+          "The **Renters' Rights Act 2025** gives local councils in England their most significant enforcement upgrade in two decades. Phase 1, which took effect on **27 December 2025**, introduced expanded investigatory powers and new financial recovery tools. Phase 2 (from **1 May 2026**) adds a range of new offences that councils can enforce against.\n\nThe headline changes include:\n\n- New powers to request information from **banks, building societies, and accountants** during investigations\n- Powers to request information from **tenancy deposit protection schemes** and **client money protection schemes**\n- Expanded **civil penalty** framework covering over 20 offences\n- **Councils retain 100% of civil penalty revenue** (ring-fenced for housing enforcement)\n- **£18.2 million** in new enforcement funding for 2025/26 to help councils build capacity\n\nThese powers apply to all local housing authorities in England. Combined with the PRS Database (expected late 2026), they represent a fundamental shift from reactive, complaint-driven enforcement to a proactive, intelligence-led model.",
+      },
+      {
+        id: "investigatory-powers",
+        heading: "New Investigatory Powers",
+        content:
+          "Before the Renters' Rights Act, councils often struggled to investigate rogue landlords because they could not access financial records or trace landlord identities. The Act changes this dramatically.\n\n**Banks and building societies**: Councils can now serve information notices on banks and building societies requiring them to disclose account details, transaction histories, and account holder information linked to a specific investigation. This helps trace rental income, identify undisclosed properties, and build evidence for civil penalties.\n\n**Accountants and tax advisers**: Similarly, councils can require accountants to provide information about a landlord's property portfolio, rental income, and business structure. This is particularly useful for tracking landlords who operate through complex company structures.\n\n**Tenancy deposit protection schemes**: Councils can request data from DPS, MyDeposits, and TDS to identify unregistered properties, check deposit compliance, and cross-reference with licensing and enforcement records.\n\n**Client money protection schemes**: Letting agents must protect client money (rent, deposits) in approved schemes. Councils can now access scheme records to investigate agents suspected of mishandling client funds.\n\nThese powers require a formal notice and can only be used in connection with a genuine investigation. They are subject to data protection safeguards and cannot be used for fishing expeditions.",
+      },
+      {
+        id: "civil-penalties-framework",
+        heading: "The Civil Penalties Framework",
+        content:
+          "The civil penalty system introduced by the Housing and Planning Act 2016 has been significantly expanded. Councils can now impose financial penalties for a much wider range of offences:\n\n**New offences enforceable by civil penalty:**\n- Failing to register on the PRS Database\n- Providing false information to the PRS Database\n- Failing to join the PRS Ombudsman\n- Rental bidding (inviting/accepting above advertised rent)\n- Unreasonable refusal of a pet request\n- Discrimination against tenants on benefits or with children\n- Breaching the advance rent cap\n- Failing to comply with the Decent Homes Standard\n\n**Penalty ranges:**\n- First offences: starting amounts typically **£3,000 to £10,000** depending on the offence\n- Repeat offences: up to **£40,000**\n- Most serious cases: criminal prosecution with unlimited fines\n\nCouncils use a **structured framework** to determine penalty amounts, considering the severity of the offence, the landlord's track record, whether the breach was deliberate, the vulnerability of affected tenants, and the financial gain from non-compliance.\n\nFor council enforcement officers looking for the complete penalty table, see our detailed guide on [civil penalties for landlords](/blog/civil-penalties-landlords-complete-list).",
+      },
+      {
+        id: "revenue-retention",
+        heading: "Councils Keep 100% of Penalty Revenue",
+        content:
+          "A crucial detail of the enforcement framework is that **councils retain all civil penalty income**. This revenue must be ring-fenced for housing enforcement activities, meaning every penalty imposed funds further enforcement capacity.\n\nThis creates a virtuous cycle: more enforcement leads to more penalty income, which funds more enforcement staff, technology, and inspections. Councils that invest in strong enforcement teams can become self-funding over time.\n\nThe **£18.2 million in government funding** for 2025/26 is designed to help councils build initial capacity. This covers:\n\n- Hiring and training enforcement officers\n- Upgrading IT systems and databases\n- Preparing for PRS Database integration\n- Building legal capacity for penalty proceedings and tribunal work\n\nSome councils are already making significant use of civil penalties. In 2024/25, London boroughs collectively imposed over **£10 million** in civil penalties on private landlords. With the expanded offence list, this figure is expected to grow substantially.",
+      },
+      {
+        id: "selective-licensing-changes",
+        heading: "Simplified Selective Licensing",
+        content:
+          "The Renters' Rights Act also simplified the selective licensing process. Since **December 2024**, councils no longer need **Secretary of State approval** for selective licensing schemes. This removes a significant bureaucratic hurdle that previously delayed or prevented schemes from being introduced.\n\nCouncils can now:\n\n- Introduce selective licensing schemes covering up to **20% of their area** or **20% of their private rented properties** without central government approval\n- Larger schemes still require consultation but not ministerial sign-off\n- Combine selective licensing with the PRS Database for streamlined compliance monitoring\n\nThis has already led to a surge in new selective licensing proposals. Over **60 councils** now have active or planned selective licensing schemes, with more in development.\n\nFor a full guide to selective licensing schemes across England, see our [selective licensing guide](/blog/selective-licensing-guide-2026).",
+      },
+      {
+        id: "what-tenants-should-know",
+        heading: "What This Means for Tenants",
+        content:
+          "Stronger council enforcement directly benefits tenants:\n\n- **Faster response to complaints**: With more funding and staff, councils can investigate tenant reports more quickly\n- **Proactive inspections**: Councils do not need to wait for complaints. They can use the PRS Database and other intelligence sources to target inspections at high-risk properties\n- **Greater deterrence**: Higher penalties and better detection mean landlords are more likely to comply with the law\n- **No retaliation risk**: With Section 21 abolished, landlords cannot evict you for reporting them to the council\n\nIf you have concerns about your rental property, report them to your local council. Use our [property check tool](/check) to identify potential issues, and our [report issue tool](/report-issue) to generate a formal complaint letter.\n\nYou can also check whether your area has a selective licensing scheme using our [landlord register tool](/landlord-register), which may give the council additional enforcement powers.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Can councils really access my landlord's bank accounts?",
+        answer:
+          "Yes, but only as part of a formal investigation into a suspected housing offence. Councils must serve an information notice and can only request data relevant to the specific investigation. They cannot conduct fishing expeditions or access accounts without reasonable grounds.",
+      },
+      {
+        question: "How much funding have councils received for enforcement?",
+        answer:
+          "The government allocated £18.2 million in enforcement funding for 2025/26, distributed across local housing authorities in England. This is in addition to the revenue councils retain from civil penalties they impose.",
+      },
+      {
+        question: "What happens to the money from civil penalties?",
+        answer:
+          "Councils keep 100% of civil penalty revenue. This income must be ring-fenced for housing enforcement activities, so it directly funds further enforcement work including staff, technology, and inspections.",
+      },
+      {
+        question: "Can I report my landlord to the council without fear of eviction?",
+        answer:
+          "Yes. Section 21 no-fault evictions have been abolished. Your landlord cannot evict you simply for making a complaint. Retaliatory eviction using Section 8 grounds is also protected against, and a court can refuse possession if it finds the eviction is retaliatory.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "landlord-fines-2026",
+      "civil-penalties-landlords-complete-list",
+      "selective-licensing-guide-2026",
+    ],
+  },
+  {
+    slug: "decent-homes-standard-private-rentals",
+    title: "Decent Homes Standard Extended to Private Rentals: What to Expect",
+    metaDescription:
+      "The Decent Homes Standard now applies to private rentals for the first time. Five criteria, 2035 deadline, 20%+ failure rate. What tenants and councils need to know.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 7,
+    category: "Guides",
+    sections: [
+      {
+        id: "what-is-decent-homes",
+        heading: "What Is the Decent Homes Standard?",
+        content:
+          "The **Decent Homes Standard** is a minimum quality benchmark for residential properties. It was introduced in 2000 for social housing and has been credited with transforming the quality of council homes and housing association properties over the past two decades.\n\nThe **Renters' Rights Act 2025** extends the Decent Homes Standard to **private rented properties** for the first time. This is one of the most significant provisions in the Act, affecting an estimated **4.6 million private rented homes** in England.\n\nA decent home must meet **five criteria**:\n\n1. **Free from Category 1 hazards** under the Housing Health and Safety Rating System (HHSRS)\n2. **In a reasonable state of repair**\n3. **Has reasonably modern facilities and services** (kitchen, bathroom, heating)\n4. **Provides adequate thermal comfort** (effective insulation and efficient heating)\n5. **Meets minimum energy efficiency standards** (currently EPC Band E or above)\n\nProperties that fail any one of these criteria are classified as \"non-decent.\" The government's English Housing Survey estimates that **over 20% of private rentals** currently fail the Decent Homes Standard, meaning around 1 million tenants live in homes that do not meet the minimum benchmark.",
+      },
+      {
+        id: "five-criteria-explained",
+        heading: "The Five Criteria Explained",
+        content:
+          "**1. Free from Category 1 hazards**\nThe Housing Health and Safety Rating System (HHSRS) assesses 29 potential hazards including excess cold, damp and mould, fire, falls, electrical hazards, and carbon monoxide. A Category 1 hazard is one that poses a serious risk to health or safety. Examples: a broken boiler in winter (excess cold), severe rising damp (damp and mould), exposed wiring (electrical hazards).\n\n**2. Reasonable state of repair**\nKey building components (walls, roof, windows, doors, heating, plumbing, electrics) must be in a reasonable condition. The standard does not require brand-new fittings, but components that are old, deteriorating, or not functioning properly will fail. A 30-year-old boiler that works reliably might pass; one that breaks down monthly would fail.\n\n**3. Reasonably modern facilities**\nThe kitchen must have adequate space, a sink, food preparation area, and cooking facilities. The bathroom must have a bath or shower, a basin, and a toilet. Facilities installed more than 20 to 30 years ago that have not been updated may fail this criterion, depending on condition.\n\n**4. Adequate thermal comfort**\nThe property must have effective insulation and an efficient heating system. This typically means cavity wall insulation (where feasible), loft insulation of at least 200mm, and a heating system that can maintain comfortable temperatures throughout the home.\n\n**5. Minimum energy efficiency**\nPrivate rental properties must already have a minimum EPC rating of **Band E** under the Minimum Energy Efficiency Standards (MEES) regulations. The Decent Homes Standard reinforces this requirement and the government has signalled that the minimum may be raised to **Band C** by 2030.\n\nUse our [property check tool](/check) to assess your property's EPC rating, and our [damp check tool](/damp-check) to evaluate damp and mould risks.",
+      },
+      {
+        id: "2035-timeline",
+        heading: "The 2035 Compliance Timeline",
+        content:
+          "The government has set **2035** as the target for full compliance with the Decent Homes Standard across the private rented sector. This gives landlords approximately 9 years from the Act's passage to bring their properties up to standard.\n\nThe timeline is deliberately generous to avoid a sudden compliance cliff that could destabilise the market. However, enforcement will begin well before 2035:\n\n- **Immediate**: Councils can already take action against Category 1 hazards under the Housing Act 2004\n- **From 1 May 2026**: The Decent Homes Standard is legally binding. Councils can begin issuing improvement notices for the most serious failures.\n- **2027 onwards**: As the PRS Database becomes operational, councils will have better data to identify non-compliant properties and prioritise inspections\n- **2030**: Expected tightening of EPC minimum to Band C\n- **2035**: Full compliance expected. Properties that still fail the standard will face escalating enforcement\n\nLandlords who own properties with major issues (no central heating, single glazing, significant damp problems) should start planning improvements now rather than waiting for enforcement.",
+      },
+      {
+        id: "what-councils-need-to-prepare",
+        heading: "What Councils Need to Prepare",
+        content:
+          "Enforcing the Decent Homes Standard across the private rented sector will require significant council capacity:\n\n**Staffing**: Councils need trained HHSRS inspectors, enforcement officers, and legal staff. The £18.2 million in government funding for 2025/26 will help, but many councils will need to recruit and train additional staff over the coming years.\n\n**Inspection capacity**: With over 4.6 million private rented homes in England, councils cannot inspect every property. A risk-based approach is essential, prioritising:\n- Properties with tenant complaints\n- Properties with poor EPC ratings (D, E)\n- Properties in areas with high levels of private renting\n- Properties owned by landlords with previous enforcement history\n\n**Data integration**: The PRS Database will be a key tool for identifying non-compliant properties. Councils should plan how to integrate the national database with their local housing, council tax, and licensing records.\n\n**Legal capacity**: The expanded civil penalty regime means more penalty notices, more representations to consider, and more tribunal appeals. Councils need legal officers experienced in housing enforcement and civil penalty proceedings.\n\n**Tenant engagement**: Councils should proactively communicate tenants' rights under the Decent Homes Standard and make it easy to report substandard conditions. Use our [property check tool](/check) as a reference for the kind of data tenants can gather before contacting the council.",
+      },
+      {
+        id: "tenant-rights-decent-homes",
+        heading: "What Tenants Can Do Now",
+        content:
+          "Even though the full 2035 deadline is years away, the Decent Homes Standard is already legally binding. If your property fails any of the five criteria, you have options:\n\n1. **Report it to your landlord in writing**: Describe the issue, reference the Decent Homes Standard, and set a reasonable deadline for remediation.\n2. **Contact your local council**: If the landlord does not act, report the issue to the council's housing enforcement team. They can inspect the property and issue an improvement notice.\n3. **Use our tools**: Run a [property check](/check) for a comprehensive overview, use the [damp check](/damp-check) for mould-related issues, and check your [EPC rating](https://www.gov.uk/find-energy-certificate) for energy efficiency.\n4. **Apply for a rent repayment order**: If the landlord fails to comply with an improvement notice, you can apply for an RRO covering up to 24 months of rent.\n\nRemember, your landlord cannot evict you for raising these issues. Section 21 is abolished, and retaliatory eviction using Section 8 grounds is protected against under the Renters' Rights Act 2025.\n\nIf you are unsure whether your property meets the standard, start with our free [property check](/check). It covers EPC ratings, crime data, flood risk, air quality, and more, giving you an evidence base before you approach your landlord or the council.",
+      },
+    ],
+    faqs: [
+      {
+        question: "When does the Decent Homes Standard apply to private rentals?",
+        answer:
+          "The standard is legally binding from the Renters' Rights Act 2025, but full compliance is expected by 2035. Councils can enforce against the most serious failures immediately, particularly Category 1 hazards which were already enforceable under the Housing Act 2004.",
+      },
+      {
+        question: "What percentage of private rentals fail the Decent Homes Standard?",
+        answer:
+          "The government's English Housing Survey estimates that over 20% of private rented homes fail the Decent Homes Standard, equating to around 1 million properties. The most common failures relate to thermal comfort, Category 1 hazards, and the state of repair.",
+      },
+      {
+        question: "Can my landlord evict me for complaining about the property condition?",
+        answer:
+          "No. Section 21 no-fault evictions have been abolished. Retaliatory eviction using Section 8 grounds is protected against, and a court can refuse to grant possession if the eviction appears to be in retaliation for a legitimate complaint.",
+      },
+      {
+        question: "Who pays for improvements to meet the Decent Homes Standard?",
+        answer:
+          "The landlord is responsible for all costs of bringing the property up to the Decent Homes Standard. They cannot pass these costs on to tenants through the tenancy agreement. However, landlords may apply for government grants or green home schemes where available.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "awaabs-law-private-landlords",
+      "tenant-rights-damp-mould-2026",
+      "council-enforcement-powers-2026",
+    ],
+  },
+  {
+    slug: "awaabs-law-private-landlords",
+    title: "Awaab's Law Now Applies to Private Landlords: Complete Guide",
+    metaDescription:
+      "Awaab's Law extends to private rentals under the Renters' Rights Act 2025. Background, social housing timescales, and what private tenants can expect.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 7,
+    category: "Safety",
+    sections: [
+      {
+        id: "background",
+        heading: "The Tragedy Behind Awaab's Law",
+        content:
+          "**Awaab's Law** is named after **Awaab Ishak**, a two-year-old boy who died on 21 December 2020 from a respiratory condition caused by prolonged exposure to mould in his family's social housing flat in Rochdale, Greater Manchester. His family had repeatedly reported the mould to their housing association, Rochdale Boroughwide Housing, but were ignored or told to \"paint over it.\"\n\nThe coroner's inquest in November 2022 found that Awaab died as a direct result of the mould in his home and that his death was \"entirely preventable.\" The case shocked the nation and exposed systemic failures in how social landlords handled damp and mould complaints.\n\nIn response, the government introduced **Awaab's Law** as part of the Social Housing (Regulation) Act 2023, setting legally binding timescales for social landlords to investigate and fix hazards like damp and mould. The **Renters' Rights Act 2025** extends these requirements to **private landlords** for the first time.\n\nIf you are dealing with damp or mould right now, do not wait for the private sector timescales to be finalised. Use our [damp and mould checker](/damp-check) to assess the severity and generate an evidence report, then use [report issue](/report-issue) to escalate immediately.",
+      },
+      {
+        id: "social-housing-timescales",
+        heading: "Social Housing Timescales (Already in Force)",
+        content:
+          "The Awaab's Law timescales for **social housing** came into force on **1 October 2025**. They set strict deadlines for social landlords to respond to hazard reports:\n\n| Stage | Deadline |\n|-------|----------|\n| **Acknowledge** a hazard report | Within **24 hours** |\n| **Investigate** the reported hazard | Within **14 calendar days** of the report |\n| **Begin repair works** | Within **7 calendar days** of the investigation completing |\n| **Complete emergency repairs** (imminent risk to health) | Within **24 hours** |\n| **Complete non-emergency repairs** | Within a **reasonable timescale** set by the landlord, communicated to the tenant |\n\nSocial landlords who fail to meet these timescales can face enforcement action from the **Regulator of Social Housing**, including:\n- Compliance notices\n- Performance improvement plans\n- Intervention and management changes\n- In extreme cases, deregistration\n\nTenants of social housing can also escalate to the **Housing Ombudsman** if their landlord fails to meet Awaab's Law timescales. The Housing Ombudsman has been significantly more active since 2022, issuing severe maladministration findings and ordering substantial compensation.",
+      },
+      {
+        id: "private-sector-extension",
+        heading: "Extension to Private Landlords",
+        content:
+          "The Renters' Rights Act 2025 includes a provision extending Awaab's Law to the **private rented sector**. This means private landlords will eventually face similar legally binding timescales for investigating and fixing hazards.\n\nHowever, the specific timescales for the private sector have **not yet been set**. The government has committed to a **separate consultation** on the private sector timescales before bringing them into force. This consultation has not yet been published.\n\nKey points about the private sector extension:\n\n- The **power** to set timescales is already in the Act (it does not need further legislation)\n- The timescales will be set by **secondary legislation** (regulations) following the consultation\n- They may differ from the social housing timescales to reflect the different nature of private renting\n- Once in force, private landlords who breach the timescales will face **civil penalties** and potentially **rent repayment orders**\n\nThe government has not given a firm date for when the private sector timescales will be introduced, but it is expected during **2027 or 2028**, once the consultation has concluded and the regulations have been drafted.",
+      },
+      {
+        id: "what-applies-now",
+        heading: "What Already Applies to Private Landlords",
+        content:
+          "Even without the specific Awaab's Law timescales, private tenants are not unprotected. Several existing legal frameworks already require landlords to address hazards:\n\n**Housing Act 2004 (HHSRS)**:\nLocal councils can inspect private rental properties for 29 categories of hazard. Damp and mould growth is one of the most common **Category 1 hazards** (the most serious category). If a council inspector finds a Category 1 hazard, they **must** take enforcement action, which can include an improvement notice requiring the landlord to fix the problem within a set timescale.\n\n**Homes (Fitness for Human Habitation) Act 2018**:\nYour landlord has a legal duty to ensure the property is fit for human habitation throughout the tenancy. If it is not (due to damp, mould, or other hazards), you can take your landlord to court and claim compensation.\n\n**Decent Homes Standard (Renters' Rights Act 2025)**:\nThe extension of the Decent Homes Standard to private rentals means your home must be free from Category 1 hazards. This reinforces the existing HHSRS framework.\n\n**Deduction of Rent Act provisions**:\nIf your landlord has been served with an improvement notice or emergency remedial action notice, you may be able to claim a rent repayment order of up to 24 months' rent.\n\nThe message is clear: do not wait for Awaab's Law timescales. If your home has damp or mould, act now using the tools already available.",
+      },
+      {
+        id: "how-to-use-existing-protections",
+        heading: "How to Take Action Now",
+        content:
+          "If you are dealing with damp, mould, or another hazard in your private rented home, follow these steps:\n\n1. **Document everything**: Take photos with timestamps showing the extent of the problem. Record dates when you reported it and any responses from your landlord. Use our [damp and mould checker](/damp-check) to generate an evidence report.\n\n2. **Report to your landlord in writing**: Send an email or letter describing the problem, attaching photos, and requesting repair within a specific timeframe (14 days is reasonable for non-emergencies). Use our [report issue tool](/report-issue) to generate a professional letter.\n\n3. **Contact your local council**: If the landlord does not act within your deadline, report to the council's environmental health or housing enforcement team. Request an HHSRS inspection.\n\n4. **Keep medical records**: If the damp or mould is affecting your health (respiratory issues, skin conditions, allergies), visit your GP and request a letter linking your symptoms to your housing conditions. This is crucial evidence for compensation claims.\n\n5. **Consider legal action**: Under the Homes (Fitness for Human Habitation) Act 2018, you can take your landlord to court for compensation. Many solicitors handle these cases on a no-win, no-fee basis.\n\n6. **Apply for a rent repayment order**: If the council has issued an improvement notice that the landlord has breached, you can apply for an RRO of up to 24 months' rent.\n\nRemember: your landlord **cannot** evict you for raising these issues. Section 21 is abolished, and retaliatory eviction is specifically protected against.",
+      },
+      {
+        id: "what-to-expect-from-consultation",
+        heading: "What to Expect from the Consultation",
+        content:
+          "When the government publishes its consultation on private sector Awaab's Law timescales, it is expected to address:\n\n- **Response timescales**: How quickly must a private landlord acknowledge and investigate a hazard report? The social housing standard of 24 hours for acknowledgement and 14 days for investigation may be adapted.\n- **Repair timescales**: How quickly must repairs begin and be completed? Private landlords may argue they need more time than social landlords to arrange contractors.\n- **Emergency provisions**: What constitutes an emergency requiring a 24-hour response in the private sector?\n- **Enforcement mechanisms**: How will breaches be penalised? Civil penalties are the most likely route.\n- **Interaction with existing frameworks**: How will Awaab's Law timescales sit alongside the HHSRS, the Decent Homes Standard, and the fitness for habitation duty?\n\nWe will update this article and our [Renters' Rights Act hub](/renters-rights-act) as soon as the consultation is published and the timescales are confirmed. Sign up for our newsletter to be notified of developments.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is Awaab's Law already in force for private landlords?",
+        answer:
+          "The power to apply Awaab's Law to private landlords is in the Renters' Rights Act 2025, but the specific timescales have not been set yet. A government consultation is pending. However, existing laws already require private landlords to address hazards like damp and mould.",
+      },
+      {
+        question: "What are the current timescales for social housing?",
+        answer:
+          "Social landlords must acknowledge hazard reports within 24 hours, complete an investigation within 14 days, begin repairs within 7 days of the investigation, and complete emergency repairs within 24 hours. These timescales have been in force since 1 October 2025.",
+      },
+      {
+        question: "Can I claim compensation for damp and mould in my private rental?",
+        answer:
+          "Yes. Under the Homes (Fitness for Human Habitation) Act 2018, you can sue your landlord for compensation if damp or mould makes your home unfit for habitation. You may also be eligible for a rent repayment order if the council has issued an improvement notice that the landlord has breached.",
+      },
+      {
+        question: "What should I do if my landlord ignores my damp report?",
+        answer:
+          "Report to your local council's environmental health team and request an HHSRS inspection. Document everything with dated photos. If the damp is affecting your health, get a letter from your GP. Use RenterCheck's damp check tool and report issue tool to generate evidence and formal letters.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "decent-homes-standard-private-rentals",
+      "tenant-rights-damp-mould-2026",
+      "how-to-get-council-to-inspect-rental",
+    ],
+  },
+  {
+    slug: "selective-licensing-guide-2026",
+    title: "Selective Licensing 2026: 60+ Schemes and Growing",
+    metaDescription:
+      "No Secretary of State approval needed since Dec 2024. 60+ councils now have selective licensing. Fees, penalties, and how to check if your area has one.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 7,
+    category: "Guides",
+    sections: [
+      {
+        id: "what-is-selective-licensing",
+        heading: "What Is Selective Licensing?",
+        content:
+          "**Selective licensing** is a scheme that allows local councils in England to require all private landlords in a designated area to obtain a licence before they can legally let a property. It was introduced by Part 3 of the **Housing Act 2004** to tackle poor housing conditions, antisocial behaviour, and low housing demand in areas with high concentrations of private rented housing.\n\nA selective licence covers **all private rented properties** in the designated area, not just HMOs (which have their own mandatory and additional licensing regime). This means even a landlord renting out a single flat in a selective licensing area must obtain a licence.\n\nThe licence typically lasts **5 years** and comes with conditions that the landlord must meet, such as:\n\n- Providing gas safety certificates annually\n- Maintaining valid EPC certificates\n- Keeping the property in good repair\n- Managing antisocial behaviour from tenants\n- Providing references for prospective tenants\n- Fitting adequate smoke and carbon monoxide alarms\n\nOperating a rental property without a licence in a selective licensing area is a criminal offence. Landlords face **civil penalties of up to £30,000**, criminal prosecution, and tenants can apply for **rent repayment orders of up to 24 months' rent**.",
+      },
+      {
+        id: "no-more-secretary-of-state-approval",
+        heading: "No More Secretary of State Approval",
+        content:
+          "One of the most impactful changes under the Renters' Rights Act 2025 is the removal of the requirement for **Secretary of State approval** for selective licensing schemes. Previously, councils needed explicit ministerial sign-off for any scheme covering more than 20% of their area or 20% of their private rented stock. This process was slow, bureaucratic, and often resulted in schemes being watered down or rejected.\n\nSince **December 2024**, councils can introduce selective licensing schemes without central government approval, provided they follow the consultation requirements and the scheme covers no more than **20% of their geographical area** or **20% of their private rented properties**.\n\nFor larger schemes, councils must still consult but do not need ministerial approval. This has removed the single biggest barrier to selective licensing and triggered a wave of new schemes across England.\n\nThe impact has been immediate. In the six months following the change, over **15 new selective licensing consultations** were launched by councils that had previously been deterred by the approval process.",
+      },
+      {
+        id: "councils-with-active-schemes",
+        heading: "Councils with Active or Planned Schemes",
+        content:
+          "As of April 2026, over **60 councils** across England have active, approved, or planned selective licensing schemes. Here is a selection of the most notable:\n\n**London boroughs:**\n- Newham (borough-wide, one of the first and largest)\n- Barking and Dagenham (borough-wide)\n- Waltham Forest (borough-wide)\n- Brent (multiple wards)\n- Tower Hamlets (selected wards)\n- Haringey (selected wards)\n- Croydon (borough-wide)\n\n**Major cities:**\n- Liverpool (city-wide)\n- Nottingham (city-wide)\n- Burnley (selected areas)\n- Blackpool (selected areas)\n- Middlesbrough (selected areas)\n- Bradford (selected areas)\n- Coventry (selected areas)\n- Sheffield (selected areas)\n\n**Other notable schemes:**\n- Thanet (selected wards)\n- Hastings (town-wide)\n- Hyndburn (selected areas)\n- Pendle (selected areas)\n- Stoke-on-Trent (selected areas)\n\nThis list is not exhaustive and is growing rapidly. To check whether your rental property is in a selective licensing area, contact your local council's housing team or use our [landlord register tool](/landlord-register) which cross-references known licensing schemes.",
+      },
+      {
+        id: "fees-and-costs",
+        heading: "Licence Fees and Costs",
+        content:
+          "Selective licensing fees vary by council but typically range from **£500 to £1,000 per property** for a 5-year licence. Some councils offer discounts for:\n\n- **Early applications** (before the scheme starts): Typically 10-20% discount\n- **Accredited landlords** (members of a recognised landlord accreditation scheme): 10-15% discount\n- **Multiple properties**: Reduced per-property fee for landlords with portfolios\n\nHere are some example fees:\n\n| Council | Standard fee (5 years) | Early bird / discounted |\n|---------|----------------------|------------------------|\n| Newham | £600 per property | £500 (accredited) |\n| Liverpool | £780 per property | £585 (early bird) |\n| Nottingham | £780 per property | £610 (early bird) |\n| Croydon | £750 per property | £600 (early bird) |\n| Burnley | £595 per property | £495 (early bird) |\n\nLandlords cannot pass the licence fee on to tenants. It is a business cost borne by the landlord. Under the **Tenant Fees Act 2019**, any attempt to charge tenants for licensing is a prohibited payment.\n\nThe fee structure must be split into two parts: Part A (processing the application) and Part B (enforcement and monitoring). If the application is refused, only Part A is retained.",
+      },
+      {
+        id: "penalties-for-unlicensed-properties",
+        heading: "Penalties for Unlicensed Properties",
+        content:
+          "Operating a rental property without a licence in a selective licensing area carries serious consequences:\n\n**Civil penalties:**\nCouncils can impose civil penalties of up to **£30,000** per offence. The starting amount varies by council, but typically ranges from £5,000 to £15,000 for a first offence.\n\n**Criminal prosecution:**\nAlternatively, councils can prosecute the landlord in the magistrates' court. The maximum fine is **unlimited**.\n\n**Rent repayment orders:**\nTenants can apply for a rent repayment order of up to **24 months' rent** (increased from 12 months by the Renters' Rights Act 2025). This is one of the most common uses of RROs.\n\n**No Section 8 notices:**\nAn unlicensed landlord **cannot serve a valid Section 8 eviction notice**. If they attempt to do so, the notice is invalid. Some courts have ruled that tenancies granted while unlicensed are themselves unenforceable in the landlord's favour.\n\nThese penalties create strong financial incentives for compliance. For a landlord charging £800/month, a 24-month RRO could mean repaying **£19,200** to the tenant, on top of a civil penalty.\n\nIf you suspect your landlord does not have a selective licence, check with your council and consider applying for an RRO. Use our [landlord check tool](/landlord-check) to start investigating.",
+      },
+      {
+        id: "how-to-check",
+        heading: "How to Check If Your Area Has Selective Licensing",
+        content:
+          "Here are the best ways to find out if your rental property is in a selective licensing area:\n\n1. **Contact your local council**: The housing or environmental health department can confirm whether a scheme is in place and whether your property is covered. Most councils have a searchable register of licensed properties on their website.\n\n2. **Check the council's website**: Search for \"selective licensing\" on your council's website. Active schemes will have a dedicated page explaining the designated area, fees, and how to check.\n\n3. **Use our landlord register tool**: Visit [rentercheck.co.uk/landlord-register](/landlord-register) to check your postcode against known selective licensing areas.\n\n4. **Search the London Rogue Landlord Checker**: If you are in London, the Greater London Authority operates a rogue landlord checker that includes licensing information.\n\n5. **Ask your landlord or agent**: They are legally required to have a licence if the property is in a selective licensing area. Ask them for the licence number and check it against the council's register.\n\nIf you discover your property should be licensed but is not, this is a significant finding. You may be entitled to a rent repayment order covering up to 24 months of rent. Document your findings and seek advice from your council, Shelter (0808 800 4444), or Citizens Advice.",
+      },
+    ],
+    faqs: [
+      {
+        question: "How many councils have selective licensing schemes?",
+        answer:
+          "Over 60 councils across England have active, approved, or planned selective licensing schemes as of April 2026. The number is growing rapidly since the removal of Secretary of State approval requirements in December 2024.",
+      },
+      {
+        question: "How much does a selective licence cost?",
+        answer:
+          "Fees vary by council, typically ranging from £500 to £1,000 per property for a 5-year licence. Discounts are often available for early applications and accredited landlords. The landlord pays the fee; it cannot be passed on to tenants.",
+      },
+      {
+        question: "What happens if my landlord does not have a selective licence?",
+        answer:
+          "The landlord faces civil penalties of up to £30,000, cannot serve valid Section 8 eviction notices, and you can apply for a rent repayment order of up to 24 months' rent. Report the situation to your local council.",
+      },
+      {
+        question:
+          "Can my landlord charge me for the selective licence fee?",
+        answer:
+          "No. Selective licence fees are a business cost borne by the landlord. Any attempt to pass the fee to tenants would breach the Tenant Fees Act 2019, which prohibits landlords from charging tenants for costs related to the letting.",
+      },
+    ],
+    relatedSlugs: [
+      "renters-rights-act-2025-key-changes",
+      "prs-database-tenants-guide",
+      "council-enforcement-powers-2026",
+      "landlord-fines-2026",
+    ],
+  },
+  {
+    slug: "civil-penalties-landlords-complete-list",
+    title: "Civil Penalties for Landlords: Complete List with Starting Amounts",
+    metaDescription:
+      "Every civil penalty offence for landlords in one table. Starting amounts, two-tier system, how councils decide amounts. The definitive reference for 2026.",
+    publishDate: "2026-04-05",
+    lastUpdated: "2026-04-05",
+    readTime: 10,
+    category: "Rights",
+    sections: [
+      {
+        id: "two-tier-system",
+        heading: "The Two-Tier Penalty System",
+        content:
+          "The civil penalty framework for private landlords in England operates on a **two-tier system** following the Renters' Rights Act 2025:\n\n**Tier 1: Breach penalties (up to £7,000)**\nThese apply to regulatory breaches where the landlord has failed to comply with a legal requirement. Examples include failing to register on the PRS Database, breaching the bidding ban, or failing to respond to a pet request. These are treated as less serious than Tier 2 offences, though repeated breaches can escalate.\n\n**Tier 2: Offence penalties (up to £40,000)**\nThese apply to more serious housing offences, including those that were previously only prosecutable as criminal offences. Examples include operating an unlicensed HMO, breaching a banning order, or failing to comply with an improvement notice. Repeat Tier 1 breaches can also escalate to Tier 2 penalties.\n\nThe key difference is severity and maximum amount. Tier 1 penalties are designed for regulatory non-compliance; Tier 2 penalties are for conduct that puts tenants at risk or involves deliberate defiance of the law.\n\nCouncils choose between a civil penalty and criminal prosecution for each offence. They cannot impose both for the same offence, but they can impose civil penalties for some offences while prosecuting for others if a landlord is being investigated for multiple breaches.",
+      },
+      {
+        id: "complete-penalty-table",
+        heading: "Complete List of Civil Penalty Offences",
+        content:
+          "The following is the comprehensive list of offences for which local councils can impose civil penalties on private landlords, with government-recommended starting amounts:\n\n**Renters' Rights Act 2025 offences (from 1 May 2026):**\n\n| Offence | Tier | Starting amount | Maximum |\n|---------|------|----------------|--------|\n| Failing to register on PRS Database | 1 | £5,000 | £7,000 |\n| Providing false info to PRS Database | 1 | £7,000 | £7,000 |\n| Failing to update PRS Database info | 1 | £3,000 | £7,000 |\n| Failing to join PRS Ombudsman | 1 | £5,000 | £7,000 |\n| Rental bidding (inviting/accepting above advertised rent) | 1 | £7,000 | £7,000 |\n| Not responding to pet request in 28 days | 1 | £3,000 | £7,000 |\n| Unreasonable refusal of pet request | 1 | £5,000 | £7,000 |\n| Discrimination: benefits recipients | 1 | £5,000 | £7,000 |\n| Discrimination: families with children | 1 | £5,000 | £7,000 |\n| Breaching advance rent cap | 1 | £5,000 | £7,000 |\n| Failing to comply with Decent Homes Standard | 2 | £7,000 | £40,000 |\n| Breaching Awaab's Law timescales (when set) | 2 | £5,000 | £40,000 |\n\n**Housing Act 2004 offences (existing, with updated guidance):**\n\n| Offence | Tier | Starting amount | Maximum |\n|---------|------|----------------|--------|\n| Failure to comply with improvement notice | 2 | £5,000 | £30,000 |\n| Operating unlicensed HMO | 2 | £10,000 | £30,000 |\n| Breaching HMO licence conditions | 2 | £5,000 | £30,000 |\n| Failure to comply with overcrowding notice | 2 | £5,000 | £30,000 |\n| Operating without selective licence | 2 | £5,000 | £30,000 |\n| Breaching selective licence conditions | 2 | £5,000 | £30,000 |\n\n**Housing and Planning Act 2016 offences:**\n\n| Offence | Tier | Starting amount | Maximum |\n|---------|------|----------------|--------|\n| Breach of banning order | 2 | £15,000 | £30,000 |\n| Failing to comply with financial penalty (non-payment) | 2 | £5,000 | £30,000 |",
+      },
+      {
+        id: "how-starting-amounts-work",
+        heading: "How Starting Amounts Work in Practice",
+        content:
+          "The starting amounts published by the government are **recommendations, not fixed rules**. Each council has discretion to set its own penalty policy within the statutory maximum. Here is how the process works in practice:\n\n**Step 1: Identify the starting point**\nThe council begins with the government's recommended starting amount for the specific offence.\n\n**Step 2: Assess the severity**\nThe council considers factors that make this particular case more or less serious than a typical case:\n\n*Aggravating factors (increase the penalty):*\n- Previous offences or penalties\n- Deliberate or reckless non-compliance\n- Large portfolio of properties (professional landlord)\n- Vulnerable tenants affected (elderly, disabled, families with young children)\n- Long duration of the offence\n- Significant financial gain from non-compliance\n- Failure to cooperate with the investigation\n\n*Mitigating factors (reduce the penalty):*\n- First offence with no prior history\n- Prompt corrective action once the breach was identified\n- Genuine attempt to comply\n- Limited financial gain\n- Cooperation with the council's investigation\n- Evidence of otherwise good landlord practice\n\n**Step 3: Apply the adjustment**\nThe council adjusts the starting amount up or down based on its assessment, staying within the statutory maximum.\n\n**Step 4: Consider proportionality and ability to pay**\nThe final penalty must be proportionate to the offence. Councils can request financial information from the landlord, but a claimed inability to pay does not automatically reduce a penalty for a serious offence.",
+      },
+      {
+        id: "penalty-process-timeline",
+        heading: "The Penalty Process: Step by Step",
+        content:
+          "When a council decides to impose a civil penalty, the following process applies:\n\n**1. Investigation (varies)**\nThe council investigates the suspected offence, gathering evidence. This may take weeks or months depending on the complexity.\n\n**2. Notice of intent (Day 1)**\nThe council serves the landlord with a **notice of intent** setting out:\n- The offence(s) being penalised\n- The proposed penalty amount\n- The reasons for the penalty\n- The evidence relied upon\n\n**3. Representations period (28 days)**\nThe landlord has **28 days** to make written representations. They can challenge the evidence, argue mitigating factors, or provide financial information.\n\n**4. Council considers representations (14 to 28 days)**\nThe council must genuinely consider the representations and may adjust the penalty amount.\n\n**5. Final notice**\nThe council issues a **final notice** confirming the penalty. This may be the same as, lower than, or (rarely) higher than the amount in the notice of intent.\n\n**6. Appeal period (28 days)**\nThe landlord has **28 days** to appeal to the **First-tier Tribunal**. The appeal is a fresh hearing; the tribunal can increase, decrease, or confirm the penalty.\n\n**7. Payment**\nIf no appeal is made, or after the appeal is decided, the penalty becomes due. Councils can enforce unpaid penalties through the county court.",
+      },
+      {
+        id: "multiple-penalties",
+        heading: "Multiple Penalties and Cumulative Exposure",
+        content:
+          "A landlord committing multiple offences can face **separate penalties for each one**. There is no cap on the total amount of penalties a landlord can receive across multiple offences or properties.\n\n**Example scenarios:**\n\nA landlord with 5 unlicensed properties in a selective licensing area:\n- 5 x £5,000 starting amount = **£25,000** potential penalties, plus\n- Tenants in all 5 properties can apply for RROs totalling up to **£240,000** (assuming average rent of £1,000/month for 24 months per property)\n\nA landlord who discriminates against benefit tenants, refuses a pet unreasonably, and fails to register on the PRS Database:\n- Discrimination: £5,000\n- Pet refusal: £5,000\n- PRS Database: £5,000\n- Total: **£15,000** in penalties, plus RRO exposure\n\nA letting agent who systematically runs bidding wars across 20 properties:\n- 20 x £7,000 = **£140,000** potential penalties, plus redress scheme sanctions and potential banning order\n\nThe cumulative financial exposure from civil penalties combined with rent repayment orders can be devastating for non-compliant landlords. This is by design: the regime is intended to make compliance significantly cheaper than non-compliance.",
+      },
+      {
+        id: "for-council-officers",
+        heading: "Notes for Council Enforcement Officers",
+        content:
+          "If you are a local authority enforcement officer, here are practical considerations for the expanded civil penalty regime:\n\n**Building a penalty policy**: If your council does not already have a civil penalty policy covering the new Renters' Rights Act offences, develop one before Phase 2 takes effect on 1 May 2026. The policy should set local starting amounts (which can differ from government guidance), assessment criteria, and the decision-making process.\n\n**Evidence standards**: Civil penalties require evidence to the **criminal standard** (beyond reasonable doubt), even though they are civil in nature. This means your investigation must be thorough and your evidence robust enough to withstand a tribunal appeal.\n\n**Revenue retention**: All civil penalty income is retained by the council for housing enforcement. Build this into your business case for expanded enforcement capacity. Councils that invest in enforcement teams typically generate more penalty revenue than the cost of the team.\n\n**PRS Database integration**: Plan how to cross-reference the PRS Database (when live) with your local council tax records, HMO register, and selective licensing database. This will be your primary tool for identifying unregistered landlords.\n\n**Training**: Officers need training on the new offences, the updated penalty framework, and tribunal procedures. The government's £18.2 million enforcement funding can be used for training.\n\nFor bulk property compliance monitoring, explore RenterCheck's [council tools](/councils) which provide ward-level data, risk scoring, and enforcement dashboards.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the maximum civil penalty a landlord can receive?",
+        answer:
+          "For Tier 1 breaches (regulatory non-compliance), the maximum is £7,000 per offence. For Tier 2 offences (serious housing offences), the maximum is £30,000 to £40,000 per offence depending on the specific offence. There is no cap on the total across multiple offences.",
+      },
+      {
+        question: "Can a landlord be penalised and prosecuted for the same offence?",
+        answer:
+          "No. The council must choose between imposing a civil penalty or pursuing criminal prosecution for each offence. However, they can use civil penalties for some offences and prosecution for others if the landlord is being investigated for multiple breaches.",
+      },
+      {
+        question: "Can a landlord appeal a civil penalty?",
+        answer:
+          "Yes. The landlord has 28 days to appeal to the First-tier Tribunal after receiving the final notice. The tribunal conducts a fresh hearing and can increase, decrease, or confirm the penalty amount. It is not a rubber-stamp process.",
+      },
+      {
+        question: "Do the starting amounts apply everywhere in England?",
+        answer:
+          "The government's starting amounts are recommendations. Each council can set its own penalty policy within the statutory maximum. This means a landlord committing the same offence in two different council areas could face different penalty amounts.",
+      },
+      {
+        question: "What evidence do councils need to impose a civil penalty?",
+        answer:
+          "Councils must prove the offence to the criminal standard of proof (beyond reasonable doubt), even though civil penalties are not criminal convictions. This means thorough investigation, robust evidence gathering, and properly documented decision-making.",
+      },
+    ],
+    relatedSlugs: [
+      "landlord-fines-2026",
+      "renters-rights-act-2025-key-changes",
+      "council-enforcement-powers-2026",
+      "rent-repayment-orders-doubled",
+    ],
+  },
 ];
 
 export function getAllArticleSlugs(): string[] {

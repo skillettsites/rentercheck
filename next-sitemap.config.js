@@ -89,6 +89,18 @@ module.exports = {
       'hidden-costs-of-renting',
       'how-to-spot-rental-scam',
       'what-to-do-if-scammed-by-landlord',
+      'renters-rights-act-2025-key-changes',
+      'section-21-abolished-what-next',
+      'prs-database-tenants-guide',
+      'new-pet-rules-renters-2026',
+      'rent-bidding-wars-banned',
+      'landlord-fines-2026',
+      'rent-repayment-orders-doubled',
+      'council-enforcement-powers-2026',
+      'decent-homes-standard-private-rentals',
+      'awaabs-law-private-landlords',
+      'selective-licensing-guide-2026',
+      'civil-penalties-landlords-complete-list',
     ];
 
     for (const slug of blogSlugs) {
