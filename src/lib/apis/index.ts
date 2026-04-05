@@ -281,7 +281,15 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
 
   const { lat, lng } = postcodeResult;
 
-  // Fetch all data sources in parallel
+  // Helper: race a promise against a timeout (returns null on timeout)
+  function withTimeout<T>(promise: Promise<T | null>, ms: number): Promise<T | null> {
+    return Promise.race([
+      promise,
+      new Promise<T | null>((resolve) => setTimeout(() => resolve(null), ms)),
+    ]);
+  }
+
+  // All sources in parallel, but Overpass-dependent ones get a 3s hard timeout
   const [
     epcResult,
     crimeResult,
@@ -292,12 +300,13 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     transportResult,
     noiseResult,
     airQualityResult,
-    planningResult,
     deprivationResult,
     healthcareResult,
     greenSpaceResult,
     amenitiesResult,
+    planningResult,
   ] = await Promise.allSettled([
+    // Fast: reliable APIs + local files
     getEPCData(postcode),
     getCrimeData(lat, lng),
     getFloodRisk(lat, lng),
@@ -307,11 +316,12 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     getTransportData(lat, lng, postcodeResult.codes.lsoa),
     getNoiseData(lat, lng, postcodeResult.rural_urban),
     getAirQualityData(lat, lng),
-    getPlanningData(lat, lng),
     getDeprivationData(postcodeResult.codes.lsoa),
-    getHealthcareData(lat, lng),
-    getGreenSpaceData(lat, lng),
-    getAmenitiesData(lat, lng),
+    // Slow: Overpass-dependent, 3s hard timeout
+    withTimeout(getHealthcareData(lat, lng), 3000),
+    withTimeout(getGreenSpaceData(lat, lng), 3000),
+    withTimeout(getAmenitiesData(lat, lng), 3000),
+    withTimeout(getPlanningData(lat, lng), 3000),
   ]);
 
   const epc = epcResult.status === 'fulfilled' ? epcResult.value : null;
@@ -323,8 +333,8 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
   const transport = transportResult.status === 'fulfilled' ? transportResult.value : null;
   const noise = noiseResult.status === 'fulfilled' ? noiseResult.value : null;
   const airQuality = airQualityResult.status === 'fulfilled' ? airQualityResult.value : null;
-  const planning = planningResult.status === 'fulfilled' ? planningResult.value : null;
   const deprivation = deprivationResult.status === 'fulfilled' ? deprivationResult.value : null;
+  const planning = planningResult.status === 'fulfilled' ? planningResult.value : null;
   const healthcare = healthcareResult.status === 'fulfilled' ? healthcareResult.value : null;
   const greenSpace = greenSpaceResult.status === 'fulfilled' ? greenSpaceResult.value : null;
   const amenities = amenitiesResult.status === 'fulfilled' ? amenitiesResult.value : null;
