@@ -26,30 +26,35 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // ---------------------------------------------------------------------------
 // Score circle component
 // ---------------------------------------------------------------------------
-function SafetyScoreCircle({ score }: { score: number }) {
+function SafetyScoreCircle({ score, variant = "light" }: { score: number; variant?: "light" | "dark" }) {
   const size = 140;
   const strokeWidth = 10;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = (score / 100) * circumference;
 
+  const isDark = variant === "dark";
+
   let color: string;
   let bgColor: string;
   let label: string;
 
   if (score >= 70) {
-    color = "#10b981";
-    bgColor = "#d1fae5";
+    color = isDark ? "#ffffff" : "#10b981";
+    bgColor = isDark ? "rgba(16,185,129,0.25)" : "#d1fae5";
     label = "Good";
   } else if (score >= 40) {
-    color = "#f59e0b";
-    bgColor = "#fef3c7";
+    color = isDark ? "#ffffff" : "#f59e0b";
+    bgColor = isDark ? "rgba(245,158,11,0.25)" : "#fef3c7";
     label = "Fair";
   } else {
-    color = "#ef4444";
-    bgColor = "#fee2e2";
+    color = isDark ? "#ffffff" : "#ef4444";
+    bgColor = isDark ? "rgba(239,68,68,0.25)" : "#fee2e2";
     label = "Poor";
   }
+
+  const trackColor = isDark ? "rgba(255,255,255,0.15)" : "#e2e8f0";
+  const ringColor = isDark ? "#ffffff" : (score >= 70 ? "#10b981" : score >= 40 ? "#f59e0b" : "#ef4444");
 
   return (
     <div className="flex flex-col items-center">
@@ -60,7 +65,7 @@ function SafetyScoreCircle({ score }: { score: number }) {
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#e2e8f0"
+            stroke={trackColor}
             strokeWidth={strokeWidth}
           />
           <circle
@@ -68,7 +73,7 @@ function SafetyScoreCircle({ score }: { score: number }) {
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke={color}
+            stroke={ringColor}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={circumference}
@@ -79,7 +84,7 @@ function SafetyScoreCircle({ score }: { score: number }) {
           <span className="text-3xl font-bold" style={{ color }}>
             {score}
           </span>
-          <span className="text-xs text-slate-500 font-medium">/100</span>
+          <span className={`text-xs font-medium ${isDark ? "text-slate-300" : "text-slate-500"}`}>/100</span>
         </div>
       </div>
       <span
@@ -1542,35 +1547,70 @@ export default async function CheckPage({ params }: PageProps) {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
+    <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* ---- Header ---- */}
-      <header className="animate-fade-in text-center mb-12">
-        <p className="text-sm font-medium text-primary-600 uppercase tracking-wider mb-2">
-          Property Check
-        </p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          {formatted}
-        </h1>
-        {data.postcode && (
-          <p className="mt-2 text-slate-500">
-            {data.postcode.admin_district}, {data.postcode.region}
-          </p>
-        )}
 
-        {/* Safety Score */}
-        {data.safetyScore !== null && (
-          <div className="mt-8">
-            <SafetyScoreCircle score={data.safetyScore} />
-            <p className="mt-3 text-sm text-slate-500">Overall Safety Score</p>
+      {/* ---- Dark Hero Section ---- */}
+      <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
+          {/* Breadcrumbs */}
+          <nav className="mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center gap-2 text-sm text-slate-400">
+              <li>
+                <a href="/" className="hover:text-white transition-colors">Home</a>
+              </li>
+              <li className="text-slate-600">/</li>
+              <li>
+                <span>Property Check</span>
+              </li>
+              <li className="text-slate-600">/</li>
+              <li className="text-slate-300">{formatted}</li>
+            </ol>
+          </nav>
+
+          {/* Hero content: address info + score */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            {/* Left: address info */}
+            <div className="animate-fade-in">
+              <p className="text-sm font-medium text-primary-400 uppercase tracking-wider mb-2">
+                Property Check
+              </p>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+                {formatted}
+              </h1>
+              {data.postcode && (
+                <>
+                  <p className="mt-3 text-lg text-slate-300">
+                    {data.postcode.admin_district}, {data.postcode.region}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-400">
+                    {data.postcode.parliamentary_constituency}
+                  </p>
+                </>
+              )}
+            </div>
+
+            {/* Right: safety score */}
+            {data.safetyScore !== null && (
+              <div className="flex flex-col items-center shrink-0">
+                <SafetyScoreCircle score={data.safetyScore} variant="dark" />
+                <p className="mt-3 text-sm text-slate-400">Overall Safety Score</p>
+              </div>
+            )}
           </div>
-        )}
-      </header>
+
+          {/* Search bar */}
+          <div className="mt-10">
+            <PostcodeSearch size="sm" showLabel={false} />
+          </div>
+        </div>
+      </section>
 
       {/* ---- Free Results ---- */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
       <section>
         <h2 className="text-xl font-bold text-slate-800 mb-6">
           Free Report
@@ -1707,6 +1747,7 @@ export default async function CheckPage({ params }: PageProps) {
           <PostcodeSearch size="lg" />
         </div>
       </section>
+      </div>
     </div>
   );
 }
