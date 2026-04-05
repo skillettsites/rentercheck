@@ -9,6 +9,10 @@ import { getTransportData, type TransportData } from './transport';
 import { getNoiseData, type NoiseData } from './noise';
 import { getAirQualityData, type AirQualityData } from './air-quality';
 import { getPlanningData, type PlanningData } from './planning';
+import { getDeprivationData, type DeprivationData } from './deprivation';
+import { getHealthcareData, type HealthcareData } from './healthcare';
+import { getGreenSpaceData, type GreenSpaceData } from './greenspace';
+import { getAmenitiesData, type AmenitiesData } from './amenities';
 
 export type { PostcodeResult } from './postcodes';
 export type { EPCRecord, EPCSummary, EPCData } from './epc';
@@ -21,6 +25,10 @@ export type { StationInfo, TransportData } from './transport';
 export type { NoiseSource, NoiseData } from './noise';
 export type { AirQualityData } from './air-quality';
 export type { PlanningApplication, PlanningData } from './planning';
+export type { DeprivationData } from './deprivation';
+export type { HealthcareFacility, HealthcareData } from './healthcare';
+export type { GreenSpaceItem, GreenSpaceData } from './greenspace';
+export type { AmenityItem, AmenitiesData } from './amenities';
 
 export { lookupPostcode, validatePostcode } from './postcodes';
 export { getEPCData } from './epc';
@@ -33,6 +41,10 @@ export { getTransportData } from './transport';
 export { getNoiseData } from './noise';
 export { getAirQualityData } from './air-quality';
 export { getPlanningData } from './planning';
+export { getDeprivationData } from './deprivation';
+export { getHealthcareData } from './healthcare';
+export { getGreenSpaceData } from './greenspace';
+export { getAmenitiesData } from './amenities';
 export { generateCommuteReport } from './commute';
 export type { TransportMode, ModeEstimate, CommuteReport, StationResult } from './commute';
 
@@ -48,6 +60,10 @@ export interface PropertyData {
   noise: NoiseData | null;
   airQuality: AirQualityData | null;
   planning: PlanningData | null;
+  deprivation: DeprivationData | null;
+  healthcare: HealthcareData | null;
+  greenSpace: GreenSpaceData | null;
+  amenities: AmenitiesData | null;
   safetyScore: number | null;
 }
 
@@ -111,8 +127,6 @@ function computeTransportScore(transport: TransportData | null): number {
 
 function computeAirQualityScore(airQuality: AirQualityData | null): number {
   if (!airQuality || airQuality.aqi === 0) return 50;
-  // European AQI: 0-25 Good, 25-50 Moderate, 50-75 Poor, 75+ Very Poor
-  // Invert so lower AQI = higher score
   if (airQuality.aqi <= 15) return 95;
   if (airQuality.aqi <= 25) return 85;
   if (airQuality.aqi <= 40) return 65;
@@ -131,25 +145,64 @@ function computeSchoolsScore(schools: SchoolsData | null): number {
 
 function computeNoiseScore(noise: NoiseData | null): number {
   if (!noise) return 50;
-  // Invert noise score: lower noise = higher safety score
   return Math.max(0, Math.min(100, 100 - noise.score));
 }
 
-function computeAreaScore(
-  postcode: PostcodeResult | null,
-  epcScore: number,
-  crimeScore: number,
-  floodScore: number,
-  broadbandScore: number
-): number {
-  if (!postcode) return 50;
-  return Math.round(
-    epcScore * 0.25 + crimeScore * 0.4 + floodScore * 0.2 + broadbandScore * 0.15
-  );
+function computeDeprivationScore(deprivation: DeprivationData | null): number {
+  if (!deprivation) return 50;
+  // Decile 10 = least deprived = best score
+  return Math.round((deprivation.imdDecile / 10) * 100);
+}
+
+function computeHealthcareScore(healthcare: HealthcareData | null): number {
+  if (!healthcare) return 50;
+  switch (healthcare.healthcareRating) {
+    case 'Excellent':
+      return 95;
+    case 'Good':
+      return 75;
+    case 'Adequate':
+      return 50;
+    case 'Poor':
+      return 25;
+    default:
+      return 50;
+  }
+}
+
+function computeGreenSpaceScore(greenSpace: GreenSpaceData | null): number {
+  if (!greenSpace) return 50;
+  switch (greenSpace.greenSpaceScore) {
+    case 'Excellent':
+      return 95;
+    case 'Good':
+      return 75;
+    case 'Average':
+      return 50;
+    case 'Poor':
+      return 25;
+    default:
+      return 50;
+  }
+}
+
+function computeAmenityScore(amenities: AmenitiesData | null): number {
+  if (!amenities) return 50;
+  switch (amenities.amenityScore) {
+    case 'Excellent':
+      return 95;
+    case 'Good':
+      return 75;
+    case 'Average':
+      return 50;
+    case 'Poor':
+      return 25;
+    default:
+      return 50;
+  }
 }
 
 function computeSafetyScore(
-  postcode: PostcodeResult | null,
   epc: EPCData | null,
   crime: CrimeData | null,
   flood: FloodData | null,
@@ -157,7 +210,11 @@ function computeSafetyScore(
   transport: TransportData | null,
   airQuality: AirQualityData | null,
   schools: SchoolsData | null,
-  noise: NoiseData | null
+  noise: NoiseData | null,
+  deprivation: DeprivationData | null,
+  healthcare: HealthcareData | null,
+  greenSpace: GreenSpaceData | null,
+  amenities: AmenitiesData | null
 ): number {
   const epcScore = computeEPCScore(epc);
   const crimeScore = computeCrimeScore(crime);
@@ -167,21 +224,27 @@ function computeSafetyScore(
   const airQualityScore = computeAirQualityScore(airQuality);
   const schoolsScore = computeSchoolsScore(schools);
   const noiseScore = computeNoiseScore(noise);
-  const areaScore = computeAreaScore(postcode, epcScore, crimeScore, floodScore, broadbandScore);
+  const deprivationScore = computeDeprivationScore(deprivation);
+  const healthcareScore = computeHealthcareScore(healthcare);
+  const greenSpaceScoreVal = computeGreenSpaceScore(greenSpace);
+  const amenityScoreVal = computeAmenityScore(amenities);
 
-  // Weighted final score:
-  // EPC: 20%, Crime: 25%, Flood: 15%, Broadband: 5%,
-  // Transport: 10%, Air Quality: 10%, Schools: 5%, Noise: 5%, Area: 5%
+  // Updated weights:
+  // EPC 15%, Crime 20%, Flood 10%, Transport 10%, AQI 8%, Broadband 5%,
+  // Schools 5%, Noise 5%, Deprivation 10%, Healthcare 5%, Green Space 4%, Amenities 3%
   const score = Math.round(
-    epcScore * 0.2 +
-      crimeScore * 0.25 +
-      floodScore * 0.15 +
+    epcScore * 0.15 +
+      crimeScore * 0.20 +
+      floodScore * 0.10 +
       broadbandScore * 0.05 +
-      transportScore * 0.1 +
-      airQualityScore * 0.1 +
+      transportScore * 0.10 +
+      airQualityScore * 0.08 +
       schoolsScore * 0.05 +
       noiseScore * 0.05 +
-      areaScore * 0.05
+      deprivationScore * 0.10 +
+      healthcareScore * 0.05 +
+      greenSpaceScoreVal * 0.04 +
+      amenityScoreVal * 0.03
   );
 
   return Math.min(100, Math.max(0, score));
@@ -204,6 +267,10 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
       noise: null,
       airQuality: null,
       planning: null,
+      deprivation: null,
+      healthcare: null,
+      greenSpace: null,
+      amenities: null,
       safetyScore: null,
     };
   }
@@ -222,6 +289,10 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     noiseResult,
     airQualityResult,
     planningResult,
+    deprivationResult,
+    healthcareResult,
+    greenSpaceResult,
+    amenitiesResult,
   ] = await Promise.allSettled([
     getEPCData(postcode),
     getCrimeData(lat, lng),
@@ -233,6 +304,10 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     getNoiseData(lat, lng, postcodeResult.rural_urban),
     getAirQualityData(lat, lng),
     getPlanningData(lat, lng),
+    getDeprivationData(postcodeResult.codes.lsoa),
+    getHealthcareData(lat, lng),
+    getGreenSpaceData(lat, lng),
+    getAmenitiesData(lat, lng),
   ]);
 
   const epc = epcResult.status === 'fulfilled' ? epcResult.value : null;
@@ -245,9 +320,12 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
   const noise = noiseResult.status === 'fulfilled' ? noiseResult.value : null;
   const airQuality = airQualityResult.status === 'fulfilled' ? airQualityResult.value : null;
   const planning = planningResult.status === 'fulfilled' ? planningResult.value : null;
+  const deprivation = deprivationResult.status === 'fulfilled' ? deprivationResult.value : null;
+  const healthcare = healthcareResult.status === 'fulfilled' ? healthcareResult.value : null;
+  const greenSpace = greenSpaceResult.status === 'fulfilled' ? greenSpaceResult.value : null;
+  const amenities = amenitiesResult.status === 'fulfilled' ? amenitiesResult.value : null;
 
   const safetyScore = computeSafetyScore(
-    postcodeResult,
     epc,
     crime,
     flood,
@@ -255,7 +333,11 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     transport,
     airQuality,
     schools,
-    noise
+    noise,
+    deprivation,
+    healthcare,
+    greenSpace,
+    amenities
   );
 
   return {
@@ -270,6 +352,10 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     noise,
     airQuality,
     planning,
+    deprivation,
+    healthcare,
+    greenSpace,
+    amenities,
     safetyScore,
   };
 }

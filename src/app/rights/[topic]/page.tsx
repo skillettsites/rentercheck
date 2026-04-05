@@ -55,8 +55,44 @@ export default async function TopicPage({ params }: PageProps) {
     .map((s) => getTopicBySlug(s))
     .filter(Boolean);
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": topic.title,
+      "description": topic.metaDescription,
+      "author": {
+        "@type": "Organization",
+        "name": "RenterCheck",
+        "url": "https://rentercheck.vercel.app",
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "RenterCheck",
+        "url": "https://rentercheck.vercel.app",
+      },
+      "datePublished": topic.lastUpdated,
+      "dateModified": topic.lastUpdated,
+      "url": `https://rentercheck.vercel.app/rights/${topic.slug}`,
+      "mainEntityOfPage": `https://rentercheck.vercel.app/rights/${topic.slug}`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rentercheck.vercel.app" },
+        { "@type": "ListItem", "position": 2, "name": "Rights", "item": "https://rentercheck.vercel.app/rights" },
+        { "@type": "ListItem", "position": 3, "name": topic.shortTitle },
+      ],
+    },
+  ];
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumbs */}
       <div className="bg-slate-50 border-b border-slate-200/60">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3">

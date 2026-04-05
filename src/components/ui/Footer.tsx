@@ -30,6 +30,8 @@ const footerSections = [
     title: "Resources",
     links: [
       { label: "Rent by City", href: "/rent" },
+      { label: "Compare Cities", href: "/compare" },
+      { label: "Local Councils", href: "/councils" },
       { label: "Tenant Rights Guide", href: "/rights" },
       { label: "Deposit Protection", href: "/rights/deposit-protection" },
       { label: "Damp and Mould", href: "/rights/damp-and-mould" },

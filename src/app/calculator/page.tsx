@@ -447,6 +447,36 @@ export default function CalculatorPage() {
   const costs1 = useMemo(() => calculateCosts(property1), [property1]);
   const costs2 = useMemo(() => calculateCosts(property2), [property2]);
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Total Monthly Rent Cost Calculator",
+      "description": PAGE_DESCRIPTION,
+      "url": "https://rentercheck.vercel.app/calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP",
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "RenterCheck",
+        "url": "https://rentercheck.vercel.app",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rentercheck.vercel.app" },
+        { "@type": "ListItem", "position": 2, "name": "Calculator" },
+      ],
+    },
+  ];
+
   return (
     <>
       {/* SEO head tags */}
@@ -461,6 +491,10 @@ export default function CalculatorPage() {
       <link
         rel="canonical"
         href="https://rentercheck.vercel.app/calculator"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <section className="py-12 sm:py-16">

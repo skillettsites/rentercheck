@@ -1,0 +1,123 @@
+export interface Comparison {
+  slug: string;
+  city1Slug: string;
+  city2Slug: string;
+}
+
+const comparisons: Comparison[] = [
+  // London vs major cities (~15)
+  { slug: "london-vs-manchester", city1Slug: "london", city2Slug: "manchester" },
+  { slug: "london-vs-birmingham", city1Slug: "london", city2Slug: "birmingham" },
+  { slug: "london-vs-leeds", city1Slug: "london", city2Slug: "leeds" },
+  { slug: "london-vs-bristol", city1Slug: "london", city2Slug: "bristol" },
+  { slug: "london-vs-liverpool", city1Slug: "london", city2Slug: "liverpool" },
+  { slug: "london-vs-edinburgh", city1Slug: "london", city2Slug: "edinburgh" },
+  { slug: "london-vs-glasgow", city1Slug: "london", city2Slug: "glasgow" },
+  { slug: "london-vs-brighton", city1Slug: "london", city2Slug: "brighton" },
+  { slug: "london-vs-cardiff", city1Slug: "london", city2Slug: "cardiff" },
+  { slug: "london-vs-nottingham", city1Slug: "london", city2Slug: "nottingham" },
+  { slug: "london-vs-sheffield", city1Slug: "london", city2Slug: "sheffield" },
+  { slug: "london-vs-newcastle", city1Slug: "london", city2Slug: "newcastle" },
+  { slug: "london-vs-oxford", city1Slug: "london", city2Slug: "oxford" },
+  { slug: "london-vs-cambridge", city1Slug: "london", city2Slug: "cambridge" },
+  { slug: "london-vs-reading", city1Slug: "london", city2Slug: "reading" },
+
+  // Major city pairs (~40)
+  { slug: "manchester-vs-leeds", city1Slug: "manchester", city2Slug: "leeds" },
+  { slug: "manchester-vs-liverpool", city1Slug: "manchester", city2Slug: "liverpool" },
+  { slug: "manchester-vs-birmingham", city1Slug: "manchester", city2Slug: "birmingham" },
+  { slug: "manchester-vs-sheffield", city1Slug: "manchester", city2Slug: "sheffield" },
+  { slug: "manchester-vs-newcastle", city1Slug: "manchester", city2Slug: "newcastle" },
+  { slug: "manchester-vs-bristol", city1Slug: "manchester", city2Slug: "bristol" },
+  { slug: "manchester-vs-nottingham", city1Slug: "manchester", city2Slug: "nottingham" },
+  { slug: "manchester-vs-edinburgh", city1Slug: "manchester", city2Slug: "edinburgh" },
+  { slug: "birmingham-vs-leeds", city1Slug: "birmingham", city2Slug: "leeds" },
+  { slug: "birmingham-vs-bristol", city1Slug: "birmingham", city2Slug: "bristol" },
+  { slug: "birmingham-vs-nottingham", city1Slug: "birmingham", city2Slug: "nottingham" },
+  { slug: "birmingham-vs-coventry", city1Slug: "birmingham", city2Slug: "coventry" },
+  { slug: "birmingham-vs-sheffield", city1Slug: "birmingham", city2Slug: "sheffield" },
+  { slug: "birmingham-vs-leicester", city1Slug: "birmingham", city2Slug: "leicester" },
+  { slug: "bristol-vs-bath", city1Slug: "bristol", city2Slug: "bath" },
+  { slug: "bristol-vs-exeter", city1Slug: "bristol", city2Slug: "exeter" },
+  { slug: "bristol-vs-cardiff", city1Slug: "bristol", city2Slug: "cardiff" },
+  { slug: "bristol-vs-southampton", city1Slug: "bristol", city2Slug: "southampton" },
+  { slug: "leeds-vs-sheffield", city1Slug: "leeds", city2Slug: "sheffield" },
+  { slug: "leeds-vs-york", city1Slug: "leeds", city2Slug: "york" },
+  { slug: "leeds-vs-bradford", city1Slug: "leeds", city2Slug: "bradford" },
+  { slug: "leeds-vs-newcastle", city1Slug: "leeds", city2Slug: "newcastle" },
+  { slug: "leeds-vs-nottingham", city1Slug: "leeds", city2Slug: "nottingham" },
+  { slug: "liverpool-vs-leeds", city1Slug: "liverpool", city2Slug: "leeds" },
+  { slug: "liverpool-vs-sheffield", city1Slug: "liverpool", city2Slug: "sheffield" },
+  { slug: "liverpool-vs-newcastle", city1Slug: "liverpool", city2Slug: "newcastle" },
+  { slug: "nottingham-vs-leicester", city1Slug: "nottingham", city2Slug: "leicester" },
+  { slug: "nottingham-vs-derby", city1Slug: "nottingham", city2Slug: "derby" },
+  { slug: "nottingham-vs-sheffield", city1Slug: "nottingham", city2Slug: "sheffield" },
+  { slug: "sheffield-vs-york", city1Slug: "sheffield", city2Slug: "york" },
+  { slug: "newcastle-vs-sunderland", city1Slug: "newcastle", city2Slug: "sunderland" },
+  { slug: "coventry-vs-leicester", city1Slug: "coventry", city2Slug: "leicester" },
+  { slug: "leicester-vs-derby", city1Slug: "leicester", city2Slug: "derby" },
+  { slug: "southampton-vs-portsmouth", city1Slug: "southampton", city2Slug: "portsmouth" },
+  { slug: "exeter-vs-plymouth", city1Slug: "exeter", city2Slug: "plymouth" },
+  { slug: "norwich-vs-ipswich", city1Slug: "norwich", city2Slug: "ipswich" },
+  { slug: "norwich-vs-cambridge", city1Slug: "norwich", city2Slug: "cambridge" },
+  { slug: "peterborough-vs-cambridge", city1Slug: "peterborough", city2Slug: "cambridge" },
+
+  // Regional rivals (~15)
+  { slug: "edinburgh-vs-glasgow", city1Slug: "edinburgh", city2Slug: "glasgow" },
+  { slug: "cardiff-vs-swansea", city1Slug: "cardiff", city2Slug: "swansea" },
+  { slug: "aberdeen-vs-dundee", city1Slug: "aberdeen", city2Slug: "dundee" },
+  { slug: "edinburgh-vs-aberdeen", city1Slug: "edinburgh", city2Slug: "aberdeen" },
+  { slug: "glasgow-vs-dundee", city1Slug: "glasgow", city2Slug: "dundee" },
+  { slug: "edinburgh-vs-dundee", city1Slug: "edinburgh", city2Slug: "dundee" },
+  { slug: "inverness-vs-aberdeen", city1Slug: "inverness", city2Slug: "aberdeen" },
+  { slug: "stirling-vs-edinburgh", city1Slug: "stirling", city2Slug: "edinburgh" },
+  { slug: "cardiff-vs-bristol", city1Slug: "cardiff", city2Slug: "bristol" },
+  { slug: "swansea-vs-bristol", city1Slug: "swansea", city2Slug: "bristol" },
+  { slug: "wolverhampton-vs-birmingham", city1Slug: "wolverhampton", city2Slug: "birmingham" },
+  { slug: "stoke-on-trent-vs-derby", city1Slug: "stoke-on-trent", city2Slug: "derby" },
+  { slug: "bradford-vs-sheffield", city1Slug: "bradford", city2Slug: "sheffield" },
+  { slug: "chester-vs-liverpool", city1Slug: "chester", city2Slug: "liverpool" },
+  { slug: "carlisle-vs-newcastle", city1Slug: "carlisle", city2Slug: "newcastle" },
+
+  // Affordable vs expensive (~30)
+  { slug: "brighton-vs-southampton", city1Slug: "brighton", city2Slug: "southampton" },
+  { slug: "oxford-vs-reading", city1Slug: "oxford", city2Slug: "reading" },
+  { slug: "cambridge-vs-peterborough", city1Slug: "cambridge", city2Slug: "peterborough" },
+  { slug: "oxford-vs-cambridge", city1Slug: "oxford", city2Slug: "cambridge" },
+  { slug: "brighton-vs-portsmouth", city1Slug: "brighton", city2Slug: "portsmouth" },
+  { slug: "bath-vs-cheltenham", city1Slug: "bath", city2Slug: "cheltenham" },
+  { slug: "milton-keynes-vs-luton", city1Slug: "milton-keynes", city2Slug: "luton" },
+  { slug: "milton-keynes-vs-northampton", city1Slug: "milton-keynes", city2Slug: "northampton" },
+  { slug: "reading-vs-southampton", city1Slug: "reading", city2Slug: "southampton" },
+  { slug: "cheltenham-vs-gloucester", city1Slug: "cheltenham", city2Slug: "gloucester" },
+  { slug: "canterbury-vs-brighton", city1Slug: "canterbury", city2Slug: "brighton" },
+  { slug: "colchester-vs-ipswich", city1Slug: "colchester", city2Slug: "ipswich" },
+  { slug: "lincoln-vs-nottingham", city1Slug: "lincoln", city2Slug: "nottingham" },
+  { slug: "gloucester-vs-worcester", city1Slug: "gloucester", city2Slug: "worcester" },
+  { slug: "bournemouth-vs-southampton", city1Slug: "bournemouth", city2Slug: "southampton" },
+  { slug: "bournemouth-vs-brighton", city1Slug: "bournemouth", city2Slug: "brighton" },
+  { slug: "reading-vs-milton-keynes", city1Slug: "reading", city2Slug: "milton-keynes" },
+  { slug: "luton-vs-northampton", city1Slug: "luton", city2Slug: "northampton" },
+  { slug: "chester-vs-stoke-on-trent", city1Slug: "chester", city2Slug: "stoke-on-trent" },
+  { slug: "worcester-vs-birmingham", city1Slug: "worcester", city2Slug: "birmingham" },
+  { slug: "plymouth-vs-bournemouth", city1Slug: "plymouth", city2Slug: "bournemouth" },
+  { slug: "coventry-vs-wolverhampton", city1Slug: "coventry", city2Slug: "wolverhampton" },
+  { slug: "derby-vs-stoke-on-trent", city1Slug: "derby", city2Slug: "stoke-on-trent" },
+  { slug: "sunderland-vs-bradford", city1Slug: "sunderland", city2Slug: "bradford" },
+  { slug: "canterbury-vs-colchester", city1Slug: "canterbury", city2Slug: "colchester" },
+  { slug: "lincoln-vs-peterborough", city1Slug: "lincoln", city2Slug: "peterborough" },
+  { slug: "york-vs-newcastle", city1Slug: "york", city2Slug: "newcastle" },
+  { slug: "bath-vs-exeter", city1Slug: "bath", city2Slug: "exeter" },
+  { slug: "northampton-vs-peterborough", city1Slug: "northampton", city2Slug: "peterborough" },
+  { slug: "wolverhampton-vs-stoke-on-trent", city1Slug: "wolverhampton", city2Slug: "stoke-on-trent" },
+  { slug: "inverness-vs-stirling", city1Slug: "inverness", city2Slug: "stirling" },
+  { slug: "glasgow-vs-aberdeen", city1Slug: "glasgow", city2Slug: "aberdeen" },
+];
+
+export function getAllComparisons(): Comparison[] {
+  return comparisons;
+}
+
+export function getComparison(slug: string): Comparison | undefined {
+  return comparisons.find((c) => c.slug === slug);
+}

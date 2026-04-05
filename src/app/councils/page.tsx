@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ROICalculator from "./ROICalculator";
+import { getAllCouncils } from "@/data/councils";
 
 export const metadata: Metadata = {
   title: "RenterCheck for Councils | PRS Enforcement Platform",
@@ -488,6 +489,40 @@ export default function CouncilsPage() {
               </svg>
               councils@rentercheck.co.uk
             </span>
+          </div>
+        </div>
+      </section>
+      {/* Find Your Local Council */}
+      <section className="py-20 sm:py-24 bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+              Find Your Local Council
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              View HMO licensing rules, selective licensing areas, and tenant resources for your council area.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            {getAllCouncils().map((council) => (
+              <Link
+                key={council.slug}
+                href={`/councils/${council.slug}`}
+                className="group flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 transition-all hover:border-primary-300 hover:shadow-md hover:text-primary-700"
+              >
+                <span className="truncate">{council.area}</span>
+                <svg
+                  className="h-3.5 w-3.5 shrink-0 text-slate-400 group-hover:text-primary-500 transition-colors ml-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

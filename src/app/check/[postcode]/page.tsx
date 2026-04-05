@@ -497,6 +497,24 @@ function SchoolsCard({ data }: { data: PropertyData }) {
         </div>
       )}
 
+      {/* Phase breakdown */}
+      {(schools.primaryCount > 0 || schools.secondaryCount > 0 || schools.nurseryCount > 0) && (
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="rounded-lg bg-slate-50 p-3 text-center">
+            <p className="text-xl font-bold text-slate-800">{schools.primaryCount}</p>
+            <p className="text-xs text-slate-500">Primary</p>
+          </div>
+          <div className="rounded-lg bg-slate-50 p-3 text-center">
+            <p className="text-xl font-bold text-slate-800">{schools.secondaryCount}</p>
+            <p className="text-xs text-slate-500">Secondary</p>
+          </div>
+          <div className="rounded-lg bg-slate-50 p-3 text-center">
+            <p className="text-xl font-bold text-slate-800">{schools.nurseryCount}</p>
+            <p className="text-xs text-slate-500">Nursery</p>
+          </div>
+        </div>
+      )}
+
       {schools.schools.length > 0 && (
         <div className="space-y-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
@@ -507,7 +525,10 @@ function SchoolsCard({ data }: { data: PropertyData }) {
               key={i}
               className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
             >
-              <span className="text-slate-700 truncate max-w-[65%]">{school.name}</span>
+              <div className="truncate max-w-[60%]">
+                <span className="text-slate-700">{school.name}</span>
+                <span className="ml-1.5 text-xs text-slate-400">({school.type})</span>
+              </div>
               <span className="text-slate-400 text-xs">{school.distance}m</span>
             </div>
           ))}
@@ -782,6 +803,325 @@ function PlanningCard({ data }: { data: PropertyData }) {
       )}
 
       <p className="mt-3 text-xs text-slate-400">{planning.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Deprivation Card
+// ---------------------------------------------------------------------------
+function DeprivationCard({ data }: { data: PropertyData }) {
+  const dep = data.deprivation;
+  if (!dep) {
+    return (
+      <CardShell title="Area Deprivation (IMD)" icon="chart">
+        <p className="text-slate-500">No deprivation data available for this area.</p>
+      </CardShell>
+    );
+  }
+
+  const decileConfig: Record<string, { color: string; bg: string }> = {
+    'Very Deprived': { color: '#dc2626', bg: '#fee2e2' },
+    'Deprived': { color: '#d97706', bg: '#fef3c7' },
+    'Average': { color: '#6b7280', bg: '#f1f5f9' },
+    'Affluent': { color: '#059669', bg: '#d1fae5' },
+    'Very Affluent': { color: '#047857', bg: '#d1fae5' },
+  };
+
+  const config = decileConfig[dep.overallLabel] || decileConfig.Average;
+
+  // Domain ranks (lower = more deprived, max 32,844)
+  const maxRank = 32844;
+  const domains = [
+    { label: 'Income', rank: dep.incomeRank },
+    { label: 'Employment', rank: dep.employmentRank },
+    { label: 'Education', rank: dep.educationRank },
+    { label: 'Health', rank: dep.healthRank },
+    { label: 'Crime', rank: dep.crimeRank },
+    { label: 'Housing', rank: dep.housingRank },
+    { label: 'Living Environment', rank: dep.livingEnvironmentRank },
+  ].filter((d) => d.rank > 0);
+
+  return (
+    <CardShell title="Area Deprivation (IMD)" icon="chart">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">
+            {dep.imdDecile}
+            <span className="text-base font-normal text-slate-400">/10</span>
+          </p>
+          <p className="text-sm text-slate-500">IMD Decile</p>
+        </div>
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {dep.overallLabel}
+        </span>
+      </div>
+
+      <div className="rounded-lg bg-slate-50 p-3 mb-4">
+        <p className="text-sm text-slate-600">
+          <span className="font-medium">LSOA:</span> {dep.lsoaName}
+        </p>
+        <p className="text-sm text-slate-600">
+          <span className="font-medium">National rank:</span> {dep.imdRank.toLocaleString()} of 32,844
+        </p>
+      </div>
+
+      {domains.length > 0 && (
+        <div className="space-y-2.5">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            Domain Breakdown
+          </p>
+          {domains.map((d) => {
+            const pct = Math.round((d.rank / maxRank) * 100);
+            let barColor: string;
+            if (pct >= 70) barColor = '#10b981';
+            else if (pct >= 40) barColor = '#f59e0b';
+            else barColor = '#ef4444';
+            return (
+              <div key={d.label}>
+                <div className="flex items-center justify-between text-sm mb-1">
+                  <span className="text-slate-600">{d.label}</span>
+                  <span className="text-slate-400 text-xs">{d.rank.toLocaleString()}</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-slate-100">
+                  <div
+                    className="h-2 rounded-full"
+                    style={{ width: `${pct}%`, backgroundColor: barColor }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+          <p className="text-xs text-slate-400">Higher rank = less deprived</p>
+        </div>
+      )}
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Healthcare Card
+// ---------------------------------------------------------------------------
+function HealthcareCard({ data }: { data: PropertyData }) {
+  const hc = data.healthcare;
+  if (!hc) {
+    return (
+      <CardShell title="Healthcare" icon="heart">
+        <p className="text-slate-500">No healthcare data available.</p>
+      </CardShell>
+    );
+  }
+
+  const ratingConfig: Record<string, { color: string; bg: string }> = {
+    Excellent: { color: '#059669', bg: '#d1fae5' },
+    Good: { color: '#10b981', bg: '#d1fae5' },
+    Adequate: { color: '#d97706', bg: '#fef3c7' },
+    Poor: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const config = ratingConfig[hc.healthcareRating] || ratingConfig.Adequate;
+
+  return (
+    <CardShell title="Healthcare" icon="heart">
+      <div className="flex items-center justify-between mb-4">
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {hc.healthcareRating}
+        </span>
+      </div>
+
+      {hc.nearestGP && (
+        <div className="rounded-lg bg-slate-50 p-3 mb-3">
+          <p className="text-sm font-medium text-slate-700">{hc.nearestGP.name}</p>
+          <p className="text-xs text-slate-500">Nearest GP, {hc.nearestGP.distance}m away</p>
+        </div>
+      )}
+
+      {hc.nearestHospital && (
+        <div className="rounded-lg bg-slate-50 p-3 mb-3">
+          <p className="text-sm font-medium text-slate-700">{hc.nearestHospital.name}</p>
+          <p className="text-xs text-slate-500">Nearest hospital, {(hc.nearestHospital.distance / 1000).toFixed(1)}km away</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{hc.gpSurgeries.length}</p>
+          <p className="text-xs text-slate-500">GP Surgeries</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{hc.pharmacies.length}</p>
+          <p className="text-xs text-slate-500">Pharmacies</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{hc.dentists.length}</p>
+          <p className="text-xs text-slate-500">Dentists</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{hc.hospitals.length}</p>
+          <p className="text-xs text-slate-500">Hospitals</p>
+        </div>
+      </div>
+
+      <p className="mt-3 text-xs text-slate-400">{hc.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Green Space Card
+// ---------------------------------------------------------------------------
+function GreenSpaceCard({ data }: { data: PropertyData }) {
+  const gs = data.greenSpace;
+  if (!gs) {
+    return (
+      <CardShell title="Green Spaces" icon="tree">
+        <p className="text-slate-500">No green space data available.</p>
+      </CardShell>
+    );
+  }
+
+  const scoreConfig: Record<string, { color: string; bg: string }> = {
+    Excellent: { color: '#059669', bg: '#d1fae5' },
+    Good: { color: '#10b981', bg: '#d1fae5' },
+    Average: { color: '#d97706', bg: '#fef3c7' },
+    Poor: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const config = scoreConfig[gs.greenSpaceScore] || scoreConfig.Average;
+
+  return (
+    <CardShell title="Green Spaces" icon="tree">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">{gs.totalGreenSpaces}</p>
+          <p className="text-sm text-slate-500">green spaces nearby</p>
+        </div>
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {gs.greenSpaceScore}
+        </span>
+      </div>
+
+      {gs.nearestPark && (
+        <div className="rounded-lg bg-slate-50 p-3 mb-3">
+          <p className="text-sm font-medium text-slate-700">{gs.nearestPark.name}</p>
+          <p className="text-xs text-slate-500">Nearest park, {gs.nearestPark.distance}m away</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-3 gap-3">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{gs.parks.length}</p>
+          <p className="text-xs text-slate-500">Parks</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{gs.playgrounds}</p>
+          <p className="text-xs text-slate-500">Playgrounds</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{gs.sportsFacilities}</p>
+          <p className="text-xs text-slate-500">Sports</p>
+        </div>
+      </div>
+
+      {gs.natureReserves.length > 0 && (
+        <div className="mt-3 space-y-1">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+            Nature Reserves
+          </p>
+          {gs.natureReserves.slice(0, 3).map((nr, i) => (
+            <div key={i} className="flex items-center justify-between text-sm">
+              <span className="text-slate-600 truncate max-w-[70%]">{nr.name}</span>
+              <span className="text-slate-400 text-xs">{(nr.distance / 1000).toFixed(1)}km</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <p className="mt-3 text-xs text-slate-400">{gs.note}</p>
+    </CardShell>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Amenities Card
+// ---------------------------------------------------------------------------
+function AmenitiesCard({ data }: { data: PropertyData }) {
+  const am = data.amenities;
+  if (!am) {
+    return (
+      <CardShell title="Local Amenities" icon="shop">
+        <p className="text-slate-500">No amenity data available.</p>
+      </CardShell>
+    );
+  }
+
+  const scoreConfig: Record<string, { color: string; bg: string }> = {
+    Excellent: { color: '#059669', bg: '#d1fae5' },
+    Good: { color: '#10b981', bg: '#d1fae5' },
+    Average: { color: '#d97706', bg: '#fef3c7' },
+    Poor: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const config = scoreConfig[am.amenityScore] || scoreConfig.Average;
+
+  return (
+    <CardShell title="Local Amenities" icon="shop">
+      <div className="flex items-center justify-between mb-4">
+        <span
+          className="rounded-full px-3 py-1 text-sm font-semibold"
+          style={{ backgroundColor: config.bg, color: config.color }}
+        >
+          {am.amenityScore}
+        </span>
+      </div>
+
+      {am.nearestSupermarket && (
+        <div className="rounded-lg bg-slate-50 p-3 mb-3">
+          <p className="text-sm font-medium text-slate-700">{am.nearestSupermarket.name}</p>
+          <p className="text-xs text-slate-500">Nearest supermarket, {am.nearestSupermarket.distance}m away</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-3 gap-3 mb-3">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{am.restaurants}</p>
+          <p className="text-xs text-slate-500">Restaurants</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{am.pubs}</p>
+          <p className="text-xs text-slate-500">Pubs</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{am.convenienceStores}</p>
+          <p className="text-xs text-slate-500">Convenience</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{am.postOffices}</p>
+          <p className="text-xs text-slate-500">Post Offices</p>
+        </div>
+        <div className="rounded-lg bg-slate-50 p-3 text-center">
+          <p className="text-xl font-bold text-slate-800">{am.banks}</p>
+          <p className="text-xs text-slate-500">Banks / ATMs</p>
+        </div>
+      </div>
+
+      <div className="rounded-lg bg-blue-50 p-3">
+        <p className="text-sm text-blue-700">{am.walkabilityNote}</p>
+      </div>
+
+      <p className="mt-3 text-xs text-slate-400">{am.note}</p>
     </CardShell>
   );
 }
@@ -1080,6 +1420,66 @@ const CARD_ICONS: Record<string, React.ReactNode> = {
       />
     </svg>
   ),
+  chart: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
+      />
+    </svg>
+  ),
+  heart: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+      />
+    </svg>
+  ),
+  tree: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 21v-6m0 0c-3.5 0-6-2.5-6-5.5C6 6.5 8.5 3 12 3s6 3.5 6 6.5c0 3-2.5 5.5-6 5.5Z"
+      />
+    </svg>
+  ),
+  shop: (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"
+      />
+    </svg>
+  ),
 };
 
 function CardShell({
@@ -1119,8 +1519,28 @@ export default async function CheckPage({ params }: PageProps) {
 
   const formatted = data.postcode.postcode;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": `Property Check: ${formatted}`,
+    "description": `Free rental property check for ${formatted}. EPC rating, crime data, flood risk, broadband speed, and area information.`,
+    "url": `https://rentercheck.vercel.app/check/${encodeURIComponent(formatted)}`,
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rentercheck.vercel.app" },
+        { "@type": "ListItem", "position": 2, "name": "Property Check", "item": "https://rentercheck.vercel.app/check" },
+        { "@type": "ListItem", "position": 3, "name": formatted },
+      ],
+    },
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ---- Header ---- */}
       <header className="animate-fade-in text-center mb-12">
         <p className="text-sm font-medium text-primary-600 uppercase tracking-wider mb-2">
@@ -1160,6 +1580,10 @@ export default async function CheckPage({ params }: PageProps) {
           <NoiseCard data={data} />
           <AirQualityCard data={data} />
           <PlanningCard data={data} />
+          <DeprivationCard data={data} />
+          <HealthcareCard data={data} />
+          <GreenSpaceCard data={data} />
+          <AmenitiesCard data={data} />
           <div className="md:col-span-2">
             <AreaInfoCard data={data} />
           </div>

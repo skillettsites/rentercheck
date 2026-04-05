@@ -1,6 +1,6 @@
 # RenterCheck
 
-UK rental property intelligence platform for tenants and council enforcement teams. Enter any postcode, get a comprehensive rental safety report with 11 data sources.
+UK rental property intelligence platform for tenants and council enforcement teams. Enter any postcode, get a comprehensive rental safety report with 15 data sources.
 
 ## Commands
 - Dev: `npm run dev`
@@ -10,14 +10,15 @@ UK rental property intelligence platform for tenants and council enforcement tea
 ## Architecture
 - Next.js 16+ App Router, TypeScript strict, Tailwind CSS v4
 - 89 pages total (50 rent/area, 8 blog, 8 rights, 8 tools, plus static pages)
-- 11 API integrations: Postcodes.io, EPC, Police Crime, EA Flood, Open-Meteo AQI, Overpass (schools, transport, noise), PlanIt Planning, council tax estimates, broadband estimates
+- 15 API integrations: Postcodes.io, EPC, Police Crime, EA Flood, Open-Meteo AQI, Overpass (schools, transport, noise, healthcare, green spaces, amenities), PlanIt Planning, council tax estimates, broadband estimates, ArcGIS IMD 2019 (deprivation)
+- Shared haversine utility: src/lib/apis/haversine.ts (used by all Overpass modules)
 - Council REST API: /api/check (free/paid tiers), /api/check/bulk
 - Newsletter API: /api/newsletter
 - ISR for static pages, SSR for property checks
 
 ## Key Paths
 - `src/app/page.tsx` - Homepage with tools grid and council CTA
-- `src/app/check/[postcode]/page.tsx` - Property check with 11 data cards + premium upsell
+- `src/app/check/[postcode]/page.tsx` - Property check with 15 data cards + premium upsell
 - `src/app/check/[postcode]/loading.tsx` - Skeleton loading state
 - `src/app/landlord-check/page.tsx` - Compliance checker (10 legal requirements)
 - `src/app/damp-check/page.tsx` - 4-step damp/mould risk wizard
@@ -39,7 +40,7 @@ UK rental property intelligence platform for tenants and council enforcement tea
 - `src/app/api/check/route.ts` - Property check API (free/paid tiers)
 - `src/app/api/check/bulk/route.ts` - Bulk check API (max 50, requires API key)
 - `src/app/api/newsletter/route.ts` - Newsletter signup endpoint
-- `src/lib/apis/` - 11 API client modules
+- `src/lib/apis/` - 15 API client modules + shared haversine util
 - `src/lib/apis/index.ts` - Data aggregator (getPropertyData), safety score calculator
 - `src/lib/apis/commute.ts` - Commute calculation (distance, time, cost, CO2)
 - `src/lib/apis/council-tax.ts` - Council tax estimates by postcode prefix
@@ -66,7 +67,7 @@ UK rental property intelligence platform for tenants and council enforcement tea
 ## Patterns
 - Client components use "use client" directive
 - API modules return null on failure (never throw)
-- Safety score: EPC 20%, Crime 25%, Flood 15%, Transport 10%, AQI 10%, Broadband 5%, Schools 5%, Noise 5%, Area 5%
+- Safety score: EPC 15%, Crime 20%, Flood 10%, Transport 10%, AQI 8%, Broadband 5%, Schools 5%, Noise 5%, Deprivation 10%, Healthcare 5%, Green Space 4%, Amenities 3%
 - Rights/blog content in src/data/ TypeScript files
 - JSON-LD on blog (Article + FAQPage) and rent pages (BreadcrumbList)
 - PostcodeSearch navigates to /check/[postcode]
