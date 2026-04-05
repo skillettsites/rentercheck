@@ -380,10 +380,12 @@ function BroadbandCard({ data }: { data: PropertyData }) {
   else if (bb.estimatedAvgDownload >= 30) speedColor = "#f59e0b";
   else speedColor = "#ef4444";
 
+  const maxDown = bb.maxAvailableDown ?? bb.estimatedAvgDownload;
+
   return (
     <CardShell title="Broadband" icon="wifi">
       <div className="mb-4">
-        <p className="text-sm text-slate-500">Est. average download</p>
+        <p className="text-sm text-slate-500">Average download speed</p>
         <p className="text-3xl font-bold" style={{ color: speedColor }}>
           {bb.estimatedAvgDownload}
           <span className="text-base font-normal text-slate-400"> Mbps</span>
@@ -397,6 +399,11 @@ function BroadbandCard({ data }: { data: PropertyData }) {
             }}
           />
         </div>
+        {maxDown > bb.estimatedAvgDownload && (
+          <p className="mt-2 text-sm text-slate-600">
+            Up to <span className="font-semibold text-slate-800">{maxDown} Mbps</span> available (full fibre)
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -985,7 +992,7 @@ function HealthcareCard({ data }: { data: PropertyData }) {
     Unknown: { color: '#6b7280', bg: '#f1f5f9' },
   };
 
-  const config = ratingConfig[hc.healthcareRating] || ratingConfig.Unknown;
+  const config = ratingConfig[hc.healthcareRating as string] || ratingConfig.Unknown;
 
   return (
     <CardShell title="Healthcare" icon="heart">
@@ -1665,7 +1672,7 @@ export default async function CheckPage({ params }: PageProps) {
           <TransportCard data={data} />
           <NoiseCard data={data} />
           <AirQualityCard data={data} />
-          <PlanningCard data={data} />
+          {/* Planning card removed: data changes daily, not suitable for static lookup */}
           <DeprivationCard data={data} />
           <HealthcareCard data={data} />
           <GreenSpaceCard data={data} />

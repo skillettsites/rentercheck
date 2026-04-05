@@ -159,7 +159,7 @@ function computeDeprivationScore(deprivation: DeprivationData | null): number {
 }
 
 function computeHealthcareScore(healthcare: HealthcareData | null): number {
-  if (!healthcare || healthcare.healthcareRating === 'Unknown') return 50;
+  if (!healthcare || (healthcare.healthcareRating as string) === 'Unknown') return 50;
   switch (healthcare.healthcareRating) {
     case 'Excellent':
       return 95;
@@ -317,11 +317,11 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     getNoiseData(lat, lng, postcodeResult.rural_urban),
     getAirQualityData(lat, lng),
     getDeprivationData(postcodeResult.codes.lsoa),
+    getHealthcareData(lat, lng), // local CQC JSON, instant
     // Slow: Overpass-dependent, 3s hard timeout
-    withTimeout(getHealthcareData(lat, lng), 3000),
     withTimeout(getGreenSpaceData(lat, lng), 3000),
     withTimeout(getAmenitiesData(lat, lng), 3000),
-    withTimeout(getPlanningData(lat, lng), 3000),
+    Promise.resolve(null), // planning removed (unreliable, data changes daily)
   ]);
 
   const epc = epcResult.status === 'fulfilled' ? epcResult.value : null;

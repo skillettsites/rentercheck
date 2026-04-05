@@ -1,14 +1,22 @@
 /**
- * Healthcare facilities data using the Overpass API (OpenStreetMap).
- * Finds GP surgeries, pharmacies, hospitals, and dentists near a location.
+ * Healthcare facilities from local CQC directory JSON.
+ * Contains ~23,000 GPs, dentists, hospitals, and pharmacies with coordinates.
  */
 
+import healthcareRaw from '@/data/healthcare.json';
 import { haversineDistance } from './haversine';
-import { queryOverpass } from './overpass';
+
+interface HealthcareEntry {
+  n: string;
+  t: string;
+  la: number;
+  lo: number;
+}
 
 export interface HealthcareFacility {
   name: string;
-  distance: number; // metres
+  type: string;
+  distance: number;
 }
 
 export interface HealthcareData {
@@ -18,110 +26,48 @@ export interface HealthcareData {
   dentists: HealthcareFacility[];
   nearestGP: HealthcareFacility | null;
   nearestHospital: HealthcareFacility | null;
-  healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor' | 'Unknown';
+  healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor';
   note: string;
 }
 
-function deduplicateByName(items: HealthcareFacility[]): HealthcareFacility[] {
-  const seen = new Set<string>();
-  return items
-    .sort((a, b) => a.distance - b.distance)
-    .filter((item) => {
-      const key = item.name.toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
+const facilities = healthcareRaw as HealthcareEntry[];
+
+function findNearby(lat: number, lng: number, type: string, radiusKm: number, limit: number): HealthcareFacility[] {
+  const results: (HealthcareFacility & { _dist: number })[] = [];
+
+  for (const f of facilities) {
+    if (f.t !== type) continue;
+    const dist = haversineDistance(lat, lng, f.la, f.lo);
+    if (dist <= radiusKm) {
+      results.push({ name: f.n, type: f.t, distance: Math.round(dist * 1000) / 1000, _dist: dist });
+    }
+  }
+
+  results.sort((a, b) => a._dist - b._dist);
+  return results.slice(0, limit).map(({ _dist, ...rest }) => rest);
 }
 
-export async function getHealthcareData(
-  lat: number,
-  lng: number
-): Promise<HealthcareData> {
-  try {
-    // Single Overpass query for all healthcare types
-    // GPs/clinics within 2km, pharmacies within 1km, hospitals within 5km, dentists within 2km
-    const query = `[out:json][timeout:10];(
-      node["amenity"="doctors"](around:2000,${lat},${lng});
-      way["amenity"="doctors"](around:2000,${lat},${lng});
-      node["amenity"="clinic"]["healthcare"="doctor"](around:2000,${lat},${lng});
-      way["amenity"="clinic"]["healthcare"="doctor"](around:2000,${lat},${lng});
-      node["amenity"="pharmacy"](around:1000,${lat},${lng});
-      way["amenity"="pharmacy"](around:1000,${lat},${lng});
-      node["amenity"="hospital"](around:5000,${lat},${lng});
-      way["amenity"="hospital"](around:5000,${lat},${lng});
-      node["amenity"="dentist"](around:2000,${lat},${lng});
-      way["amenity"="dentist"](around:2000,${lat},${lng});
-    );out center;`;
+export async function getHealthcareData(lat: number, lng: number): Promise<HealthcareData> {
+  const gps = findNearby(lat, lng, 'gp', 2, 10);
+  const pharmacies = findNearby(lat, lng, 'pharmacy', 1, 10);
+  const hospitals = findNearby(lat, lng, 'hospital', 5, 5);
+  const dentists = findNearby(lat, lng, 'dentist', 2, 10);
 
-    const elements = await queryOverpass(query);
+  const gpsWithin1km = gps.filter(g => g.distance <= 1).length;
+  let healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor';
+  if (gpsWithin1km >= 3) healthcareRating = 'Excellent';
+  else if (gpsWithin1km >= 2 || gps.length >= 3) healthcareRating = 'Good';
+  else if (gps.length >= 1) healthcareRating = 'Adequate';
+  else healthcareRating = 'Poor';
 
-    const gpSurgeries: HealthcareFacility[] = [];
-    const pharmacies: HealthcareFacility[] = [];
-    const hospitals: HealthcareFacility[] = [];
-    const dentists: HealthcareFacility[] = [];
-
-    for (const el of elements) {
-      const tags = el.tags || {};
-      const elLat = el.lat ?? el.center?.lat ?? lat;
-      const elLng = el.lon ?? el.center?.lon ?? lng;
-      const dist = haversineDistance(lat, lng, elLat, elLng);
-      const name = tags.name || 'Unnamed';
-
-      if (tags.amenity === 'hospital') {
-        hospitals.push({ name, distance: dist });
-      } else if (tags.amenity === 'pharmacy') {
-        pharmacies.push({ name, distance: dist });
-      } else if (tags.amenity === 'dentist') {
-        dentists.push({ name, distance: dist });
-      } else if (
-        tags.amenity === 'doctors' ||
-        (tags.amenity === 'clinic' && tags.healthcare === 'doctor')
-      ) {
-        gpSurgeries.push({ name, distance: dist });
-      }
-    }
-
-    const uniqueGPs = deduplicateByName(gpSurgeries);
-    const uniquePharmacies = deduplicateByName(pharmacies);
-    const uniqueHospitals = deduplicateByName(hospitals);
-    const uniqueDentists = deduplicateByName(dentists);
-
-    // Rating based on GP availability within walking distance
-    const gpsWithin1km = uniqueGPs.filter((gp) => gp.distance <= 1000).length;
-    const gpsWithin2km = uniqueGPs.length;
-
-    let healthcareRating: HealthcareData['healthcareRating'];
-    if (gpsWithin1km >= 3) {
-      healthcareRating = 'Excellent';
-    } else if (gpsWithin1km >= 2 || gpsWithin2km >= 3) {
-      healthcareRating = 'Good';
-    } else if (gpsWithin2km >= 1) {
-      healthcareRating = 'Adequate';
-    } else {
-      healthcareRating = 'Poor';
-    }
-
-    return {
-      gpSurgeries: uniqueGPs.slice(0, 8),
-      pharmacies: uniquePharmacies.slice(0, 8),
-      hospitals: uniqueHospitals.slice(0, 5),
-      dentists: uniqueDentists.slice(0, 8),
-      nearestGP: uniqueGPs[0] ?? null,
-      nearestHospital: uniqueHospitals[0] ?? null,
-      healthcareRating,
-      note: 'Healthcare data from OpenStreetMap. Verify availability with your local NHS.',
-    };
-  } catch {
-    return {
-      gpSurgeries: [],
-      pharmacies: [],
-      hospitals: [],
-      dentists: [],
-      nearestGP: null,
-      nearestHospital: null,
-      healthcareRating: 'Unknown',
-      note: 'Healthcare data is temporarily unavailable. Try again later.',
-    };
-  }
+  return {
+    gpSurgeries: gps,
+    pharmacies,
+    hospitals,
+    dentists,
+    nearestGP: gps[0] || null,
+    nearestHospital: hospitals[0] || null,
+    healthcareRating,
+    note: 'Healthcare data from CQC directory. Includes GPs, dentists, hospitals, and pharmacies.',
+  };
 }

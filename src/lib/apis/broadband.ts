@@ -4,6 +4,8 @@ export interface BroadbandData {
   postcode: string;
   estimatedAvgDownload: number;
   estimatedAvgUpload: number;
+  maxAvailableDown: number;
+  maxAvailableUp: number;
   superfastAvailability: number;
   ultrafastAvailability: number;
   fullFibreAvailability: number;
@@ -43,32 +45,39 @@ async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
 
     if (properties.length === 0) return null;
 
-    let totalDown = 0;
-    let totalUp = 0;
+    let totalBasicDown = 0;
+    let totalBasicUp = 0;
+    let totalMaxDown = 0;
+    let totalMaxUp = 0;
     let superfastCount = 0;
     let ultrafastCount = 0;
     let fullFibreCount = 0;
 
     for (const prop of properties) {
-      // Use MaxPredictedDown (best available speed) for average
-      const down = Number(prop.MaxPredictedDown || prop.MaxBbPredictedDown || 0);
-      const up = Number(prop.MaxPredictedUp || prop.MaxBbPredictedUp || 0);
-      totalDown += down;
-      totalUp += up;
+      // Basic BB speed (what most connections actually deliver)
+      const basicDown = Number(prop.MaxBbPredictedDown || 0);
+      const basicUp = Number(prop.MaxBbPredictedUp || 0);
+      totalBasicDown += basicDown;
+      totalBasicUp += basicUp;
 
-      // Superfast: MaxSfbbPredictedDown > 0 means superfast is available
+      // Max available speed (best possible, e.g. full fibre)
+      const maxDown = Number(prop.MaxPredictedDown || prop.MaxSfbbPredictedDown || basicDown);
+      const maxUp = Number(prop.MaxPredictedUp || prop.MaxSfbbPredictedUp || basicUp);
+      totalMaxDown += maxDown;
+      totalMaxUp += maxUp;
+
       if (Number(prop.MaxSfbbPredictedDown || 0) > 0) superfastCount++;
-      // Ultrafast: MaxUfbbPredictedDown > 0
       if (Number(prop.MaxUfbbPredictedDown || 0) > 0) ultrafastCount++;
-      // Full fibre: if ultrafast down >= 1000
       if (Number(prop.MaxUfbbPredictedDown || 0) >= 1000) fullFibreCount++;
     }
 
     const count = properties.length;
     return {
       postcode: cleaned,
-      estimatedAvgDownload: Math.round(totalDown / count),
-      estimatedAvgUpload: Math.round(totalUp / count),
+      estimatedAvgDownload: Math.round(totalBasicDown / count),
+      estimatedAvgUpload: Math.round(totalBasicUp / count),
+      maxAvailableDown: Math.round(totalMaxDown / count),
+      maxAvailableUp: Math.round(totalMaxUp / count),
       superfastAvailability: Math.round((superfastCount / count) * 100),
       ultrafastAvailability: Math.round((ultrafastCount / count) * 100),
       fullFibreAvailability: Math.round((fullFibreCount / count) * 100),
@@ -104,6 +113,8 @@ async function estimateBroadband(postcode: string): Promise<BroadbandData | null
       postcode: postcodeData.postcode,
       estimatedAvgDownload: stats.avgDownload,
       estimatedAvgUpload: stats.avgUpload,
+      maxAvailableDown: urban ? 1000 : 300,
+      maxAvailableUp: urban ? 100 : 30,
       superfastAvailability: stats.superfast,
       ultrafastAvailability: stats.ultrafast,
       fullFibreAvailability: stats.fullFibre,
