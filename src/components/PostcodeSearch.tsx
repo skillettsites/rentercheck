@@ -264,7 +264,7 @@ export default function PostcodeSearch({
               onFocus={() => {
                 if (suggestions.length > 0) setShowDropdown(true);
               }}
-              placeholder="Enter a postcode or address, e.g. SW1A 1AA"
+              placeholder="e.g. SW1A 1AA"
               className={`w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
                 isLg ? "h-14 text-lg" : "h-12 text-base"
               }`}
