@@ -124,6 +124,43 @@ export default function PostcodeSearch({
           setSuggestions([]);
           setShowDropdown(false);
         }
+      }
+      // For any other text (street names, place names), search postcodes.io places
+      else if (trimmed.length >= 3) {
+        const encoded = encodeURIComponent(trimmed);
+        const res = await fetch(
+          `https://api.postcodes.io/places?q=${encoded}&limit=10`
+        );
+        if (res.ok) {
+          const json = await res.json();
+          const results = json.result ?? [];
+          const items: Suggestion[] = results.map((place: { name_1: string; county_unitary: string; postcode?: string; code?: string }) => ({
+            label: `${place.name_1}, ${place.county_unitary || ""}`.replace(/, $/, ""),
+            postcode: place.name_1,
+            type: "address" as const,
+          }));
+          // Also try postcodes autocomplete in case partial input matches
+          const pcRes = await fetch(
+            `https://api.postcodes.io/postcodes/${encoded}/autocomplete`
+          );
+          if (pcRes.ok) {
+            const pcJson = await pcRes.json();
+            const pcResults: string[] = pcJson.result ?? [];
+            for (const pc of pcResults.slice(0, 5)) {
+              items.unshift({
+                label: pc,
+                postcode: pc,
+                type: "postcode" as const,
+              });
+            }
+          }
+          setSuggestions(items.slice(0, 10));
+          setShowDropdown(items.length > 0);
+          setHighlightIndex(-1);
+        } else {
+          setSuggestions([]);
+          setShowDropdown(false);
+        }
       } else {
         setSuggestions([]);
         setShowDropdown(false);
@@ -173,7 +210,7 @@ export default function PostcodeSearch({
         return;
       }
 
-      setError("Please enter a valid UK postcode, e.g. SW1A 1AA");
+      setError("Please enter a valid UK postcode, Postcode or address");
     },
     [query, highlightIndex, suggestions, navigate]
   );
@@ -209,7 +246,7 @@ export default function PostcodeSearch({
   );
 
   return (
-    <div ref={wrapperRef} className="w-full max-w-xl mx-auto">
+    <div ref={wrapperRef} className="w-full max-w-2xl mx-auto">
       {showLabel && (
         <p className="text-sm font-semibold text-slate-600 mb-2">
           Check a rental property
@@ -264,7 +301,7 @@ export default function PostcodeSearch({
               onFocus={() => {
                 if (suggestions.length > 0) setShowDropdown(true);
               }}
-              placeholder="e.g. SW1A 1AA"
+              placeholder="Postcode or address"
               className={`w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
                 isLg ? "h-14 text-lg" : "h-12 text-base"
               }`}
