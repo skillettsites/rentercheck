@@ -47,10 +47,6 @@ export function AddressSelector({ postcode }: AddressSelectorProps) {
     );
   }
 
-  if (addresses.length === 0) {
-    return null;
-  }
-
   return (
     <div className="mt-8">
       <label htmlFor="address-select" className="flex items-center gap-2 mb-2">
@@ -58,7 +54,9 @@ export function AddressSelector({ postcode }: AddressSelectorProps) {
           <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
         <span className="text-sm font-medium text-slate-300">Select your address</span>
-        <span className="text-xs text-slate-500">({addresses.length} properties found)</span>
+        {addresses.length > 0 && (
+          <span className="text-xs text-slate-500">({addresses.length} properties found)</span>
+        )}
       </label>
       <select
         id="address-select"
@@ -73,12 +71,18 @@ export function AddressSelector({ postcode }: AddressSelectorProps) {
           paddingRight: "40px",
         }}
       >
-        <option value="" className="bg-slate-800 text-white">Choose an address at {postcode}...</option>
-        {addresses.map((addr, i) => (
-          <option key={i} value={addr} className="bg-slate-800 text-white">
-            {addr}
-          </option>
-        ))}
+        {addresses.length === 0 ? (
+          <option value="" className="bg-slate-800 text-white">No addresses found at {postcode}</option>
+        ) : (
+          <>
+            <option value="" className="bg-slate-800 text-white">Choose an address at {postcode}...</option>
+            {addresses.map((addr, i) => (
+              <option key={i} value={addr} className="bg-slate-800 text-white">
+                {addr}
+              </option>
+            ))}
+          </>
+        )}
       </select>
       {selectedAddress && (
         <p className="mt-2 text-xs text-slate-400">
