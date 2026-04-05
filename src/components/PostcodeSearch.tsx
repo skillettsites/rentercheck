@@ -46,12 +46,39 @@ export default function PostcodeSearch({
   }, []);
 
   const navigate = useCallback(
-    (postcode: string) => {
-      const cleaned = postcode.trim().toUpperCase().replace(/\s+/g, "");
+    async (postcode: string) => {
+      let cleaned = postcode.trim().toUpperCase().replace(/\s+/g, "");
       if (!cleaned) return;
       setLoading(true);
       setShowDropdown(false);
       setSuggestions([]);
+
+      // If it doesn't look like a postcode, try to resolve it via postcodes.io
+      if (!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(cleaned)) {
+        try {
+          // Try as a place name lookup
+          const res = await fetch(
+            `https://api.postcodes.io/places?q=${encodeURIComponent(postcode.trim())}&limit=1`
+          );
+          if (res.ok) {
+            const data = await res.json();
+            const place = data.result?.[0];
+            if (place?.postcode) {
+              cleaned = place.postcode.replace(/\s+/g, "");
+            } else {
+              // No postcode found, show error
+              setError("Could not find a postcode for this location. Try entering a postcode directly.");
+              setLoading(false);
+              return;
+            }
+          }
+        } catch {
+          setError("Could not resolve this address. Try entering a postcode directly.");
+          setLoading(false);
+          return;
+        }
+      }
+
       router.push(`/check/${encodeURIComponent(cleaned)}`);
     },
     [router]
@@ -125,68 +152,31 @@ export default function PostcodeSearch({
           setShowDropdown(false);
         }
       }
-      // For any other text (street names, place names), try multiple searches
+      // For any other text, use Google Places Autocomplete
       else if (trimmed.length >= 3) {
         const encoded = encodeURIComponent(trimmed);
-        const items: Suggestion[] = [];
-
-        // Extract postcode if text contains one (e.g. "505 cordage house E1W 3AS")
-        const embeddedPC = trimmed.match(/[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}/i);
-
-        if (embeddedPC) {
-          // User typed something with a postcode in it, fetch addresses at that postcode
-          const pc = embeddedPC[0].toUpperCase();
-          const addrRes = await fetch(`/api/addresses?postcode=${encodeURIComponent(pc)}`);
-          if (addrRes.ok) {
-            const addrData = await addrRes.json();
-            const postcode = addrData.postcode || pc;
-            // Filter addresses that match the non-postcode part of the query
-            const searchPart = trimmed.replace(embeddedPC[0], "").trim().toLowerCase();
-            const addresses: string[] = addrData.addresses || [];
-            const filtered = searchPart
-              ? addresses.filter((a: string) => a.toLowerCase().includes(searchPart))
-              : addresses;
-
-            for (const addr of (filtered.length > 0 ? filtered : addresses).slice(0, 15)) {
-              items.push({
-                label: `${addr}, ${postcode}`,
-                postcode,
+        const res = await fetch(`/api/places?q=${encoded}`);
+        if (res.ok) {
+          const data = await res.json();
+          const items: Suggestion[] = (data.suggestions || []).map(
+            (s: { text: string; main: string; secondary: string }) => {
+              // Try to extract a postcode from the secondary text (e.g. "Wapping, London E1W 3AS")
+              const pcMatch = s.text.match(/[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}/i);
+              const postcode = pcMatch ? pcMatch[0].toUpperCase().replace(/\s+/g, '') : '';
+              return {
+                label: s.text,
+                postcode: postcode || s.main,
                 type: "address" as const,
-              });
+              };
             }
-          }
+          );
+          setSuggestions(items.slice(0, 8));
+          setShowDropdown(items.length > 0);
+          setHighlightIndex(-1);
+        } else {
+          setSuggestions([]);
+          setShowDropdown(false);
         }
-
-        // Also search postcodes.io places (for place names like "Wapping", "Newbury")
-        try {
-          const placesRes = await fetch(`https://api.postcodes.io/places?q=${encoded}&limit=5`);
-          if (placesRes.ok) {
-            const placesData = await placesRes.json();
-            for (const place of (placesData.result || []).slice(0, 5)) {
-              const label = `${place.name_1}, ${place.county_unitary || ""}`.replace(/, $/, "");
-              if (!items.some(i => i.label === label)) {
-                items.push({
-                  label,
-                  postcode: place.name_1,
-                  type: "address" as const,
-                });
-              }
-            }
-          }
-        } catch { /* ignore */ }
-
-        // If still no results, show a helpful hint
-        if (items.length === 0) {
-          items.push({
-            label: "Try entering a postcode to find addresses",
-            postcode: "",
-            type: "postcode" as const,
-          });
-        }
-
-        setSuggestions(items.slice(0, 15));
-        setShowDropdown(items.length > 0);
-        setHighlightIndex(-1);
       } else {
         setSuggestions([]);
         setShowDropdown(false);
