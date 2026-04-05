@@ -4,6 +4,7 @@ import { getPropertyData } from "@/lib/apis";
 import type { PropertyData } from "@/lib/apis";
 import PostcodeSearch from "@/components/PostcodeSearch";
 import { AddressSelector } from "@/components/AddressSelector";
+import { LazyDataCards } from "@/components/LazyDataCards";
 
 interface PageProps {
   params: Promise<{ postcode: string }>;
@@ -1677,6 +1678,16 @@ export default async function CheckPage({ params }: PageProps) {
           <HealthcareCard data={data} />
           <GreenSpaceCard data={data} />
           <AmenitiesCard data={data} />
+          {/* Lazy load from Overpass for any cards where local JSON had no results */}
+          {data.postcode && (
+            <LazyDataCards
+              lat={data.postcode.lat}
+              lng={data.postcode.lng}
+              hasParks={(data.greenSpace?.totalGreenSpaces ?? 0) > 0}
+              hasSupermarkets={(data.amenities?.supermarkets?.length ?? 0) > 0}
+              hasHealthcare={(data.healthcare?.gpSurgeries?.length ?? 0) > 0}
+            />
+          )}
           <div className="md:col-span-2">
             <AreaInfoCard data={data} />
           </div>
