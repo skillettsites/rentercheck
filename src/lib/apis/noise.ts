@@ -9,24 +9,14 @@ export interface NoiseSource {
   detail: string;
 }
 
+import { queryOverpass } from './overpass';
+
 export interface NoiseData {
   level: 'Low' | 'Moderate' | 'High';
   score: number; // 0-100, lower is quieter
   sources: NoiseSource[];
   mitigation: string[];
   note: string;
-}
-
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat?: number;
-  lon?: number;
-  tags?: Record<string, string>;
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
 }
 
 export async function getNoiseData(
@@ -54,22 +44,16 @@ export async function getNoiseData(
   try {
     // Check for major roads and railways nearby
     const query = `[out:json][timeout:10];(way["highway"~"motorway|trunk|primary"](around:500,${lat},${lng});way["railway"="rail"](around:300,${lat},${lng});node["aeroway"="aerodrome"](around:3000,${lat},${lng}););out tags;`;
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+    const elements = await queryOverpass(query);
 
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (res.ok) {
-      const data: OverpassResponse = await res.json();
-
+    if (elements.length > 0) {
       let hasMotorway = false;
       let hasTrunk = false;
       let hasPrimary = false;
       let hasRailway = false;
       let hasAirport = false;
 
-      for (const el of data.elements) {
+      for (const el of elements) {
         const tags = el.tags || {};
         if (tags.highway === 'motorway') hasMotorway = true;
         if (tags.highway === 'trunk') hasTrunk = true;

@@ -5,6 +5,7 @@
  */
 
 import { haversineDistance } from './haversine';
+import { queryOverpass, type OverpassElement } from './overpass';
 
 export interface SchoolInfo {
   name: string;
@@ -21,19 +22,6 @@ export interface SchoolsData {
   secondaryCount: number;
   nurseryCount: number;
   note: string;
-}
-
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: Record<string, string>;
-  center?: { lat: number; lon: number };
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
 }
 
 function classifySchool(tags: Record<string, string>): string {
@@ -72,19 +60,9 @@ export async function getSchoolsData(lat: number, lng: number): Promise<SchoolsD
       node["amenity"="kindergarten"](around:1000,${lat},${lng});
       way["amenity"="kindergarten"](around:1000,${lat},${lng});
     );out center;`;
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+    const elements = await queryOverpass(query);
 
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (!res.ok) {
-      throw new Error(`Overpass API returned ${res.status}`);
-    }
-
-    const data: OverpassResponse = await res.json();
-
-    const schools: SchoolInfo[] = data.elements
+    const schools: SchoolInfo[] = elements
       .filter((el) => el.tags?.name)
       .map((el) => {
         const elLat = el.lat ?? el.center?.lat ?? lat;

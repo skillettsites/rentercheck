@@ -1,14 +1,17 @@
 /**
- * Index of Multiple Deprivation (IMD 2019) data from the ArcGIS Open Data API.
+ * Index of Multiple Deprivation (IMD) data from a local pre-built JSON file.
  * Uses the LSOA code returned by postcodes.io to look up deprivation rank,
  * decile, and domain-level breakdowns for any area in England.
  */
 
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+
 export interface DeprivationData {
   lsoaCode: string;
   lsoaName: string;
-  imdRank: number;        // 1 = most deprived, 32,844 = least deprived
-  imdDecile: number;      // 1 = most deprived 10%, 10 = least deprived 10%
+  imdRank: number;
+  imdDecile: number;
   imdScore: number;
   incomeRank: number;
   employmentRank: number;
@@ -20,12 +23,25 @@ export interface DeprivationData {
   overallLabel: 'Very Deprived' | 'Deprived' | 'Average' | 'Affluent' | 'Very Affluent';
 }
 
-interface ArcGISFeature {
-  attributes: Record<string, unknown>;
-}
+// Format in imd.json: LSOA -> [score, rank, decile, income, employment, education, health, crime, barriers, living]
+let imdData: Record<string, number[]> | null = null;
 
-interface ArcGISResponse {
-  features?: ArcGISFeature[];
+function loadIMDData(): Record<string, number[]> {
+  if (imdData) return imdData;
+
+  try {
+    const filePath = join(process.cwd(), 'src', 'data', 'imd.json');
+    if (existsSync(filePath)) {
+      const raw = readFileSync(filePath, 'utf-8');
+      imdData = JSON.parse(raw);
+      return imdData!;
+    }
+  } catch {
+    // fall through
+  }
+
+  imdData = {};
+  return imdData;
 }
 
 function decileToLabel(
@@ -41,63 +57,28 @@ function decileToLabel(
 export async function getDeprivationData(
   lsoaCode: string
 ): Promise<DeprivationData | null> {
-  try {
-    // ArcGIS Open Data endpoint for IMD 2019
-    const baseUrl =
-      'https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/IMD_2019_1/FeatureServer/0/query';
-    const params = new URLSearchParams({
-      where: `lsoa11cd='${lsoaCode}'`,
-      outFields: '*',
-      f: 'json',
-      resultRecordCount: '1',
-    });
+  if (!lsoaCode) return null;
 
-    const res = await fetch(`${baseUrl}?${params.toString()}`, {
-      signal: AbortSignal.timeout(10000),
-    });
+  const data = loadIMDData();
+  const entry = data[lsoaCode];
 
-    if (!res.ok) {
-      return null;
-    }
+  if (!entry) return null;
 
-    const data: ArcGISResponse = await res.json();
+  const [score, rank, decile, income, employment, education, health, crime, barriers, living] = entry;
 
-    if (!data.features || data.features.length === 0) {
-      return null;
-    }
-
-    const attrs = data.features[0].attributes;
-
-    // Field names can vary slightly; try common patterns
-    const imdRank = Number(attrs.IMDRank ?? attrs.IMD_Rank ?? attrs.imd_rank ?? 0);
-    const imdDecile = Number(attrs.IMDDec0 ?? attrs.IMD_Decile ?? attrs.IMDDecil ?? attrs.imd_decile ?? 5);
-    const imdScore = Number(attrs.IMDScore ?? attrs.IMD_Score ?? attrs.imd_score ?? 0);
-    const lsoaName = String(attrs.lsoa11nm ?? attrs.LSOA_name ?? attrs.lsoa_name ?? lsoaCode);
-
-    const incomeRank = Number(attrs.IncRank ?? attrs.Income_Rank ?? attrs.inc_rank ?? 0);
-    const employmentRank = Number(attrs.EmpRank ?? attrs.Employment_Rank ?? attrs.emp_rank ?? 0);
-    const educationRank = Number(attrs.EduRank ?? attrs.Education_Rank ?? attrs.edu_rank ?? 0);
-    const healthRank = Number(attrs.HDDRank ?? attrs.Health_Rank ?? attrs.hdd_rank ?? 0);
-    const crimeRank = Number(attrs.CriRank ?? attrs.Crime_Rank ?? attrs.cri_rank ?? 0);
-    const housingRank = Number(attrs.BHSRank ?? attrs.Housing_Rank ?? attrs.bhs_rank ?? 0);
-    const livingEnvironmentRank = Number(attrs.EnvRank ?? attrs.Living_Rank ?? attrs.env_rank ?? 0);
-
-    return {
-      lsoaCode,
-      lsoaName,
-      imdRank,
-      imdDecile,
-      imdScore,
-      incomeRank,
-      employmentRank,
-      educationRank,
-      healthRank,
-      crimeRank,
-      housingRank,
-      livingEnvironmentRank,
-      overallLabel: decileToLabel(imdDecile),
-    };
-  } catch {
-    return null;
-  }
+  return {
+    lsoaCode,
+    lsoaName: lsoaCode,
+    imdRank: rank,
+    imdDecile: decile,
+    imdScore: score,
+    incomeRank: income,
+    employmentRank: employment,
+    educationRank: education,
+    healthRank: health,
+    crimeRank: crime,
+    housingRank: barriers,
+    livingEnvironmentRank: living,
+    overallLabel: decileToLabel(decile),
+  };
 }

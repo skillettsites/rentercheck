@@ -5,6 +5,7 @@
  */
 
 import { haversineDistance } from './haversine';
+import { queryOverpass } from './overpass';
 
 export interface AmenityItem {
   name: string;
@@ -23,19 +24,6 @@ export interface AmenitiesData {
   amenityScore: 'Excellent' | 'Good' | 'Average' | 'Poor';
   walkabilityNote: string;
   note: string;
-}
-
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: Record<string, string>;
-  center?: { lat: number; lon: number };
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
 }
 
 function deduplicateSupermarkets(items: AmenityItem[]): AmenityItem[] {
@@ -73,17 +61,7 @@ export async function getAmenitiesData(
       node["amenity"="atm"](around:1000,${lat},${lng});
     );out center;`;
 
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
-
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (!res.ok) {
-      throw new Error(`Overpass API returned ${res.status}`);
-    }
-
-    const data: OverpassResponse = await res.json();
+    const elements = await queryOverpass(query);
 
     const supermarkets: AmenityItem[] = [];
     let convenienceStores = 0;
@@ -92,7 +70,7 @@ export async function getAmenitiesData(
     let postOffices = 0;
     let banks = 0;
 
-    for (const el of data.elements) {
+    for (const el of elements) {
       const tags = el.tags || {};
       const elLat = el.lat ?? el.center?.lat ?? lat;
       const elLng = el.lon ?? el.center?.lon ?? lng;

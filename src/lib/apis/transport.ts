@@ -4,6 +4,7 @@
  */
 
 import { haversineDistance } from './haversine';
+import { queryOverpass } from './overpass';
 
 export interface StationInfo {
   name: string;
@@ -18,39 +19,16 @@ export interface TransportData {
   note: string;
 }
 
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: Record<string, string>;
-  center?: { lat: number; lon: number };
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
-}
-
 export async function getTransportData(lat: number, lng: number): Promise<TransportData> {
   try {
     // Fetch stations and bus stops in a single Overpass query
     const query = `[out:json][timeout:10];(node["railway"="station"](around:2000,${lat},${lng});node["railway"="halt"](around:2000,${lat},${lng});node["station"="subway"](around:2000,${lat},${lng});node["highway"="bus_stop"](around:500,${lat},${lng}););out;`;
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
-
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (!res.ok) {
-      throw new Error(`Overpass API returned ${res.status}`);
-    }
-
-    const data: OverpassResponse = await res.json();
+    const elements = await queryOverpass(query);
 
     const stations: StationInfo[] = [];
     let busStopCount = 0;
 
-    for (const el of data.elements) {
+    for (const el of elements) {
       const tags = el.tags || {};
       const elLat = el.lat ?? el.center?.lat ?? lat;
       const elLng = el.lon ?? el.center?.lon ?? lng;

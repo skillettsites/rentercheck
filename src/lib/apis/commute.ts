@@ -5,6 +5,7 @@
  */
 
 import { lookupPostcode, type PostcodeResult } from './postcodes';
+import { queryOverpass } from './overpass';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -73,19 +74,6 @@ function isLondon(region: string): boolean {
 
 // ── Station Lookup (Overpass API) ────────────────────────────────────────────
 
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: Record<string, string>;
-  center?: { lat: number; lon: number };
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
-}
-
 async function fetchNearbyStations(
   lat: number,
   lng: number,
@@ -93,15 +81,12 @@ async function fetchNearbyStations(
 ): Promise<StationResult[]> {
   try {
     const query = `[out:json][timeout:10];(node["railway"="station"](around:${radiusMetres},${lat},${lng});node["railway"="halt"](around:${radiusMetres},${lat},${lng});node["station"="subway"](around:${radiusMetres},${lat},${lng}););out;`;
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
-    const res = await fetch(url, { signal: AbortSignal.timeout(12000) });
-    if (!res.ok) return [];
-    const data: OverpassResponse = await res.json();
+    const elements = await queryOverpass(query);
 
     const stations: StationResult[] = [];
     const seen = new Set<string>();
 
-    for (const el of data.elements) {
+    for (const el of elements) {
       const name = el.tags?.name;
       if (!name) continue;
       const key = name.toLowerCase();

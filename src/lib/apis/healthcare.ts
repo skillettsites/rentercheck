@@ -4,6 +4,7 @@
  */
 
 import { haversineDistance } from './haversine';
+import { queryOverpass } from './overpass';
 
 export interface HealthcareFacility {
   name: string;
@@ -19,19 +20,6 @@ export interface HealthcareData {
   nearestHospital: HealthcareFacility | null;
   healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor';
   note: string;
-}
-
-interface OverpassElement {
-  type: string;
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: Record<string, string>;
-  center?: { lat: number; lon: number };
-}
-
-interface OverpassResponse {
-  elements: OverpassElement[];
 }
 
 function deduplicateByName(items: HealthcareFacility[]): HealthcareFacility[] {
@@ -66,24 +54,14 @@ export async function getHealthcareData(
       way["amenity"="dentist"](around:2000,${lat},${lng});
     );out center;`;
 
-    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
-
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (!res.ok) {
-      throw new Error(`Overpass API returned ${res.status}`);
-    }
-
-    const data: OverpassResponse = await res.json();
+    const elements = await queryOverpass(query);
 
     const gpSurgeries: HealthcareFacility[] = [];
     const pharmacies: HealthcareFacility[] = [];
     const hospitals: HealthcareFacility[] = [];
     const dentists: HealthcareFacility[] = [];
 
-    for (const el of data.elements) {
+    for (const el of elements) {
       const tags = el.tags || {};
       const elLat = el.lat ?? el.center?.lat ?? lat;
       const elLng = el.lon ?? el.center?.lon ?? lng;
