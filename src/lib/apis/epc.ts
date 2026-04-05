@@ -89,7 +89,8 @@ function computeSummary(records: EPCRecord[]): EPCSummary {
 
 // New MHCLG API (Bearer token)
 async function getEPCDataNew(postcode: string): Promise<EPCData | null> {
-  const token = process.env.EPC_API_TOKEN;
+  const rawToken = process.env.EPC_API_TOKEN;
+  const token = rawToken?.replace(/\\n/g, '').trim();
   if (!token) return null;
 
   try {

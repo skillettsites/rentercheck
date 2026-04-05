@@ -45,7 +45,8 @@ async function fetchAddresses(postcode: string): Promise<string[]> {
   const formatted = formatPostcode(postcode);
 
   // Try new MHCLG API first
-  const token = process.env.EPC_API_TOKEN;
+  const rawToken = process.env.EPC_API_TOKEN;
+  const token = rawToken?.replace(/\\n/g, "").trim();
   if (token) {
     try {
       const res = await fetch(
