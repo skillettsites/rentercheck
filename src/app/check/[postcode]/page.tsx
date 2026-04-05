@@ -1245,72 +1245,6 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 // ---------------------------------------------------------------------------
 // Premium Upsell Card (blurred)
 // ---------------------------------------------------------------------------
-function PremiumCard({
-  title,
-  icon,
-  children,
-}: {
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="relative rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
-      {/* Blurred fake content */}
-      <div className="p-6 select-none" style={{ filter: "blur(6px)" }}>
-        <div className="flex items-center gap-3 mb-4">
-          {icon}
-          <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
-        </div>
-        <div className="space-y-2">{children}</div>
-      </div>
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex flex-col items-center justify-center p-6">
-        {/* Lock icon */}
-        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
-          <svg
-            className="h-6 w-6 text-slate-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-        </div>
-        <p className="text-sm font-semibold text-slate-700 mb-1">{title}</p>
-        <p className="text-xs text-slate-500 mb-4 text-center">
-          Available in the full report
-        </p>
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-primary-700 transition-colors"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-          Unlock Full Report &ndash; &pound;3.99
-        </a>
-      </div>
-    </div>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Reusable Card Shell
 // ---------------------------------------------------------------------------
@@ -1661,6 +1595,60 @@ export default async function CheckPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* ---- Premium Upsell Banner (top) ---- */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-8">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-orange-500 p-6 sm:p-8 shadow-lg">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+          <div className="relative flex flex-col lg:flex-row lg:items-center gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Z" />
+                </svg>
+                <span className="text-xs font-bold uppercase tracking-wider text-white/80">Protect Yourself</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                Is your landlord safe? Check before you sign.
+              </h2>
+              <p className="mt-2 text-sm text-white/90 max-w-xl">
+                Our full report reveals who owns the property, whether the landlord is licensed, damp and mould risk factors, and your true monthly costs. 74% of renters who checked found something their landlord didn't disclose.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/80">
+                <span className="flex items-center gap-1.5">
+                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                  Landlord ownership verification
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                  Damp and mould risk assessment
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                  Full monthly cost breakdown
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                  HMO licence status
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-3 shrink-0">
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-lg font-bold text-red-600 shadow-lg hover:bg-red-50 transition-all hover:scale-105 cursor-pointer"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                Get Full Report - £3.99
+              </a>
+              <p className="text-xs text-white/70">One-off payment. No subscription.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ---- Free Results ---- */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
       <section>
@@ -1685,105 +1673,6 @@ export default async function CheckPage({ params }: PageProps) {
           <div className="md:col-span-2">
             <AreaInfoCard data={data} />
           </div>
-        </div>
-      </section>
-
-      {/* ---- Premium Upsell ---- */}
-      <section className="mt-14">
-        <div className="text-center mb-8">
-          <h2 className="text-xl font-bold text-slate-800">
-            Full Report
-          </h2>
-          <p className="mt-1 text-sm text-slate-500">
-            Unlock detailed checks to protect yourself before signing
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Ownership & Landlord Check */}
-          <PremiumCard
-            title="Ownership & Landlord Check"
-            icon={
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                  />
-                </svg>
-              </div>
-            }
-          >
-            <p className="text-sm text-slate-600">Registered owner: John Smith</p>
-            <p className="text-sm text-slate-600">Title number: AB123456</p>
-            <p className="text-sm text-slate-600">Licensed landlord: Yes</p>
-            <p className="text-sm text-slate-600">Licensing scheme: Selective</p>
-            <p className="text-sm text-slate-600">Last sold: March 2019</p>
-          </PremiumCard>
-
-          {/* Damp & Mould Risk */}
-          <PremiumCard
-            title="Damp & Mould Risk Assessment"
-            icon={
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-warning-50 text-warning-600">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-                  />
-                </svg>
-              </div>
-            }
-          >
-            <p className="text-sm text-slate-600">Damp risk score: 42/100</p>
-            <p className="text-sm text-slate-600">Property age: Pre-1930</p>
-            <p className="text-sm text-slate-600">Wall type: Solid brick</p>
-            <p className="text-sm text-slate-600">Ventilation: Poor</p>
-            <p className="text-sm text-slate-600">Local rainfall: Above average</p>
-          </PremiumCard>
-
-          {/* Total Monthly Cost */}
-          <PremiumCard
-            title="Total Monthly Cost Breakdown"
-            icon={
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"
-                  />
-                </svg>
-              </div>
-            }
-          >
-            <p className="text-sm text-slate-600">Council tax (Band C): £145/mo</p>
-            <p className="text-sm text-slate-600">Energy estimate: £112/mo</p>
-            <p className="text-sm text-slate-600">Water estimate: £38/mo</p>
-            <p className="text-sm text-slate-600">Broadband avg: £32/mo</p>
-            <p className="text-sm font-semibold text-slate-700">
-              Total bills: ~£327/mo
-            </p>
-          </PremiumCard>
         </div>
       </section>
 
