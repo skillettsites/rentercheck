@@ -8,6 +8,12 @@ interface PostcodeSearchProps {
   showLabel?: boolean;
 }
 
+interface Suggestion {
+  label: string;
+  postcode: string;
+  type: "postcode" | "address";
+}
+
 const POSTCODE_REGEX = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
 const PARTIAL_POSTCODE_REGEX = /^[A-Z]{1,2}\d/i;
 
@@ -16,7 +22,7 @@ export default function PostcodeSearch({
   showLabel = false,
 }: PostcodeSearchProps) {
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState("");
@@ -31,10 +37,7 @@ export default function PostcodeSearch({
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(e.target as Node)
-      ) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         setShowDropdown(false);
       }
     }
@@ -54,55 +57,84 @@ export default function PostcodeSearch({
     [router]
   );
 
-  const fetchSuggestions = useCallback(
-    async (partial: string) => {
-      const trimmed = partial.trim();
-      if (trimmed.length < 2) {
-        setSuggestions([]);
-        setShowDropdown(false);
-        return;
-      }
+  const fetchSuggestions = useCallback(async (value: string) => {
+    const trimmed = value.trim();
+    if (trimmed.length < 2) {
+      setSuggestions([]);
+      setShowDropdown(false);
+      return;
+    }
 
-      // If it looks like a complete postcode, don't autocomplete
+    setFetching(true);
+    setError("");
+
+    try {
+      // If it looks like a complete postcode, fetch addresses at that postcode
       if (POSTCODE_REGEX.test(trimmed)) {
-        setSuggestions([]);
-        setShowDropdown(false);
-        return;
-      }
+        const res = await fetch(`/api/addresses?postcode=${encodeURIComponent(trimmed)}`);
+        if (res.ok) {
+          const data = await res.json();
+          const postcode = data.postcode || trimmed.toUpperCase();
+          const items: Suggestion[] = [];
 
-      // Only autocomplete if it looks like a partial postcode
-      if (!PARTIAL_POSTCODE_REGEX.test(trimmed)) {
-        setSuggestions([]);
-        setShowDropdown(false);
-        return;
-      }
+          // Always show the postcode itself first
+          items.push({
+            label: `${postcode} (all properties)`,
+            postcode: postcode,
+            type: "postcode",
+          });
 
-      setFetching(true);
-      setError("");
-      try {
+          // Then show individual addresses
+          if (Array.isArray(data.addresses)) {
+            for (const addr of data.addresses.slice(0, 20)) {
+              items.push({
+                label: addr,
+                postcode: postcode,
+                type: "address",
+              });
+            }
+          }
+
+          setSuggestions(items);
+          setShowDropdown(items.length > 0);
+          setHighlightIndex(-1);
+        } else {
+          setSuggestions([]);
+          setShowDropdown(false);
+        }
+      }
+      // If it looks like a partial postcode, autocomplete postcodes
+      else if (PARTIAL_POSTCODE_REGEX.test(trimmed)) {
         const encoded = encodeURIComponent(trimmed);
         const res = await fetch(
           `https://api.postcodes.io/postcodes/${encoded}/autocomplete`
         );
-        if (!res.ok) {
+        if (res.ok) {
+          const json = await res.json();
+          const results: string[] = json.result ?? [];
+          const items: Suggestion[] = results.map((pc) => ({
+            label: pc,
+            postcode: pc,
+            type: "postcode" as const,
+          }));
+          setSuggestions(items);
+          setShowDropdown(items.length > 0);
+          setHighlightIndex(-1);
+        } else {
           setSuggestions([]);
           setShowDropdown(false);
-          return;
         }
-        const json = await res.json();
-        const results: string[] = json.result ?? [];
-        setSuggestions(results);
-        setShowDropdown(results.length > 0);
-        setHighlightIndex(-1);
-      } catch {
+      } else {
         setSuggestions([]);
         setShowDropdown(false);
-      } finally {
-        setFetching(false);
       }
-    },
-    []
-  );
+    } catch {
+      setSuggestions([]);
+      setShowDropdown(false);
+    } finally {
+      setFetching(false);
+    }
+  }, []);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +145,7 @@ export default function PostcodeSearch({
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
         fetchSuggestions(val);
-      }, 250);
+      }, 300);
     },
     [fetchSuggestions]
   );
@@ -125,7 +157,7 @@ export default function PostcodeSearch({
       if (!trimmed) return;
 
       if (highlightIndex >= 0 && highlightIndex < suggestions.length) {
-        navigate(suggestions[highlightIndex]);
+        navigate(suggestions[highlightIndex].postcode);
         return;
       }
 
@@ -137,11 +169,10 @@ export default function PostcodeSearch({
 
       // If there are suggestions, pick the first one
       if (suggestions.length > 0) {
-        navigate(suggestions[0]);
+        navigate(suggestions[0].postcode);
         return;
       }
 
-      // Try navigating anyway; the page will 404 if invalid
       setError("Please enter a valid UK postcode, e.g. SW1A 1AA");
     },
     [query, highlightIndex, suggestions, navigate]
@@ -170,9 +201,9 @@ export default function PostcodeSearch({
   );
 
   const handleSuggestionClick = useCallback(
-    (postcode: string) => {
-      setQuery(postcode);
-      navigate(postcode);
+    (suggestion: Suggestion) => {
+      setQuery(suggestion.label);
+      navigate(suggestion.postcode);
     },
     [navigate]
   );
@@ -248,43 +279,66 @@ export default function PostcodeSearch({
             {showDropdown && suggestions.length > 0 && (
               <ul
                 role="listbox"
-                className="absolute z-50 top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl shadow-lg overflow-hidden"
+                className="absolute z-50 top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl shadow-lg overflow-hidden max-h-80 overflow-y-auto"
               >
                 {suggestions.map((s, i) => (
                   <li
-                    key={s}
+                    key={`${s.type}-${s.label}-${i}`}
                     role="option"
                     aria-selected={i === highlightIndex}
                     className={`flex items-center gap-3 px-4 py-3 text-sm cursor-pointer transition-colors ${
                       i === highlightIndex
                         ? "bg-primary-50 text-primary-700"
                         : "text-slate-700 hover:bg-slate-50"
-                    }`}
+                    } ${i > 0 ? "border-t border-slate-100" : ""}`}
                     onMouseDown={(e) => {
                       e.preventDefault();
                       handleSuggestionClick(s);
                     }}
                     onMouseEnter={() => setHighlightIndex(i)}
                   >
-                    <svg
-                      className="h-4 w-4 shrink-0 text-slate-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 10.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                      />
-                    </svg>
-                    <span>{s}</span>
+                    {s.type === "postcode" ? (
+                      <svg
+                        className="h-4 w-4 shrink-0 text-primary-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 10.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="h-4 w-4 shrink-0 text-slate-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                        />
+                      </svg>
+                    )}
+                    <div className="min-w-0">
+                      <span className={`block truncate ${s.type === "postcode" ? "font-semibold" : ""}`}>
+                        {s.label}
+                      </span>
+                      {s.type === "address" && (
+                        <span className="block text-xs text-slate-400 truncate">{s.postcode}</span>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -337,9 +391,7 @@ export default function PostcodeSearch({
             {loading ? "Checking..." : "Check Now"}
           </button>
         </div>
-        {error && (
-          <p className="mt-2 text-sm text-red-600">{error}</p>
-        )}
+        {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
       </form>
     </div>
   );
