@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getPropertyData } from "@/lib/apis";
 import type { PropertyData } from "@/lib/apis";
 import PostcodeSearch from "@/components/PostcodeSearch";
+import { AddressSelector } from "@/components/AddressSelector";
 
 interface PageProps {
   params: Promise<{ postcode: string }>;
@@ -1608,6 +1609,11 @@ export default async function CheckPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* ---- Address Selector ---- */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-8">
+        <AddressSelector postcode={formatted} />
+      </div>
 
       {/* ---- Free Results ---- */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
