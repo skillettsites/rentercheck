@@ -159,7 +159,7 @@ function computeDeprivationScore(deprivation: DeprivationData | null): number {
 }
 
 function computeHealthcareScore(healthcare: HealthcareData | null): number {
-  if (!healthcare || (healthcare.healthcareRating as string) === 'Unknown') return 50;
+  if (!healthcare) return 50;
   switch (healthcare.healthcareRating) {
     case 'Excellent':
       return 95;
@@ -175,7 +175,7 @@ function computeHealthcareScore(healthcare: HealthcareData | null): number {
 }
 
 function computeGreenSpaceScore(greenSpace: GreenSpaceData | null): number {
-  if (!greenSpace || greenSpace.greenSpaceScore === 'Unknown') return 50;
+  if (!greenSpace) return 50;
   switch (greenSpace.greenSpaceScore) {
     case 'Excellent':
       return 95;
@@ -191,7 +191,7 @@ function computeGreenSpaceScore(greenSpace: GreenSpaceData | null): number {
 }
 
 function computeAmenityScore(amenities: AmenitiesData | null): number {
-  if (!amenities || amenities.amenityScore === 'Unknown') return 50;
+  if (!amenities) return 50;
   switch (amenities.amenityScore) {
     case 'Excellent':
       return 95;
@@ -281,15 +281,7 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
 
   const { lat, lng } = postcodeResult;
 
-  // Helper: race a promise against a timeout (returns null on timeout)
-  function withTimeout<T>(promise: Promise<T | null>, ms: number): Promise<T | null> {
-    return Promise.race([
-      promise,
-      new Promise<T | null>((resolve) => setTimeout(() => resolve(null), ms)),
-    ]);
-  }
-
-  // All sources in parallel, but Overpass-dependent ones get a 3s hard timeout
+  // All sources in parallel (all use local JSON or reliable APIs), but Overpass-dependent ones get a 3s hard timeout
   const [
     epcResult,
     crimeResult,
@@ -318,10 +310,9 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     getAirQualityData(lat, lng),
     getDeprivationData(postcodeResult.codes.lsoa),
     getHealthcareData(lat, lng), // local CQC JSON, instant
-    // Slow: Overpass-dependent, 3s hard timeout
-    withTimeout(getGreenSpaceData(lat, lng), 3000),
-    withTimeout(getAmenitiesData(lat, lng), 3000),
-    Promise.resolve(null), // planning removed (unreliable, data changes daily)
+    getGreenSpaceData(lat, lng), // local OSM JSON, instant
+    getAmenitiesData(lat, lng), // local OSM JSON, instant
+    Promise.resolve(null), // planning removed (data changes daily)
   ]);
 
   const epc = epcResult.status === 'fulfilled' ? epcResult.value : null;
