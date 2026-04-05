@@ -46,7 +46,7 @@ async function fetchAddresses(postcode: string): Promise<string[]> {
 
   // Try new MHCLG API first
   const rawToken = process.env.EPC_API_TOKEN;
-  const token = rawToken?.replace(/\\n/g, "").trim();
+  const token = rawToken?.replace(/\\n/g, "").replace(/\n/g, "").trim();
   if (token) {
     try {
       const res = await fetch(
@@ -80,8 +80,8 @@ async function fetchAddresses(postcode: string): Promise<string[]> {
   }
 
   // Legacy API fallback
-  const email = process.env.EPC_EMAIL || "";
-  const key = process.env.EPC_API_KEY || "";
+  const email = (process.env.EPC_EMAIL || "").replace(/\\n/g, "").replace(/\n/g, "").trim();
+  const key = (process.env.EPC_API_KEY || "").replace(/\\n/g, "").replace(/\n/g, "").trim();
   if (email && key) {
     try {
       const cleaned = postcode.replace(/\s+/g, "");

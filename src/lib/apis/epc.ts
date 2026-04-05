@@ -90,7 +90,7 @@ function computeSummary(records: EPCRecord[]): EPCSummary {
 // New MHCLG API (Bearer token)
 async function getEPCDataNew(postcode: string): Promise<EPCData | null> {
   const rawToken = process.env.EPC_API_TOKEN;
-  const token = rawToken?.replace(/\\n/g, '').trim();
+  const token = rawToken?.replace(/\\n/g, '').replace(/\n/g, '').trim();
   if (!token) return null;
 
   try {
@@ -137,8 +137,8 @@ async function getEPCDataNew(postcode: string): Promise<EPCData | null> {
 
 // Legacy API fallback (Basic auth, retiring mid-2026)
 async function getEPCDataLegacy(postcode: string): Promise<EPCData | null> {
-  const email = process.env.EPC_EMAIL || '';
-  const key = process.env.EPC_API_KEY || '';
+  const email = (process.env.EPC_EMAIL || '').replace(/\\n/g, '').replace(/\n/g, '').trim();
+  const key = (process.env.EPC_API_KEY || '').replace(/\\n/g, '').replace(/\n/g, '').trim();
   if (!email || !key) return null;
 
   try {

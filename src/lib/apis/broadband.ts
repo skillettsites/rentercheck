@@ -36,7 +36,7 @@ async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
     const cleaned = postcode.replace(/\s+/g, '');
     const res = await fetch(`${OFCOM_BASE}/${encodeURIComponent(cleaned)}`, {
       headers: {
-        'Ocp-Apim-Subscription-Key': apiKey.replace(/\\n/g, '').trim(),
+        'Ocp-Apim-Subscription-Key': apiKey.replace(/\\n/g, '').replace(/\n/g, '').trim(),
       },
       next: { revalidate: 2592000 }, // cache 30 days
     });
