@@ -343,7 +343,7 @@ export default function PostcodeSearch({
                     className={`flex items-center gap-3 px-4 py-3 text-sm cursor-pointer transition-colors ${
                       i === highlightIndex
                         ? "bg-primary-50 text-primary-700"
-                        : "text-slate-700 hover:bg-slate-50"
+                        : "bg-white text-slate-700 hover:bg-slate-50"
                     } ${i > 0 ? "border-t border-slate-100" : ""}`}
                     onMouseDown={(e) => {
                       e.preventDefault();
