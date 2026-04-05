@@ -4,8 +4,8 @@ import PostcodeSearch from "@/components/PostcodeSearch";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
-  title: "RenterCheck | Is Your Rental Property Safe? | Free UK Property Check",
-  description: "Check any UK rental property before you sign. Get EPC ratings, crime data, flood risk, broadband speeds, and more from 15 data sources. Free instant report.",
+  title: "RenterCheck | Check Your Landlord Before You Sign | Free UK Property Check",
+  description: "Who owns the property? Is the landlord licensed? Check damp risk, true monthly costs, crime, flood risk, schools and more. Enter any UK address.",
   alternates: { canonical: "https://rentercheck.vercel.app" },
   openGraph: {
     title: "RenterCheck | Free UK Rental Property Check",
@@ -216,10 +216,10 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28 lg:py-36 text-center">
           <h1 className="animate-fade-in text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-            Is Your Rental Property Safe?
+            Check Your Landlord<br className="hidden sm:block" /> Before You Sign
           </h1>
           <p className="animate-slide-up mt-6 mx-auto max-w-2xl text-lg sm:text-xl text-primary-100 leading-relaxed">
-            Check any UK rental address. Get EPC ratings, crime data, flood risk, and more. Free instant report.
+            Who owns the property? Is the landlord licensed? Is there damp risk? What will it really cost you each month? Enter any address and find out in seconds.
           </p>
 
           <div className="mt-10 relative" style={{ zIndex: 100 }}>
