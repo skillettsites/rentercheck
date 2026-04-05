@@ -14,31 +14,21 @@ export interface BroadbandData {
 }
 
 // Ofcom Connected Nations API
-// Register at https://api.ofcom.org.uk/ for a free key
-// Header: Ocp-Apim-Subscription-Key
 const OFCOM_BASE = 'https://api-proxy.ofcom.org.uk/broadband/coverage';
 
-interface OfcomProperty {
-  MaxBBPredictedDown?: string;
-  MaxBBPredictedUp?: string;
-  SFBB?: string;    // Superfast available? "Yes"/"No"
-  UFBB?: string;    // Ultrafast available?
-  FTTP?: string;    // Full fibre available?
-  MaxSFBBPredictedDown?: string;
-  Provider?: string;
+function cleanEnv(val: string | undefined): string {
+  return (val || '').replace(/\\n/g, '').replace(/\n/g, '').trim();
 }
 
 async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
-  const apiKey = process.env.OFCOM_API_KEY;
+  const apiKey = cleanEnv(process.env.OFCOM_API_KEY);
   if (!apiKey) return null;
 
   try {
     const cleaned = postcode.replace(/\s+/g, '');
     const res = await fetch(`${OFCOM_BASE}/${encodeURIComponent(cleaned)}`, {
-      headers: {
-        'Ocp-Apim-Subscription-Key': apiKey.replace(/\\n/g, '').replace(/\n/g, '').trim(),
-      },
-      next: { revalidate: 2592000 }, // cache 30 days
+      headers: { 'Ocp-Apim-Subscription-Key': apiKey },
+      next: { revalidate: 2592000 },
     });
 
     if (!res.ok) return null;
@@ -46,7 +36,8 @@ async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
     const data = await res.json();
     if (!data || !data.Availability) return null;
 
-    const properties: OfcomProperty[] = Array.isArray(data.Availability)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const properties: any[] = Array.isArray(data.Availability)
       ? data.Availability
       : [data.Availability];
 
@@ -57,15 +48,20 @@ async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
     let superfastCount = 0;
     let ultrafastCount = 0;
     let fullFibreCount = 0;
-    const providerSet = new Set<string>();
 
     for (const prop of properties) {
-      totalDown += parseFloat(prop.MaxBBPredictedDown || '0');
-      totalUp += parseFloat(prop.MaxBBPredictedUp || '0');
-      if (prop.SFBB === 'Yes') superfastCount++;
-      if (prop.UFBB === 'Yes') ultrafastCount++;
-      if (prop.FTTP === 'Yes') fullFibreCount++;
-      if (prop.Provider) providerSet.add(prop.Provider);
+      // Use MaxPredictedDown (best available speed) for average
+      const down = Number(prop.MaxPredictedDown || prop.MaxBbPredictedDown || 0);
+      const up = Number(prop.MaxPredictedUp || prop.MaxBbPredictedUp || 0);
+      totalDown += down;
+      totalUp += up;
+
+      // Superfast: MaxSfbbPredictedDown > 0 means superfast is available
+      if (Number(prop.MaxSfbbPredictedDown || 0) > 0) superfastCount++;
+      // Ultrafast: MaxUfbbPredictedDown > 0
+      if (Number(prop.MaxUfbbPredictedDown || 0) > 0) ultrafastCount++;
+      // Full fibre: if ultrafast down >= 1000
+      if (Number(prop.MaxUfbbPredictedDown || 0) >= 1000) fullFibreCount++;
     }
 
     const count = properties.length;
@@ -76,8 +72,8 @@ async function getOfcomData(postcode: string): Promise<BroadbandData | null> {
       superfastAvailability: Math.round((superfastCount / count) * 100),
       ultrafastAvailability: Math.round((ultrafastCount / count) * 100),
       fullFibreAvailability: Math.round((fullFibreCount / count) * 100),
-      classification: 'urban', // Ofcom gives real data, classification less relevant
-      providers: Array.from(providerSet).slice(0, 5),
+      classification: 'urban',
+      providers: [],
       source: 'ofcom',
       note: 'Real broadband data from Ofcom Connected Nations.',
     };
@@ -122,7 +118,6 @@ async function estimateBroadband(postcode: string): Promise<BroadbandData | null
 }
 
 export async function getBroadbandData(postcode: string): Promise<BroadbandData | null> {
-  // Try real Ofcom data first, fall back to estimates
   const ofcomData = await getOfcomData(postcode);
   if (ofcomData) return ofcomData;
   return estimateBroadband(postcode);
