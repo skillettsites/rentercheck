@@ -279,7 +279,7 @@ export default function PostcodeSearch({
             {showDropdown && suggestions.length > 0 && (
               <ul
                 role="listbox"
-                className="absolute z-50 top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl shadow-lg overflow-hidden max-h-80 overflow-y-auto"
+                className="absolute z-[100] top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto"
               >
                 {suggestions.map((s, i) => (
                   <li
