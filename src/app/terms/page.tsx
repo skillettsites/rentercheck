@@ -4,6 +4,13 @@ export const metadata: Metadata = {
   title: "Terms of Service | RenterCheck",
   description:
     "Terms of service for RenterCheck. Read the conditions governing use of our free UK rental property check service.",
+  alternates: { canonical: "https://rentercheck.vercel.app/terms" },
+  openGraph: {
+    title: "Terms of Service | RenterCheck",
+    description:
+      "Terms of service for RenterCheck. Read the conditions governing use of our free UK rental property check service.",
+    url: "https://rentercheck.vercel.app/terms",
+  },
 };
 
 export default function TermsPage() {

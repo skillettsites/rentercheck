@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: `${article.title} | RenterCheck`,
     description: article.metaDescription,
+    alternates: { canonical: `https://rentercheck.vercel.app/blog/${article.slug}` },
     openGraph: {
       title: `${article.title} | RenterCheck`,
       description: article.metaDescription,

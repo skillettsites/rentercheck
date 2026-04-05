@@ -14,6 +14,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `Property Check: ${decoded} | RenterCheck`,
     description: `Free rental property check for ${decoded}. EPC rating, crime data, flood risk, broadband speed, and area information.`,
+    alternates: { canonical: `https://rentercheck.vercel.app/check/${postcode}` },
+    openGraph: {
+      title: `Property Check: ${decoded} | RenterCheck`,
+      description: `Free rental property check for ${decoded}. EPC rating, crime data, flood risk, broadband speed, and area information.`,
+      url: `https://rentercheck.vercel.app/check/${postcode}`,
+    },
   };
 }
 

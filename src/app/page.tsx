@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PostcodeSearch from "@/components/PostcodeSearch";
 import NewsletterSignup from "@/components/NewsletterSignup";
+
+export const metadata: Metadata = {
+  title: "RenterCheck | Is Your Rental Property Safe? | Free UK Property Check",
+  description: "Check any UK rental property before you sign. Get EPC ratings, crime data, flood risk, broadband speeds, and more from 15 data sources. Free instant report.",
+  alternates: { canonical: "https://rentercheck.vercel.app" },
+  openGraph: {
+    title: "RenterCheck | Free UK Rental Property Check",
+    description: "Check any UK rental property. 15 data sources, safety score, tenant rights. Free.",
+    url: "https://rentercheck.vercel.app",
+    type: "website",
+  },
+};
 
 const tools = [
   {

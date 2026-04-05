@@ -331,13 +331,6 @@ export default function HMOCheckPage() {
 
   return (
     <>
-      {/* Dynamic head */}
-      <title>{PAGE_TITLE}</title>
-      <meta name="description" content={PAGE_DESCRIPTION} />
-      <meta property="og:title" content={PAGE_TITLE} />
-      <meta property="og:description" content={PAGE_DESCRIPTION} />
-      <link rel="canonical" href="https://rentercheck.vercel.app/hmo-check" />
-
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">

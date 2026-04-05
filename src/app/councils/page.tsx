@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "RenterCheck for Councils | PRS Enforcement Platform",
   description:
     "Help your council housing team enforce private rented sector standards. Automated compliance screening, HMO detection, tenant complaint triage, and PRS Database readiness. Built for local authorities.",
+  alternates: { canonical: "https://rentercheck.vercel.app/councils" },
   openGraph: {
     title: "RenterCheck for Councils | PRS Enforcement Platform",
     description:

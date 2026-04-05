@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${topic.title} | RenterCheck`,
     description: topic.metaDescription,
+    alternates: { canonical: `https://rentercheck.vercel.app/rights/${topic.slug}` },
     openGraph: {
       title: `${topic.title} | RenterCheck`,
       description: topic.metaDescription,

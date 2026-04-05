@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "RenterCheck Blog | Tenant Rights & Rental Guides",
   description:
     "Free guides to UK tenant rights, rental tips, and renting advice. Learn about deposits, rent increases, damp and mould law, landlord obligations, and how to protect yourself as a tenant.",
+  alternates: { canonical: "https://rentercheck.vercel.app/blog" },
   openGraph: {
     title: "RenterCheck Blog | Tenant Rights & Rental Guides",
     description:

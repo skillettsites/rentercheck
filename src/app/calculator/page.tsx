@@ -479,19 +479,7 @@ export default function CalculatorPage() {
 
   return (
     <>
-      {/* SEO head tags */}
-      <title>{PAGE_TITLE}</title>
-      <meta name="description" content={PAGE_DESCRIPTION} />
-      <meta property="og:title" content={PAGE_TITLE} />
-      <meta property="og:description" content={PAGE_DESCRIPTION} />
-      <meta
-        property="og:url"
-        content="https://rentercheck.vercel.app/calculator"
-      />
-      <link
-        rel="canonical"
-        href="https://rentercheck.vercel.app/calculator"
-      />
+      {/* JSON-LD structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Know Your Rights as a UK Tenant | RenterCheck",
   description:
     "Free guides to UK tenant rights. Deposit protection, damp and mould law, eviction rules, rent increases, repairs, HMO regulations, banned fees, and your right to quiet enjoyment.",
+  alternates: { canonical: "https://rentercheck.vercel.app/rights" },
   openGraph: {
     title: "Know Your Rights as a UK Tenant | RenterCheck",
     description:

@@ -4,6 +4,13 @@ export const metadata: Metadata = {
   title: "Privacy Policy | RenterCheck",
   description:
     "Privacy policy for RenterCheck. Learn how we collect, use, and protect your data when you use our free UK rental property check service.",
+  alternates: { canonical: "https://rentercheck.vercel.app/privacy" },
+  openGraph: {
+    title: "Privacy Policy | RenterCheck",
+    description:
+      "Privacy policy for RenterCheck. Learn how we collect, use, and protect your data when you use our free UK rental property check service.",
+    url: "https://rentercheck.vercel.app/privacy",
+  },
 };
 
 export default function PrivacyPage() {

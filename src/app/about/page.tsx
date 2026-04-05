@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "About RenterCheck | Free UK Rental Property Reports",
   description:
     "RenterCheck provides free, instant reports on UK rental properties. Check EPC ratings, crime data, flood risk, broadband speeds, and more before you sign a lease.",
+  alternates: { canonical: "https://rentercheck.vercel.app/about" },
+  openGraph: {
+    title: "About RenterCheck | Free UK Rental Property Reports",
+    description:
+      "RenterCheck provides free, instant reports on UK rental properties. Check EPC ratings, crime data, flood risk, broadband speeds, and more before you sign a lease.",
+    url: "https://rentercheck.vercel.app/about",
+  },
 };
 
 const dataSources = [

@@ -672,13 +672,6 @@ export default function DampCheckPage() {
 
   return (
     <>
-      <title>{PAGE_TITLE}</title>
-      <meta name="description" content={PAGE_DESCRIPTION} />
-      <meta property="og:title" content={PAGE_TITLE} />
-      <meta property="og:description" content={PAGE_DESCRIPTION} />
-      <meta property="og:url" content="https://rentercheck.vercel.app/damp-check" />
-      <link rel="canonical" href="https://rentercheck.vercel.app/damp-check" />
-
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           {/* Header */}
