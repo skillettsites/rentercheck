@@ -75,7 +75,7 @@ export async function getPlanningData(lat: number, lng: number): Promise<Plannin
     const url = `https://www.planit.org.uk/api/applics/json?lat=${lat}&lng=${lng}&radius=500&recent=3months&limit=20`;
 
     const res = await fetch(url, {
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!res.ok) {

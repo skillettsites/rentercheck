@@ -35,7 +35,7 @@ export async function getAirQualityData(lat: number, lng: number): Promise<AirQu
     const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lng}&current=pm10,pm2_5,nitrogen_dioxide,ozone,european_aqi`;
 
     const res = await fetch(url, {
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!res.ok) {

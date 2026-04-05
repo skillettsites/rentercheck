@@ -76,7 +76,7 @@ export async function getCrimeData(lat: number, lng: number): Promise<CrimeData 
     const url = `${BASE_URL}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`;
 
     const res = await fetch(url, {
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!res.ok) {
@@ -87,7 +87,7 @@ export async function getCrimeData(lat: number, lng: number): Promise<CrimeData 
 
       const fallbackRes = await fetch(
         `${BASE_URL}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${fallbackStr}`,
-        { signal: AbortSignal.timeout(10000) }
+        { signal: AbortSignal.timeout(5000) }
       );
 
       if (!fallbackRes.ok) return null;

@@ -6,8 +6,6 @@
 const OVERPASS_SERVERS = [
   'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
-  'https://overpass.openstreetmap.ru/api/interpreter',
-  'https://overpass.nchc.org.tw/api/interpreter',
 ];
 
 export interface OverpassElement {
@@ -34,7 +32,7 @@ export async function queryOverpass(query: string): Promise<OverpassElement[]> {
         method: 'POST',
         headers,
         body,
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(5000),
       });
 
       if (res.ok) {
