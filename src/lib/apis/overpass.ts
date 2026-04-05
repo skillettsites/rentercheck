@@ -16,44 +16,37 @@ export interface OverpassElement {
 }
 
 export async function queryOverpass(query: string): Promise<OverpassElement[]> {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'User-Agent': 'RenterCheck/1.0 (https://rentercheck.vercel.app)',
+    'Accept': 'application/json',
+  };
+  const body = `data=${encodeURIComponent(query)}`;
+
   // Try main server first with POST
-  try {
-    const res = await fetch(OVERPASS_MAIN, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `data=${encodeURIComponent(query)}`,
-      signal: AbortSignal.timeout(12000),
-    });
+  for (const url of [OVERPASS_MAIN, OVERPASS_MIRROR]) {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers,
+        body,
+        signal: AbortSignal.timeout(15000),
+      });
 
-    if (res.ok) {
-      const contentType = res.headers.get('content-type') || '';
-      if (contentType.includes('json')) {
-        const data = await res.json();
-        return data.elements ?? [];
+      if (res.ok) {
+        const text = await res.text();
+        // Overpass sometimes returns HTML errors even with 200 status
+        if (text.startsWith('{')) {
+          const data = JSON.parse(text);
+          if (Array.isArray(data.elements)) {
+            return data.elements;
+          }
+        }
       }
+    } catch {
+      // try next server
+      continue;
     }
-  } catch {
-    // fall through to mirror
-  }
-
-  // Try mirror
-  try {
-    const res = await fetch(OVERPASS_MIRROR, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `data=${encodeURIComponent(query)}`,
-      signal: AbortSignal.timeout(12000),
-    });
-
-    if (res.ok) {
-      const contentType = res.headers.get('content-type') || '';
-      if (contentType.includes('json')) {
-        const data = await res.json();
-        return data.elements ?? [];
-      }
-    }
-  } catch {
-    // both failed
   }
 
   return [];

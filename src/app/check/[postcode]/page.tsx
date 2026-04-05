@@ -1172,7 +1172,7 @@ function AreaInfoCard({ data }: { data: PropertyData }) {
                 : "bg-accent-50 text-accent-700"
             }`}
           >
-            {pc.rural_urban || "Unknown"}
+            {pc.rural_urban || (pc.region === "London" ? "Urban" : "Urban/Rural data unavailable")}
           </span>
         </div>
       </div>

@@ -37,78 +37,97 @@ interface PoliceApiCrime {
   location: {
     latitude: string;
     longitude: string;
-    street: {
-      id: number;
-      name: string;
-    };
+    street: { id: number; name: string };
   };
   context: string;
-  outcome_status: {
-    category: string;
-    date: string;
-  } | null;
+  outcome_status: { category: string; date: string } | null;
   persistent_id: string;
   id: number;
   month: string;
 }
 
-function getDateTwoMonthsAgo(): string {
+// Get the latest available month from the Police API
+async function getLatestAvailableMonth(): Promise<string> {
+  try {
+    const res = await fetch(`${BASE_URL}/crime-last-updated`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.date) {
+        // API returns "2026-01-01", we need "2025-12" (data is for month before the update date)
+        const date = new Date(data.date);
+        date.setMonth(date.getMonth() - 1);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      }
+    }
+  } catch {
+    // fall through
+  }
+  // Fallback: 3 months ago
   const now = new Date();
-  now.setMonth(now.getMonth() - 2);
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  return `${year}-${month}`;
+  now.setMonth(now.getMonth() - 3);
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 }
 
 export async function getCrimeData(lat: number, lng: number): Promise<CrimeData | null> {
   try {
-    const date = getDateTwoMonthsAgo();
+    const date = await getLatestAvailableMonth();
     const url = `${BASE_URL}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`;
 
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(10000),
+    });
 
     if (!res.ok) {
-      return null;
+      // Try one month earlier if the latest month isn't available
+      const fallbackDate = new Date(date + '-01');
+      fallbackDate.setMonth(fallbackDate.getMonth() - 1);
+      const fallbackStr = `${fallbackDate.getFullYear()}-${String(fallbackDate.getMonth() + 1).padStart(2, '0')}`;
+
+      const fallbackRes = await fetch(
+        `${BASE_URL}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${fallbackStr}`,
+        { signal: AbortSignal.timeout(10000) }
+      );
+
+      if (!fallbackRes.ok) return null;
+
+      const crimes: PoliceApiCrime[] = await fallbackRes.json();
+      return buildCrimeData(crimes, fallbackStr);
     }
 
     const crimes: PoliceApiCrime[] = await res.json();
-    const totalCrimes = crimes.length;
-
-    if (totalCrimes === 0) {
-      return {
-        totalCrimes: 0,
-        month: date,
-        breakdown: [],
-        topCategories: [],
-      };
-    }
-
-    // Count by category
-    const counts: Record<string, number> = {};
-    for (const crime of crimes) {
-      const cat = crime.category;
-      counts[cat] = (counts[cat] ?? 0) + 1;
-    }
-
-    // Build breakdown sorted by count descending
-    const breakdown: CrimeBreakdown[] = Object.entries(counts)
-      .map(([category, count]) => ({
-        category,
-        label: CATEGORY_LABELS[category] ?? category.replace(/-/g, ' '),
-        count,
-        percentage: Math.round((count / totalCrimes) * 100),
-      }))
-      .sort((a, b) => b.count - a.count);
-
-    const topCategories = breakdown.slice(0, 5);
-
-    return {
-      totalCrimes,
-      month: date,
-      breakdown,
-      topCategories,
-    };
+    return buildCrimeData(crimes, date);
   } catch {
     return null;
   }
+}
+
+function buildCrimeData(crimes: PoliceApiCrime[], date: string): CrimeData {
+  const totalCrimes = crimes.length;
+
+  if (totalCrimes === 0) {
+    return { totalCrimes: 0, month: date, breakdown: [], topCategories: [] };
+  }
+
+  const counts: Record<string, number> = {};
+  for (const crime of crimes) {
+    counts[crime.category] = (counts[crime.category] ?? 0) + 1;
+  }
+
+  const breakdown: CrimeBreakdown[] = Object.entries(counts)
+    .map(([category, count]) => ({
+      category,
+      label: CATEGORY_LABELS[category] ?? category.replace(/-/g, ' '),
+      count,
+      percentage: Math.round((count / totalCrimes) * 100),
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  return {
+    totalCrimes,
+    month: date,
+    breakdown,
+    topCategories: breakdown.slice(0, 5),
+  };
 }
