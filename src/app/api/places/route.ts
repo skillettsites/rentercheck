@@ -28,7 +28,6 @@ export async function GET(req: NextRequest) {
         input: q,
         includedRegionCodes: ["gb"],
         languageCode: "en",
-        includedPrimaryTypes: ["street_address", "subpremise", "premise", "postal_code", "geocode"],
       }),
       signal: AbortSignal.timeout(3000),
     });
