@@ -262,7 +262,7 @@ export default function PostcodeSearch({
   );
 
   return (
-    <div ref={wrapperRef} className="w-full max-w-2xl mx-auto">
+    <div ref={wrapperRef} className="w-full max-w-2xl mx-auto relative" style={{ zIndex: 50 }}>
       {showLabel && (
         <p className="text-sm font-semibold text-slate-600 mb-2">
           Check a rental property
@@ -332,8 +332,8 @@ export default function PostcodeSearch({
             {showDropdown && suggestions.length > 0 && (
               <ul
                 role="listbox"
-                className="absolute z-[9999] top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl max-h-80 overflow-y-auto"
-                style={{ isolation: "isolate" }}
+                className="absolute z-[9999] top-full left-0 right-0 mt-2 rounded-xl border border-slate-200 shadow-2xl max-h-80 overflow-y-auto"
+                style={{ backgroundColor: "#ffffff", isolation: "isolate", opacity: 1 }}
               >
                 {suggestions.map((s, i) => (
                   <li
