@@ -263,12 +263,20 @@ export default function PostcodeSearch({
 
   return (
     <div ref={wrapperRef} className="w-full max-w-2xl mx-auto relative" style={{ zIndex: 50 }}>
+      {/* Backdrop: blocks everything behind dropdown when open */}
+      {showDropdown && suggestions.length > 0 && (
+        <div
+          className="fixed inset-0"
+          style={{ zIndex: 9998, backgroundColor: "transparent" }}
+          onMouseDown={() => { setShowDropdown(false); }}
+        />
+      )}
       {showLabel && (
         <p className="text-sm font-semibold text-slate-600 mb-2">
           Check a rental property
         </p>
       )}
-      <form onSubmit={handleSubmit} className="relative">
+      <form onSubmit={handleSubmit} className="relative" style={{ zIndex: showDropdown ? 9999 : "auto" }}>
         <div
           className={`flex ${isLg ? "flex-col sm:flex-row" : "flex-row"} gap-3`}
         >

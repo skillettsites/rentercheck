@@ -222,13 +222,13 @@ export default function Home() {
             Check any UK rental address. Get EPC ratings, crime data, flood risk, and more. Free instant report.
           </p>
 
-          <div className="animate-slide-up mt-10" style={{ animationDelay: "0.15s" }}>
+          <div className="mt-10 relative" style={{ zIndex: 100 }}>
             <PostcodeSearch size="lg" />
           </div>
 
           {/* Trust badges */}
           <div
-            className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm sm:text-base text-primary-200 relative z-0"
+            className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm sm:text-base text-primary-200"
             style={{ animationDelay: "0.3s" }}
           >
             <span className="flex items-center gap-2">
