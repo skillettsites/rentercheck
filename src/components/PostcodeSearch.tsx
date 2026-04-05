@@ -125,42 +125,49 @@ export default function PostcodeSearch({
           setShowDropdown(false);
         }
       }
-      // For any other text (street names, place names), search postcodes.io places
+      // For any other text (street names, addresses), search EPC register
       else if (trimmed.length >= 3) {
         const encoded = encodeURIComponent(trimmed);
-        const res = await fetch(
-          `https://api.postcodes.io/places?q=${encoded}&limit=10`
-        );
-        if (res.ok) {
-          const json = await res.json();
-          const results = json.result ?? [];
-          const items: Suggestion[] = results.map((place: { name_1: string; county_unitary: string; postcode?: string; code?: string }) => ({
-            label: `${place.name_1}, ${place.county_unitary || ""}`.replace(/, $/, ""),
-            postcode: place.name_1,
-            type: "address" as const,
-          }));
-          // Also try postcodes autocomplete in case partial input matches
-          const pcRes = await fetch(
-            `https://api.postcodes.io/postcodes/${encoded}/autocomplete`
-          );
-          if (pcRes.ok) {
-            const pcJson = await pcRes.json();
-            const pcResults: string[] = pcJson.result ?? [];
-            for (const pc of pcResults.slice(0, 5)) {
-              items.unshift({
-                label: pc,
-                postcode: pc,
-                type: "postcode" as const,
+
+        // Search EPC addresses and postcodes.io places in parallel
+        const [addrRes, placesRes] = await Promise.allSettled([
+          fetch(`/api/address-search?q=${encoded}`),
+          fetch(`https://api.postcodes.io/places?q=${encoded}&limit=5`),
+        ]);
+
+        const items: Suggestion[] = [];
+
+        // EPC address results
+        if (addrRes.status === "fulfilled" && addrRes.value.ok) {
+          const addrData = await addrRes.value.json();
+          for (const r of (addrData.results || []).slice(0, 8)) {
+            items.push({
+              label: `${r.address}, ${r.postcode}`,
+              postcode: r.postcode,
+              type: "address" as const,
+            });
+          }
+        }
+
+        // Place name results (as fallback/supplement)
+        if (placesRes.status === "fulfilled" && placesRes.value.ok) {
+          const placesData = await placesRes.value.json();
+          for (const place of (placesData.result || []).slice(0, 3)) {
+            const label = `${place.name_1}, ${place.county_unitary || ""}`.replace(/, $/, "");
+            // Don't add duplicates
+            if (!items.some(i => i.label === label)) {
+              items.push({
+                label,
+                postcode: place.name_1,
+                type: "address" as const,
               });
             }
           }
-          setSuggestions(items.slice(0, 10));
-          setShowDropdown(items.length > 0);
-          setHighlightIndex(-1);
-        } else {
-          setSuggestions([]);
-          setShowDropdown(false);
         }
+
+        setSuggestions(items.slice(0, 10));
+        setShowDropdown(items.length > 0);
+        setHighlightIndex(-1);
       } else {
         setSuggestions([]);
         setShowDropdown(false);
@@ -316,7 +323,8 @@ export default function PostcodeSearch({
             {showDropdown && suggestions.length > 0 && (
               <ul
                 role="listbox"
-                className="absolute z-[100] top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto"
+                className="absolute z-[9999] top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl max-h-80 overflow-y-auto"
+                style={{ isolation: "isolate" }}
               >
                 {suggestions.map((s, i) => (
                   <li
