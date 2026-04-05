@@ -1603,17 +1603,10 @@ export default async function CheckPage({ params }: PageProps) {
             )}
           </div>
 
-          {/* Search bar */}
-          <div className="mt-10">
-            <PostcodeSearch size="sm" showLabel={false} />
-          </div>
+          {/* Address selector dropdown */}
+          <AddressSelector postcode={formatted} />
         </div>
       </section>
-
-      {/* ---- Address Selector ---- */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-8">
-        <AddressSelector postcode={formatted} />
-      </div>
 
       {/* ---- Free Results ---- */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14">
