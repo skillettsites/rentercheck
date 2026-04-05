@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   description: "Who owns the property? Is the landlord licensed? Check damp risk, true monthly costs, crime, flood risk, schools and more. Enter any UK address.",
   alternates: { canonical: "https://rentercheck.vercel.app" },
   openGraph: {
-    title: "RenterCheck | Free UK Rental Property Check",
-    description: "Check any UK rental property. 15 data sources, safety score, tenant rights. Free.",
+    title: "RenterCheck | Check Your Landlord Before You Sign",
+    description: "Who owns the property? Is the landlord licensed? Check damp risk, true monthly costs, crime, flood risk, schools and more. Enter any UK address.",
     url: "https://rentercheck.vercel.app",
     type: "website",
   },
@@ -204,8 +204,32 @@ const stats = [
 ];
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "RenterCheck",
+    "url": "https://rentercheck.vercel.app",
+    "description": "Check any UK rental property before you sign. Landlord verification, EPC ratings, crime data, flood risk, and more.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://rentercheck.vercel.app/check/{postcode}",
+      "query-input": "required name=postcode",
+    },
+  };
+
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RenterCheck",
+    "url": "https://rentercheck.vercel.app",
+    "description": "UK rental property intelligence platform for tenants and local authority enforcement teams.",
+    "sameAs": [],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
         {/* Background decoration */}
