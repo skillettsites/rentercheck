@@ -1,16 +1,49 @@
 /**
- * Nearby schools data using the Overpass API (OpenStreetMap).
- * Finds schools within 1km and nurseries within 1km of a given location.
- * Enriches with phase info (primary/secondary/nursery) from OSM tags.
+ * Nearby schools data using local pre-built JSON from Ofsted/DfE data.
+ * Finds schools within 1.5km and returns phase, distance, and Ofsted rating.
  */
 
+import schoolsRaw from '@/data/schools.json';
 import { haversineDistance } from './haversine';
-import { queryOverpass, type OverpassElement } from './overpass';
+
+interface SchoolEntry {
+  u: number;
+  n: string;
+  p: 'P' | 'S' | 'O';
+  pc: string;
+  la: number;
+  lo: number;
+  r?: 'O' | 'G' | 'R' | 'I';
+}
+
+const schools = schoolsRaw as SchoolEntry[];
+
+const PHASE_MAP: Record<string, string> = {
+  P: 'Primary',
+  S: 'Secondary',
+  O: 'All-through',
+};
+
+const RATING_MAP: Record<string, string> = {
+  O: 'Outstanding',
+  G: 'Good',
+  R: 'Requires Improvement',
+  I: 'Inadequate',
+};
 
 export interface SchoolInfo {
   name: string;
   type: string;
   distance: number; // metres
+  rating?: string; // Ofsted rating (Outstanding, Good, etc.)
+}
+
+export interface RatingSummary {
+  outstanding: number;
+  good: number;
+  requiresImprovement: number;
+  inadequate: number;
+  unrated: number;
 }
 
 export interface SchoolsData {
@@ -21,120 +54,68 @@ export interface SchoolsData {
   primaryCount: number;
   secondaryCount: number;
   nurseryCount: number;
+  ratings: RatingSummary;
   note: string;
 }
 
-function classifySchool(tags: Record<string, string>): string {
-  const name = (tags.name || '').toLowerCase();
-  const level = tags['isced:level'] || '';
-  const schoolType = tags['school:type'] || '';
-  const grades = tags.grades || '';
-
-  // Check ISCED levels first
-  if (level.includes('0') || schoolType === 'nursery') return 'Nursery';
-  if (level.includes('1') || schoolType === 'primary') return 'Primary';
-  if (level.includes('2') || level.includes('3') || schoolType === 'secondary') return 'Secondary';
-
-  // Fall back to name-based classification
-  if (name.includes('nursery') || name.includes('pre-school') || name.includes('preschool')) return 'Nursery';
-  if (name.includes('infant') || name.includes('junior') || name.includes('primary') || name.includes('first school')) return 'Primary';
-  if (name.includes('secondary') || name.includes('high school') || name.includes('academy') || name.includes('college') || name.includes('grammar')) return 'Secondary';
-  if (name.includes('sixth form')) return 'Secondary';
-
-  // Check grades tag
-  if (grades) {
-    const nums = grades.split(/[;,-]/).map(Number).filter(Boolean);
-    if (nums.length > 0 && nums[0] <= 6) return 'Primary';
-    if (nums.length > 0 && nums[0] >= 7) return 'Secondary';
-  }
-
-  return 'School';
-}
-
 export async function getSchoolsData(lat: number, lng: number): Promise<SchoolsData> {
-  try {
-    // Query for schools and nurseries/kindergartens within 1km
-    const query = `[out:json][timeout:10];(
-      node["amenity"="school"](around:1000,${lat},${lng});
-      way["amenity"="school"](around:1000,${lat},${lng});
-      node["amenity"="kindergarten"](around:1000,${lat},${lng});
-      way["amenity"="kindergarten"](around:1000,${lat},${lng});
-    );out center;`;
-    const elements = await queryOverpass(query);
+  const RADIUS = 1500; // 1.5km
 
-    const schools: SchoolInfo[] = elements
-      .filter((el) => el.tags?.name)
-      .map((el) => {
-        const elLat = el.lat ?? el.center?.lat ?? lat;
-        const elLng = el.lon ?? el.center?.lon ?? lng;
-        const dist = haversineDistance(lat, lng, elLat, elLng);
-        const tags = el.tags || {};
+  const nearby: { entry: SchoolEntry; distance: number }[] = [];
 
-        let schoolType: string;
-        if (tags.amenity === 'kindergarten') {
-          schoolType = 'Nursery';
-        } else {
-          schoolType = classifySchool(tags);
-        }
-
-        // Append gender info if available
-        if (tags['school:gender'] === 'boys') schoolType += ' (Boys)';
-        if (tags['school:gender'] === 'girls') schoolType += ' (Girls)';
-
-        return {
-          name: tags.name || 'Unnamed School',
-          type: schoolType,
-          distance: dist,
-        };
-      })
-      .sort((a, b) => a.distance - b.distance);
-
-    // Deduplicate by name (ways and nodes can represent the same school)
-    const seen = new Set<string>();
-    const unique = schools.filter((s) => {
-      const key = s.name.toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-
-    // Count by phase
-    const primaryCount = unique.filter((s) => s.type.startsWith('Primary')).length;
-    const secondaryCount = unique.filter((s) => s.type.startsWith('Secondary')).length;
-    const nurseryCount = unique.filter((s) => s.type.startsWith('Nursery')).length;
-
-    // Only count actual schools (not nurseries) for the main total
-    const schoolsOnly = unique.filter((s) => !s.type.startsWith('Nursery'));
-    const total = schoolsOnly.length;
-
-    let density: SchoolsData['density'];
-    if (total >= 5) density = 'High';
-    else if (total >= 2) density = 'Moderate';
-    else density = 'Low';
-
-    // Family friendly if good mix of schools and nurseries
-    const familyFriendly = total >= 3 || (total >= 1 && nurseryCount >= 1 && primaryCount >= 1);
-
-    return {
-      totalWithin1km: total,
-      schools: unique.slice(0, 10),
-      density,
-      familyFriendly,
-      primaryCount,
-      secondaryCount,
-      nurseryCount,
-      note: 'School locations from OpenStreetMap. Includes nurseries within 1km. Verify specific schools with local council.',
-    };
-  } catch {
-    return {
-      totalWithin1km: 0,
-      schools: [],
-      density: 'Low',
-      familyFriendly: false,
-      primaryCount: 0,
-      secondaryCount: 0,
-      nurseryCount: 0,
-      note: 'Unable to fetch school data at this time.',
-    };
+  for (const s of schools) {
+    const dist = haversineDistance(lat, lng, s.la, s.lo);
+    if (dist <= RADIUS) {
+      nearby.push({ entry: s, distance: dist });
+    }
   }
+
+  // Sort by distance and take up to 15
+  nearby.sort((a, b) => a.distance - b.distance);
+  const top = nearby.slice(0, 15);
+
+  const schoolInfos: SchoolInfo[] = top.map((item) => ({
+    name: item.entry.n,
+    type: PHASE_MAP[item.entry.p] || 'School',
+    distance: item.distance,
+    rating: item.entry.r ? RATING_MAP[item.entry.r] : undefined,
+  }));
+
+  // Count by phase (all nearby, not just top 15)
+  const primaryCount = nearby.filter((s) => s.entry.p === 'P').length;
+  const secondaryCount = nearby.filter((s) => s.entry.p === 'S').length;
+  const nurseryCount = nearby.filter((s) => s.entry.p === 'O').length; // All-through treated as 'other'
+
+  // Total schools (all phases)
+  const total = nearby.length;
+
+  // Density rating
+  let density: SchoolsData['density'];
+  if (total >= 8) density = 'High';
+  else if (total >= 4) density = 'Moderate';
+  else density = 'Low';
+
+  // Family friendly: 3+ primaries within 1.5km
+  const familyFriendly = primaryCount >= 3;
+
+  // Ratings summary from all nearby
+  const ratings: RatingSummary = {
+    outstanding: nearby.filter((s) => s.entry.r === 'O').length,
+    good: nearby.filter((s) => s.entry.r === 'G').length,
+    requiresImprovement: nearby.filter((s) => s.entry.r === 'R').length,
+    inadequate: nearby.filter((s) => s.entry.r === 'I').length,
+    unrated: nearby.filter((s) => !s.entry.r).length,
+  };
+
+  return {
+    totalWithin1km: total,
+    schools: schoolInfos,
+    density,
+    familyFriendly,
+    primaryCount,
+    secondaryCount,
+    nurseryCount,
+    ratings,
+    note: 'School data from DfE/Ofsted. Showing schools within 1.5km. Verify availability with local council.',
+  };
 }

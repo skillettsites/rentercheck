@@ -18,7 +18,7 @@ export interface HealthcareData {
   dentists: HealthcareFacility[];
   nearestGP: HealthcareFacility | null;
   nearestHospital: HealthcareFacility | null;
-  healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor';
+  healthcareRating: 'Excellent' | 'Good' | 'Adequate' | 'Poor' | 'Unknown';
   note: string;
 }
 
@@ -120,8 +120,8 @@ export async function getHealthcareData(
       dentists: [],
       nearestGP: null,
       nearestHospital: null,
-      healthcareRating: 'Poor',
-      note: 'Unable to fetch healthcare data at this time.',
+      healthcareRating: 'Unknown',
+      note: 'Healthcare data is temporarily unavailable. Try again later.',
     };
   }
 }

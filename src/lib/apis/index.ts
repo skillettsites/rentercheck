@@ -20,7 +20,7 @@ export type { CrimeBreakdown, CrimeData } from './police';
 export type { FloodRiskLevel, FloodArea, FloodData } from './flood';
 export type { BroadbandData } from './broadband';
 export type { CouncilTaxData } from './council-tax';
-export type { SchoolInfo, SchoolsData } from './schools';
+export type { SchoolInfo, SchoolsData, RatingSummary } from './schools';
 export type { StationInfo, TransportData } from './transport';
 export type { NoiseSource, NoiseData } from './noise';
 export type { AirQualityData } from './air-quality';
@@ -111,6 +111,10 @@ function computeBroadbandScore(broadband: BroadbandData | null): number {
 
 function computeTransportScore(transport: TransportData | null): number {
   if (!transport) return 50;
+  // Use connectivity score directly if available (from local data)
+  if (transport.connectivityScore > 0) {
+    return transport.connectivityScore;
+  }
   switch (transport.rating) {
     case 'Excellent':
       return 95;
@@ -155,7 +159,7 @@ function computeDeprivationScore(deprivation: DeprivationData | null): number {
 }
 
 function computeHealthcareScore(healthcare: HealthcareData | null): number {
-  if (!healthcare) return 50;
+  if (!healthcare || healthcare.healthcareRating === 'Unknown') return 50;
   switch (healthcare.healthcareRating) {
     case 'Excellent':
       return 95;
@@ -171,7 +175,7 @@ function computeHealthcareScore(healthcare: HealthcareData | null): number {
 }
 
 function computeGreenSpaceScore(greenSpace: GreenSpaceData | null): number {
-  if (!greenSpace) return 50;
+  if (!greenSpace || greenSpace.greenSpaceScore === 'Unknown') return 50;
   switch (greenSpace.greenSpaceScore) {
     case 'Excellent':
       return 95;
@@ -187,7 +191,7 @@ function computeGreenSpaceScore(greenSpace: GreenSpaceData | null): number {
 }
 
 function computeAmenityScore(amenities: AmenitiesData | null): number {
-  if (!amenities) return 50;
+  if (!amenities || amenities.amenityScore === 'Unknown') return 50;
   switch (amenities.amenityScore) {
     case 'Excellent':
       return 95;
@@ -300,7 +304,7 @@ export async function getPropertyData(postcode: string): Promise<PropertyData> {
     getBroadbandData(postcode),
     getCouncilTaxData(postcode, postcodeResult.admin_district),
     getSchoolsData(lat, lng),
-    getTransportData(lat, lng),
+    getTransportData(lat, lng, postcodeResult.codes.lsoa),
     getNoiseData(lat, lng, postcodeResult.rural_urban),
     getAirQualityData(lat, lng),
     getPlanningData(lat, lng),

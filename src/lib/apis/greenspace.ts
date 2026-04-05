@@ -17,7 +17,7 @@ export interface GreenSpaceData {
   natureReserves: GreenSpaceItem[];
   sportsFacilities: number;
   nearestPark: GreenSpaceItem | null;
-  greenSpaceScore: 'Excellent' | 'Good' | 'Average' | 'Poor';
+  greenSpaceScore: 'Excellent' | 'Good' | 'Average' | 'Poor' | 'Unknown';
   totalGreenSpaces: number;
   note: string;
 }
@@ -126,9 +126,9 @@ export async function getGreenSpaceData(
       natureReserves: [],
       sportsFacilities: 0,
       nearestPark: null,
-      greenSpaceScore: 'Poor',
+      greenSpaceScore: 'Unknown',
       totalGreenSpaces: 0,
-      note: 'Unable to fetch green space data at this time.',
+      note: 'Green space data is temporarily unavailable. Try again later.',
     };
   }
 }

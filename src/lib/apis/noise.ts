@@ -88,7 +88,8 @@ export async function getNoiseData(
       }
     }
   } catch {
-    // Continue with urban/rural estimate only
+    // Overpass unavailable; continue with urban/rural classification estimate only
+    sources.push({ type: 'Note', detail: 'Road and railway proximity data temporarily unavailable' });
   }
 
   // Cap at 100

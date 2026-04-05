@@ -488,12 +488,31 @@ function SchoolsCard({ data }: { data: PropertyData }) {
     densityBg = '#f1f5f9';
   }
 
+  const ratingBadge = (rating?: string) => {
+    if (!rating) return null;
+    const colors: Record<string, { color: string; bg: string }> = {
+      Outstanding: { color: '#059669', bg: '#d1fae5' },
+      Good: { color: '#10b981', bg: '#d1fae5' },
+      'Requires Improvement': { color: '#d97706', bg: '#fef3c7' },
+      Inadequate: { color: '#dc2626', bg: '#fee2e2' },
+    };
+    const c = colors[rating] || { color: '#6b7280', bg: '#f1f5f9' };
+    return (
+      <span
+        className="rounded-full px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap"
+        style={{ backgroundColor: c.bg, color: c.color }}
+      >
+        {rating === 'Requires Improvement' ? 'RI' : rating}
+      </span>
+    );
+  };
+
   return (
     <CardShell title="Schools Nearby" icon="school">
       <div className="flex items-center justify-between mb-4">
         <div>
           <p className="text-3xl font-bold text-slate-800">{schools.totalWithin1km}</p>
-          <p className="text-sm text-slate-500">schools within 1km</p>
+          <p className="text-sm text-slate-500">schools within 1.5km</p>
         </div>
         <span
           className="rounded-full px-3 py-1 text-sm font-semibold"
@@ -522,7 +541,29 @@ function SchoolsCard({ data }: { data: PropertyData }) {
           </div>
           <div className="rounded-lg bg-slate-50 p-3 text-center">
             <p className="text-xl font-bold text-slate-800">{schools.nurseryCount}</p>
-            <p className="text-xs text-slate-500">Nursery</p>
+            <p className="text-xs text-slate-500">All-through</p>
+          </div>
+        </div>
+      )}
+
+      {/* Ofsted ratings summary */}
+      {schools.ratings && (schools.ratings.outstanding > 0 || schools.ratings.good > 0 || schools.ratings.requiresImprovement > 0 || schools.ratings.inadequate > 0) && (
+        <div className="grid grid-cols-4 gap-2 mb-4">
+          <div className="rounded-lg bg-emerald-50 p-2 text-center">
+            <p className="text-lg font-bold text-emerald-700">{schools.ratings.outstanding}</p>
+            <p className="text-[10px] text-emerald-600">Outstanding</p>
+          </div>
+          <div className="rounded-lg bg-green-50 p-2 text-center">
+            <p className="text-lg font-bold text-green-700">{schools.ratings.good}</p>
+            <p className="text-[10px] text-green-600">Good</p>
+          </div>
+          <div className="rounded-lg bg-amber-50 p-2 text-center">
+            <p className="text-lg font-bold text-amber-700">{schools.ratings.requiresImprovement}</p>
+            <p className="text-[10px] text-amber-600">Requires Imp.</p>
+          </div>
+          <div className="rounded-lg bg-red-50 p-2 text-center">
+            <p className="text-lg font-bold text-red-700">{schools.ratings.inadequate}</p>
+            <p className="text-[10px] text-red-600">Inadequate</p>
           </div>
         </div>
       )}
@@ -537,11 +578,14 @@ function SchoolsCard({ data }: { data: PropertyData }) {
               key={i}
               className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 text-sm"
             >
-              <div className="truncate max-w-[60%]">
+              <div className="truncate max-w-[50%]">
                 <span className="text-slate-700">{school.name}</span>
                 <span className="ml-1.5 text-xs text-slate-400">({school.type})</span>
               </div>
-              <span className="text-slate-400 text-xs">{school.distance}m</span>
+              <div className="flex items-center gap-2">
+                {ratingBadge(school.rating)}
+                <span className="text-slate-400 text-xs">{school.distance}m</span>
+              </div>
             </div>
           ))}
           {schools.schools.length > 5 && (
@@ -582,6 +626,10 @@ function TransportCard({ data }: { data: PropertyData }) {
   return (
     <CardShell title="Transport Links" icon="train">
       <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-3xl font-bold text-slate-800">{transport.connectivityScore}</p>
+          <p className="text-sm text-slate-500">connectivity score /100</p>
+        </div>
         <span
           className="rounded-full px-3 py-1 text-sm font-semibold"
           style={{ backgroundColor: config.bg, color: config.color }}
@@ -601,20 +649,22 @@ function TransportCard({ data }: { data: PropertyData }) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-lg bg-slate-50 p-3 text-center">
-          <p className="text-xl font-bold text-slate-800">
-            {transport.stationsWithin2km}
-          </p>
-          <p className="text-xs text-slate-500">Stations (2km)</p>
+      {(transport.stationsWithin2km > 0 || transport.busStopsWithin500m > 0) && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="rounded-lg bg-slate-50 p-3 text-center">
+            <p className="text-xl font-bold text-slate-800">
+              {transport.stationsWithin2km}
+            </p>
+            <p className="text-xs text-slate-500">Stations (2km)</p>
+          </div>
+          <div className="rounded-lg bg-slate-50 p-3 text-center">
+            <p className="text-xl font-bold text-slate-800">
+              {transport.busStopsWithin500m}
+            </p>
+            <p className="text-xs text-slate-500">Bus stops (500m)</p>
+          </div>
         </div>
-        <div className="rounded-lg bg-slate-50 p-3 text-center">
-          <p className="text-xl font-bold text-slate-800">
-            {transport.busStopsWithin500m}
-          </p>
-          <p className="text-xs text-slate-500">Bus stops (500m)</p>
-        </div>
-      </div>
+      )}
 
       <p className="mt-3 text-xs text-slate-400">{transport.note}</p>
     </CardShell>
@@ -932,9 +982,10 @@ function HealthcareCard({ data }: { data: PropertyData }) {
     Good: { color: '#10b981', bg: '#d1fae5' },
     Adequate: { color: '#d97706', bg: '#fef3c7' },
     Poor: { color: '#dc2626', bg: '#fee2e2' },
+    Unknown: { color: '#6b7280', bg: '#f1f5f9' },
   };
 
-  const config = ratingConfig[hc.healthcareRating] || ratingConfig.Adequate;
+  const config = ratingConfig[hc.healthcareRating] || ratingConfig.Unknown;
 
   return (
     <CardShell title="Healthcare" icon="heart">
@@ -1003,9 +1054,10 @@ function GreenSpaceCard({ data }: { data: PropertyData }) {
     Good: { color: '#10b981', bg: '#d1fae5' },
     Average: { color: '#d97706', bg: '#fef3c7' },
     Poor: { color: '#dc2626', bg: '#fee2e2' },
+    Unknown: { color: '#6b7280', bg: '#f1f5f9' },
   };
 
-  const config = scoreConfig[gs.greenSpaceScore] || scoreConfig.Average;
+  const config = scoreConfig[gs.greenSpaceScore] || scoreConfig.Unknown;
 
   return (
     <CardShell title="Green Spaces" icon="tree">
@@ -1081,9 +1133,10 @@ function AmenitiesCard({ data }: { data: PropertyData }) {
     Good: { color: '#10b981', bg: '#d1fae5' },
     Average: { color: '#d97706', bg: '#fef3c7' },
     Poor: { color: '#dc2626', bg: '#fee2e2' },
+    Unknown: { color: '#6b7280', bg: '#f1f5f9' },
   };
 
-  const config = scoreConfig[am.amenityScore] || scoreConfig.Average;
+  const config = scoreConfig[am.amenityScore] || scoreConfig.Unknown;
 
   return (
     <CardShell title="Local Amenities" icon="shop">

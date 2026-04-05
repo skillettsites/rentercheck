@@ -21,7 +21,7 @@ export interface AmenitiesData {
   postOffices: number;
   banks: number;
   nearestSupermarket: AmenityItem | null;
-  amenityScore: 'Excellent' | 'Good' | 'Average' | 'Poor';
+  amenityScore: 'Excellent' | 'Good' | 'Average' | 'Poor' | 'Unknown';
   walkabilityNote: string;
   note: string;
 }
@@ -150,9 +150,9 @@ export async function getAmenitiesData(
       postOffices: 0,
       banks: 0,
       nearestSupermarket: null,
-      amenityScore: 'Poor',
+      amenityScore: 'Unknown',
       walkabilityNote: 'Unable to assess walkability at this time.',
-      note: 'Unable to fetch amenity data at this time.',
+      note: 'Amenity data is temporarily unavailable. Try again later.',
     };
   }
 }
