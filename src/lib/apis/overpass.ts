@@ -3,8 +3,12 @@
  * Falls back to kumi.systems mirror if the main server fails.
  */
 
-const OVERPASS_MAIN = 'https://overpass-api.de/api/interpreter';
-const OVERPASS_MIRROR = 'https://overpass.kumi.systems/api/interpreter';
+const OVERPASS_SERVERS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://overpass.openstreetmap.ru/api/interpreter',
+  'https://overpass.nchc.org.tw/api/interpreter',
+];
 
 export interface OverpassElement {
   type: string;
@@ -23,8 +27,8 @@ export async function queryOverpass(query: string): Promise<OverpassElement[]> {
   };
   const body = `data=${encodeURIComponent(query)}`;
 
-  // Try main server first with POST
-  for (const url of [OVERPASS_MAIN, OVERPASS_MIRROR]) {
+  // Try servers in order, first success wins
+  for (const url of OVERPASS_SERVERS) {
     try {
       const res = await fetch(url, {
         method: 'POST',
