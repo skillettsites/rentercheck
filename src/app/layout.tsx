@@ -45,10 +45,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.className} h-full`}>
-      <head>
-        <GoogleAnalytics />
-      </head>
+      <head />
       <body className="min-h-full flex flex-col antialiased">
+        <GoogleAnalytics />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
