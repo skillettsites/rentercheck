@@ -5,6 +5,7 @@ import type { PropertyData } from "@/lib/apis";
 import PostcodeSearch from "@/components/PostcodeSearch";
 import { AddressSelector } from "@/components/AddressSelector";
 import { LazyDataCards } from "@/components/LazyDataCards";
+import { GetRenterReportCta } from "@/components/GetRenterReportCta";
 
 interface PageProps {
   params: Promise<{ postcode: string }>;
@@ -1603,58 +1604,9 @@ export default async function CheckPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ---- Premium Upsell Banner (top) ---- */}
+      {/* ---- Premium Upsell (cross-site to PostcodeCheck renter report) ---- */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-8">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-orange-500 p-6 sm:p-8 shadow-lg">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
-          <div className="relative flex flex-col lg:flex-row lg:items-center gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Z" />
-                </svg>
-                <span className="text-xs font-bold uppercase tracking-wider text-white/80">Protect Yourself</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-                Is your landlord safe? Check before you sign.
-              </h2>
-              <p className="mt-2 text-sm text-white/90 max-w-xl">
-                Our full report reveals who owns the property, whether the landlord is licensed, damp and mould risk factors, and your true monthly costs. 74% of renters who checked found something their landlord didn't disclose.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/80">
-                <span className="flex items-center gap-1.5">
-                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                  Landlord ownership verification
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                  Damp and mould risk assessment
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                  Full monthly cost breakdown
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="h-4 w-4 text-green-300" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                  HMO licence status
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col items-center gap-3 shrink-0">
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-lg font-bold text-red-600 shadow-lg hover:bg-red-50 transition-all hover:scale-105 cursor-pointer"
-              >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                </svg>
-                Get Full Report - £3.99
-              </a>
-              <p className="text-xs text-white/70">One-off payment. No subscription.</p>
-            </div>
-          </div>
-        </div>
+        <GetRenterReportCta postcode={formatted} variant="hero" />
       </div>
 
       {/* ---- Free Results ---- */}
