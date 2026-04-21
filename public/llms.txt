@@ -1,0 +1,120 @@
+# RenterCheck
+
+> Free UK rental property check tool. Enter any postcode or address to check safety, EPC rating, landlord compliance, damp risk, crime, flood risk, broadband, monthly bills and more. Built specifically for renters. Full address-level Renter Report £4.99.
+
+## What It Does
+
+RenterCheck is a free pre-tenancy property check for UK renters. Users enter a postcode or address and instantly receive:
+
+- Safety Score (0-100) based on crime, deprivation, walkability
+- EPC energy rating (from the property's actual EPC certificate)
+- Flood risk zone from Environment Agency data
+- Broadband and mobile coverage from Ofcom
+- Crime rates with 12-month trends from Police.uk
+- Council tax band and annual cost
+- Local schools with Ofsted ratings
+- Transport links and commute times
+- Air quality
+- Nearby GP surgeries and healthcare
+- Green spaces and amenities
+- Noise assessment
+- Deprivation index (IMD 2019)
+
+## Full Renter Report (£4.99)
+
+For £4.99 one-time, renters can unlock a full address-level report with 12 sections:
+
+1. **Safety Score** - 0-100 composite across crime, deprivation, walkability
+2. **Damp + mould risk** - assessed from the property's EPC data (wall type, glazing, insulation, heating, ventilation)
+3. **Landlord compliance** - valid EPC check, HMO licence status, deposit scheme requirement, 2028 EPC C minimum
+4. **Fair rent check** - vs local median for property type
+5. **Monthly bills breakdown** - council tax by band, energy estimate from EPC, water, broadband
+6. **Broadband + mobile signal** at the address
+7. **Noise assessment** - road, rail, aircraft estimates
+8. **Commute check** to your work postcode
+9. **HMO status** under mandatory / additional / selective schemes
+10. **Local amenities** walking distance
+11. **Green spaces** nearest parks
+12. **Transport accessibility** PTAL and nearest stations
+
+Delivered as PDF + email, instantly. Powered via our sister site PostcodeCheck's Stripe + Resend pipeline.
+
+## Why Renters Need This in 2026
+
+Two pieces of UK legislation landed in 2025-2026 that massively change tenant rights and what renters should verify before signing:
+
+### Renters' Rights Act 2025
+- Royal Assent: 27 October 2025
+- Section 21 (no-fault eviction) abolished: 1 May 2026
+- PRS Database regional rollout: late 2026 (every private landlord must register)
+- PRS Ombudsman: expected 2028
+- Decent Homes Standard for PRS: 2035
+- Landlords face £7,000 first offence, £40,000 repeat fine, criminal prosecution for non-registration
+
+### Awaab's Law
+- Social sector: live from 27 October 2025 (14-day damp/mould investigation deadline, 24-hour emergency)
+- Private sector extension: 2026 (Phase 2 adds excess cold/heat, falls, electrical, fire)
+- Phase 3 expected 2027 covering all 29 HHSRS hazard categories
+- Civil penalties up to £30,000 per offence, tenant compensation claims
+
+These change the baseline of what tenants should check. RenterCheck's free and paid reports are designed around these requirements.
+
+## Free Tools
+
+- /check/[postcode] - Free property safety check (15 data sources)
+- /damp-check - 4-step damp and mould risk wizard
+- /landlord-check - 10-point landlord compliance checker
+- /hmo-check - HMO licence determination
+- /fair-rent - Regional median rent comparison
+- /calculator - Total monthly cost calculator
+- /report-issue - Tenant escalation letter generator
+- /commute - Commute analysis
+- /moving-checklist - 37-item interactive moving checklist
+
+## Legislation Resources
+
+- /renters-rights-act - Full guide to the Renters' Rights Act 2025
+- /prs-database - PRS Database explainer
+- /landlord-register - How to check if your landlord is registered
+- /is-my-landlord-legal - 10-point legal compliance check
+- /rights/[topic] - 8 tenant rights guides
+
+## Who It's For
+
+- UK renters checking a property before signing a tenancy agreement
+- Tenants dealing with damp, mould, or repair issues (Awaab's Law claims)
+- First-time renters unfamiliar with landlord compliance requirements
+- Students checking HMO licensing before signing
+- Housing charity caseworkers running quick compliance checks
+- Councils running PRS enforcement (B2B tools in development)
+
+## Data Sources
+
+All data from official UK government and regulatory sources:
+- Police.uk (crime data)
+- Ofsted (school ratings)
+- Ofcom (broadband, mobile signal)
+- Environment Agency (flood risk)
+- ONS (demographics, IMD deprivation)
+- EPC Register / MHCLG (energy performance)
+- Open-Meteo / DEFRA (air quality)
+- Postcodes.io (postcode geocoding)
+- MHCLG (council tax bands)
+- Planning.gov.uk + PlanIt (planning applications)
+- OSM / Overpass (green spaces, amenities, schools, transport)
+
+## Content Library
+
+- 50 UK city rental market pages (/rent/[area])
+- 100 city comparison pages
+- 40+ blog articles on tenant rights, legislation, damp/mould, HMO
+- 8 rights guides
+- 8 tenant tools
+
+## Website
+
+https://rentercheck.vercel.app
+
+## Sister Site
+
+Full £4.99 Renter Report delivered via PostcodeCheck (https://postcodecheck.co.uk), same team, same data, same £4.99 price. PostcodeCheck also offers a £7.99 Buyer Report for home buyers.
