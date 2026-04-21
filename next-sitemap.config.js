@@ -4,6 +4,19 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   exclude: ['/councils/demo', '/api/*', '/opengraph-image'],
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/', disallow: ['/api/'] },
+      { userAgent: 'GPTBot', allow: '/', disallow: ['/api/'] },
+      { userAgent: 'ChatGPT-User', allow: '/' },
+      { userAgent: 'Claude-Web', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
+      { userAgent: 'Applebot-Extended', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
+      { userAgent: 'CCBot', allow: '/' },
+    ],
+  },
 
   transform: async (config, path) => {
     let priority = 0.7;
