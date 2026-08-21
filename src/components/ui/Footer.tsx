@@ -35,10 +35,6 @@ const footerSections = [
       { label: "Tenant Rights Guide", href: "/rights" },
       { label: "Deposit Protection", href: "/rights/deposit-protection" },
       { label: "Damp and Mould", href: "/rights/damp-and-mould" },
-      // Sister site. Checking the property is half the question; the other half
-      // is the company behind the agent or landlord.
-      { label: "Check a Letting Agent", href: "https://www.checkafirm.co.uk/letting-agent-check" },
-      { label: "Company Director Search", href: "https://www.checkafirm.co.uk/company-director-search" },
     ],
   },
   {
